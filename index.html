@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="unsafe-url" />
+  <title>Virginia Museum of Fine Arts</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header">
+    <div class="header-main">
+      <a class="logo" href="#" onclick="showPage('home'); return false;">
+        <div class="logo-letters">
+          <span class="logo-v">V</span><span class="logo-m">M</span><span class="logo-f">F</span><span class="logo-a">A</span>
+        </div>
+        <div class="logo-name">Virginia Museum<br>of Fine Arts</div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showPage('home'); return false;" data-page="home" class="active">Home</a></li>
+          <li><a href="#" onclick="showPage('exhibitions'); return false;" data-page="exhibitions">Exhibitions</a></li>
+          <li><a href="#" onclick="showPage('collection'); return false;" data-page="collection">Collection</a></li>
+          <li><a href="#" onclick="showPage('artists'); return false;" data-page="artists">Featured Artists</a></li>
+          <li><a href="#" onclick="showPage('visit'); return false;" data-page="visit">Plan Your Visit</a></li>
+        </ul>
+      </nav>
+      <div class="header-search">
+        <input type="text" id="headerSearchInput" placeholder="Search exhibitions, artists, events&hellip;" autocomplete="off" />
+        <button type="button" id="searchBtn" aria-label="Search" onclick="headerSearch()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <button class="mobile-menu-btn" id="menuBtn">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" id="menuClose">&#10005;</button>
+    <ul>
+      <li><a href="#" onclick="showPage('home'); closeMobileNav(); return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('exhibitions'); closeMobileNav(); return false;">Exhibitions</a></li>
+      <li><a href="#" onclick="showPage('collection'); closeMobileNav(); return false;">Collection</a></li>
+      <li><a href="#" onclick="showPage('artists'); closeMobileNav(); return false;">Featured Artists</a></li>
+      <li><a href="#" onclick="showPage('visit'); closeMobileNav(); return false;">Plan Your Visit</a></li>
+    </ul>
+  </div>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-inner">
+      <label>Search VMFA</label>
+      <input type="text" id="searchInput" placeholder="Exhibitions, events, artists, hours&hellip;" autocomplete="off" />
+      <div id="searchResults" class="search-results"></div>
+      <button class="search-close" id="searchClose">&#10005;</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HOME PAGE -->
+    <section class="page active" id="home">
+
+      <div class="hero">
+        <div class="hero-video-wrap">
+          <video autoplay muted loop playsinline>
+            <source src="VMFAFinalWebsiteLoop5mb.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-box">
+          <h1>Welcome to VMFA</h1>
+          <p>A world-class art museum with hometown hospitality. Over 50,000 works from almost every major world culture.</p>
+          <div class="hero-btns">
+            <button class="btn-red" onclick="showPage('visit')">Plan Your Visit</button>
+            <button class="btn-outline" onclick="showPage('exhibitions')">See What's On</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-bar">
+        <div class="info-bar-item"><div><strong>Today's Hours</strong><span class="todays-hours-display">10 am – 5 pm</span></div></div>
+        <div class="info-bar-item"><div><strong>Location</strong><span>200 N Arthur Ashe Blvd, Richmond, VA</span></div></div>
+        <div class="info-bar-item"><div><strong>Admission</strong><span>General admission always free</span></div></div>
+        <div class="info-bar-item"><div><strong>Open</strong><span>365 days a year</span></div></div>
+      </div>
+
+      <div class="current-exhibition">
+        <div class="inner">
+          <div>
+            <div class="label">Current Exhibition</div>
+            <h2>India's Great Mughals: Art, Power, and Opulence</h2>
+            <p class="dates">May 9, 2026 &ndash; August 23, 2026 &nbsp;&middot;&nbsp; Altria Group Gallery</p>
+            <p>An unprecedented exhibition drawing on rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty &mdash; one of history's most powerful and artistically prolific empires &mdash; organized by the Victoria and Albert Museum.</p>
+            <button class="btn-red" onclick="showPage('exhibitions')">View Exhibition</button>
+          </div>
+          <img src="images/mughals.jpg" alt="India's Great Mughals Exhibition" />
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2>Featured Events</h2>
+          <a href="#" class="see-all" onclick="showPageEvents(); return false;">View All Events &rarr;</a>
+        </div>
+        <div class="events-grid">
+          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg"
+            data-badge="current" data-badge-label="Music &amp; Performing Arts"
+            data-category="Music &amp; Performing Arts · Cochrane Atrium"
+            data-title="After 5 Fridays | Summer Soir&eacute;e"
+            data-dates="Friday, June 20 · 6 pm · Cochrane Atrium"
+            data-desc="Live jazz and dancing to welcome summer at VMFA's beloved After 5 Fridays series. Held in the stunning Cochrane Atrium, this monthly evening event brings together Richmond's art and music communities for an unforgettable night of performance and connection. June's soirée features a special lineup celebrating the sounds of summer, with local jazz musicians performing from 6–9 pm. Dress to impress — this is Richmond's coolest Friday night out."
+            data-ticket="✦ Free with General Admission · Cash Bar Available">
+            <div class="event-img" style="background-image: url('https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg'); background-size: cover; background-position: center;">
+              <span class="event-img-label">Music &amp; Performing Arts</span>
+            </div>
+            <div class="event-body">
+              <p class="event-category">Music &amp; Performing Arts</p>
+              <h3>After 5 Fridays | Summer Soir&eacute;e</h3>
+              <p class="event-meta">Friday, June 20 &middot; 6 pm &middot; Cochrane Atrium</p>
+              <p class="event-desc">Live jazz and dancing to welcome summer. Free with museum admission. Cash bar available.</p>
+            </div>
+          </div>
+          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/mughals.jpg"
+            data-badge="current" data-badge-label="Talks"
+            data-category="Talks · Altria Group Gallery"
+            data-title="Gallery Talk: Jewels of the Mughal Court"
+            data-dates="Wednesday, June 18 · 12 pm · Altria Group Gallery"
+            data-desc="Join VMFA curators for an intimate guided conversation exploring the imperial gemstones, jade carvings, and jeweled objects at the heart of the India's Great Mughals exhibition. This 45-minute curator-led talk offers rare insight into the symbolism of Mughal jewelry — how precious stones were used to communicate power, faith, and dynastic legitimacy across six imperial reigns. Limited to 30 participants; free with exhibition admission."
+            data-ticket="✦ Free with Exhibition Admission · Limited Seating">
+            <div class="event-img" style="background-image: url('images/mughals.jpg'); background-size: cover; background-position: center;">
+              <span class="event-img-label">Talks</span>
+            </div>
+            <div class="event-body">
+              <p class="event-category">Talks</p>
+              <h3>Gallery Talk: Jewels of the Mughal Court</h3>
+              <p class="event-meta">Wednesday, June 18 &middot; 12 pm &middot; Altria Group Gallery</p>
+              <p class="event-desc">A curator-led exploration of the imperial gemstones, jade carvings, and jeweled objects on display in India's Great Mughals.</p>
+            </div>
+          </div>
+          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="https://www.vmfa.museum/outbound/medias?w=800&file=images%2FMC2018_10_v1_TF_201812_d_o4%20%281%29.jpg"
+            data-badge="upcoming" data-badge-label="Family"
+            data-category="Family · Art Education Center"
+            data-title="Family Art Making: Colors of the Mughal Empire"
+            data-dates="Saturday, June 28 · 10 am · Art Education Center"
+            data-desc="Families with children of all ages are invited to explore the vibrant patterns and colors of the Mughal Empire through hands-on art-making. Guided by VMFA educators, participants will try block printing inspired by Mughal textiles and illuminate decorative patterns drawn from the exhibition's manuscripts. All materials provided. Designed for families with children ages 5–12, though all ages are welcome."
+            data-ticket="✦ Free for All Ages · Registration Recommended">
+            <div class="event-img" style="background-image: url('https://www.vmfa.museum/outbound/medias?w=800&file=images%2FMC2018_10_v1_TF_201812_d_o4%20%281%29.jpg'); background-size: cover; background-position: center;">
+              <span class="event-img-label">Family</span>
+            </div>
+            <div class="event-body">
+              <p class="event-category">Family</p>
+              <h3>Family Art Making: Colors of the Mughal Empire</h3>
+              <p class="event-meta">Saturday, June 28 &middot; 10 am &middot; Art Education Center</p>
+              <p class="event-desc">Families explore vibrant Mughal patterns through hands-on textile printing and illumination activities. All ages welcome.</p>
+            </div>
+          </div>
+          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="https://www.vmfa.museum/img/72286b9e-632b-46fe-82bb-3ed75517b156/2025_118_v3_TD_202510.jpg?fm=jpg&q=80&fit=max&w=800"
+            data-badge="upcoming" data-badge-label="Talks"
+            data-category="Talks · Altria Group Gallery"
+            data-title="3 in 30: Highlights from India's Great Mughals"
+            data-dates="Tuesday, July 8 · 11 am · Altria Group Gallery"
+            data-desc="In just 30 minutes, a VMFA educator spotlights three extraordinary objects from the India's Great Mughals exhibition and unpacks what makes each one remarkable. Fast-paced and engaging, this drop-in program is perfect for visitors who want a guided introduction without committing to a full tour. Three objects. Thirty minutes. Unlimited insight. No registration required — just arrive at the Altria Group Gallery entrance at 11 am with your exhibition ticket."
+            data-ticket="✦ Free with Exhibition Admission · No Registration Required">
+            <div class="event-img" style="background-image: url('https://www.vmfa.museum/img/72286b9e-632b-46fe-82bb-3ed75517b156/2025_118_v3_TD_202510.jpg?fm=jpg&q=80&fit=max&w=800'); background-size: cover; background-position: center;">
+              <span class="event-img-label">Talks</span>
+            </div>
+            <div class="event-body">
+              <p class="event-category">Talks</p>
+              <h3>3 in 30: Highlights from India's Great Mughals</h3>
+              <p class="event-meta">Tuesday, July 8 &middot; 11 am &middot; Altria Group Gallery</p>
+              <p class="event-desc">A 30-minute guided conversation spotlighting three extraordinary objects from the Mughal dynasty exhibition.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore Collection — tiles now route to collection page + category -->
+      <div class="section-gray">
+        <div class="inner">
+          <div class="section-header">
+            <h2>Explore the Collection</h2>
+            <a href="#" class="see-all" onclick="showPage('collection'); return false;">View All Collections &rarr;</a>
+          </div>
+          <div class="collection-grid">
+            <div class="collection-tile" onclick="showCollection('american')">
+              <img src="https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="American Art" />
+              <div class="tile-label">American Art</div>
+            </div>
+            <div class="collection-tile" onclick="showCollection('ancient')">
+              <img src="https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=500" alt="Ancient Art" />
+              <div class="tile-label">Ancient Art</div>
+            </div>
+            <div class="collection-tile" onclick="showCollection('european')">
+              <img src="https://www.vmfa.museum/img/ee9a0e51-273c-4818-be6e-6c26ef88af71/62_31_v1_KW_200907_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="European Art" />
+              <div class="tile-label">European Art</div>
+            </div>
+            <div class="collection-tile" onclick="showCollection('african-american')">
+              <img src="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=500" alt="African American Art" />
+              <div class="tile-label">African American Art</div>
+            </div>
+            <div class="collection-tile" onclick="showCollection('modern')">
+              <img src="https://www.vmfa.museum/img/1b7be6c4-1d3f-48e3-b463-13755437aab4/2020_19_v1_TF_202009_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="Modern and Contemporary" />
+              <div class="tile-label">Modern &amp; Contemporary</div>
+            </div>
+            <div class="collection-tile" onclick="showCollection('faberge')">
+              <img src="images/faberge.jpg" alt="Faberge" />
+              <div class="tile-label">Faberg&eacute; &amp; Russian Arts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-cta">
+        <div class="member-cta-text">
+          <h2>Become a VMFA Member</h2>
+          <p>Members enjoy free admission to ticketed special exhibitions, exclusive events, travel opportunities, shopping &amp; dining discounts, free parking, and so much more.</p>
+          <a href="https://www.vmfa.museum/membership/" target="_blank" class="btn-red">Learn About Membership</a>
+        </div>
+        <div class="member-cta-img">
+          <img src="https://www.vmfa.museum/img/58dfa840-0405-4775-8251-6c72c20bf9b4/E202405_SS_535_o53.jpg?fm=jpg&q=80&fit=max&w=700" alt="VMFA Members" />
+        </div>
+      </div>
+
+    </section>
+
+    <!-- EXHIBITIONS PAGE -->
+    <section class="page" id="exhibitions">
+      <div class="page-hero">
+        <h1>Exhibitions &amp; Events</h1>
+        <p>Discover world-class exhibitions and engaging public programs at VMFA.</p>
+      </div>
+      <div class="section">
+
+        <!-- Main tab switcher: Exhibitions | Events -->
+        <div class="main-tab-bar">
+          <button class="main-tab active" id="tabExhibitions" onclick="showMainTab('exhibitions', this)">Exhibitions</button>
+          <button class="main-tab" id="tabEvents" onclick="showMainTab('events', this)">Events</button>
+        </div>
+
+        <!-- EXHIBITIONS content -->
+        <div id="exhibitionsContent">
+          <div class="section-header"><h2>Current &amp; Upcoming Exhibitions</h2></div>
+          <div class="filter-tabs">
+            <button class="tab active" onclick="filterExhibitions('all', this)">All</button>
+            <button class="tab" onclick="filterExhibitions('current', this)">Now On View</button>
+            <button class="tab" onclick="filterExhibitions('upcoming', this)">Upcoming</button>
+            <button class="tab" onclick="filterExhibitions('past', this)">Past</button>
+          </div>
+          <div class="exhibitions-list" id="exhibitionsList">
+            <article class="exhibit-row" data-status="past" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+              data-img="images/giants.jpg"
+              data-badge="past"
+              data-badge-label="Closed"
+              data-category="Special Exhibition · Altria Group Gallery"
+              data-title="Giants: Art from the Dean Collection of Swizz Beatz and Alicia Keys"
+              data-dates="November 22, 2025 – March 1, 2026"
+              data-desc="Celebrating Black artistic excellence across generations, this landmark exhibition brought together over 130 works by Jean-Michel Basquiat, Kerry James Marshall, Amy Sherald, Derrick Adams, and Kehinde Wiley. Drawn from the personal collection of music icons Swizz Beatz and Alicia Keys, the exhibition traced five decades of boundary-pushing art that challenged, inspired, and redefined cultural narratives. Visitors experienced sculpture, painting, photography, and mixed media in an immersive environment designed to honor the legacies of Black creativity."
+              data-ticket="This exhibition has closed.">
+              <div class="exhibit-img-wrap">
+                <img src="images/giants.jpg" alt="Giants Exhibition" />
+                <span class="exhibit-badge past">Closed</span>
+              </div>
+              <div class="exhibit-info">
+                <p class="exhibit-category">Special Exhibition &middot; Altria Group Gallery</p>
+                <h3>Giants: Art from the Dean Collection of Swizz Beatz and Alicia Keys</h3>
+                <p class="exhibit-dates">November 22, 2025 &ndash; March 1, 2026</p>
+                <p class="exhibit-desc">Celebrating Black artistic excellence across generations, this landmark exhibition featured over 130 works by Jean-Michel Basquiat, Kerry James Marshall, Amy Sherald, Derrick Adams, and Kehinde Wiley.</p>
+                <span class="ticket-note">This exhibition has closed.</span>
+              </div>
+            </article>
+            <article class="exhibit-row" data-status="current" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+              data-img="images/monet.jpg"
+              data-badge="current"
+              data-badge-label="Now On View"
+              data-category="Permanent Collection · Mellon Galleries"
+              data-title="Monet &amp; the Impressionists: French Masterworks"
+              data-dates="Ongoing · Paul and Rachel Mellon Collection"
+              data-desc="VMFA houses one of the finest collections of Impressionist paintings in the American South, including landmark works by Claude Monet, Edgar Degas, Pierre-Auguste Renoir, and Mary Cassatt. The Mellon Collection traces the movement from its origins in 1860s Paris to its full flowering in the 1880s and 90s, with particular depth in Monet's serial landscapes and Degas's intimate studies of movement. Highlights include Monet's Water Lilies study, two major Degas pastels, and Renoir's celebrated La Danse à la campagne."
+              data-ticket="✦ Free with General Admission">
+              <div class="exhibit-img-wrap">
+                <img src="images/monet.jpg" alt="Monet" />
+                <span class="exhibit-badge current">Now On View</span>
+              </div>
+              <div class="exhibit-info">
+                <p class="exhibit-category">Permanent Collection &middot; Mellon Galleries</p>
+                <h3>Monet &amp; the Impressionists: French Masterworks</h3>
+                <p class="exhibit-dates">Ongoing &middot; Paul and Rachel Mellon Collection</p>
+                <p class="exhibit-desc">VMFA houses one of the finest collections of Impressionist paintings in the American South, including landmark works by Claude Monet, Edgar Degas, Pierre-Auguste Renoir, and Mary Cassatt.</p>
+                <span class="ticket-note">&#10022; Free with General Admission</span>
+              </div>
+            </article>
+            <article class="exhibit-row" data-status="current" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+              data-img="images/mughals.jpg"
+              data-badge="current"
+              data-badge-label="Now On View"
+              data-category="Special Exhibition · Altria Group Gallery"
+              data-title="India's Great Mughals: Art, Power, and Opulence"
+              data-dates="May 9, 2026 – August 23, 2026"
+              data-desc="An unprecedented exhibition drawing on rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty, organized by the Victoria and Albert Museum. Spanning the reigns of the six great Mughal emperors — from Babur to Aurangzeb — the exhibition explores how art was wielded as an instrument of imperial power. On view are spectacular jade-hilted daggers, illuminated Quranic manuscripts, silk and gold brocade court robes, and monumental portrait miniatures never before seen outside South Asia. The exhibition is the first of its scale to visit North America."
+              data-ticket="✦ Ticketed Exhibition – Members Free">
+              <div class="exhibit-img-wrap">
+                <img src="images/mughals.jpg" alt="India's Great Mughals" />
+                <span class="exhibit-badge current">Now On View</span>
+              </div>
+              <div class="exhibit-info">
+                <p class="exhibit-category">Special Exhibition &middot; Altria Group Gallery</p>
+                <h3>India's Great Mughals: Art, Power, and Opulence</h3>
+                <p class="exhibit-dates">May 9, 2026 &ndash; August 23, 2026</p>
+                <p class="exhibit-desc">An unprecedented exhibition drawing on rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty, organized by the Victoria and Albert Museum.</p>
+                <span class="ticket-note">&#10022; Ticketed Exhibition - Members Free</span>
+              </div>
+            </article>
+            <article class="exhibit-row" data-status="upcoming" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+              data-img="images/faberge.jpg"
+              data-badge="upcoming"
+              data-badge-label="Upcoming"
+              data-category="Special Exhibition"
+              data-title="Fabergé: Romance to Revolution"
+              data-dates="Fall 2026 (Dates TBA)"
+              data-desc="Drawing on VMFA's unparalleled Fabergé holdings — the largest collection outside Russia — this exhibition traces the extraordinary craftsmanship of the Fabergé firm from the glittering courts of Imperial Russia to the revolution that ended it all. On view will be Imperial Easter Eggs, jeweled objects of fantasy, portrait miniatures set in gem-encrusted frames, and the personal correspondence between the Romanovs and the house of Fabergé. A deeply human story of beauty forged in the shadow of political collapse."
+              data-ticket="✦ Ticketed Exhibition – Members Free">
+              <div class="exhibit-img-wrap">
+                <img src="images/faberge.jpg" alt="Fabergé" />
+                <span class="exhibit-badge upcoming">Upcoming</span>
+              </div>
+              <div class="exhibit-info">
+                <p class="exhibit-category">Special Exhibition</p>
+                <h3>Faberg&eacute;: Romance to Revolution</h3>
+                <p class="exhibit-dates">Fall 2026 (Dates TBA)</p>
+                <p class="exhibit-desc">Drawing on VMFA's unparalleled Faberg&eacute; holdings, this exhibition traces the extraordinary craftsmanship of the Faberg&eacute; firm from Imperial Russia to the revolution that ended it all.</p>
+                <span class="ticket-note">&#10022; Ticketed Exhibition - Members Free</span>
+              </div>
+            </article>
+            <article class="exhibit-row" data-status="upcoming" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+              data-img="images/jazz.jpg"
+              data-badge="upcoming"
+              data-badge-label="Upcoming"
+              data-category="Special Exhibition · NewMarket Gallery"
+              data-title="Jazz &amp; Visual Art: The Richmond Renaissance"
+              data-dates="Summer 2026 (Dates TBA)"
+              data-desc="A celebration of the deep connections between jazz music and the visual arts in Richmond, Virginia. This exhibition brings together paintings, photographs, album covers, instruments, and archival footage to trace Richmond's vibrant jazz scene from the 1920s through today. Works by local and nationally recognized artists illuminate how improvisation, rhythm, and expression moved freely between the bandstand and the canvas — and how Richmond's African American artists helped shape both the sound and the look of American culture."
+              data-ticket="✦ Free with General Admission">
+              <div class="exhibit-img-wrap">
+                <img src="images/jazz.jpg" alt="Jazz and Visual Art" />
+                <span class="exhibit-badge upcoming">Upcoming</span>
+              </div>
+              <div class="exhibit-info">
+                <p class="exhibit-category">Special Exhibition &middot; NewMarket Gallery</p>
+                <h3>Jazz &amp; Visual Art: The Richmond Renaissance</h3>
+                <p class="exhibit-dates">Summer 2026 (Dates TBA)</p>
+                <p class="exhibit-desc">A celebration of the deep connections between jazz music and the visual arts in Richmond, Virginia.</p>
+                <span class="ticket-note">&#10022; Free with General Admission</span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- EVENTS content (hidden until Events tab clicked) -->
+        <div id="eventsContent" style="display:none;">
+          <div class="section-header"><h2>Upcoming Events</h2></div>
+          <div class="events-grid">
+            <div class="event-card" id="event-after5" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg"
+              data-badge="current" data-badge-label="Music &amp; Performing Arts"
+              data-category="Music &amp; Performing Arts · Cochrane Atrium"
+              data-title="After 5 Fridays | Summer Soir&eacute;e"
+              data-dates="Friday, June 20 · 6 pm · Cochrane Atrium"
+              data-desc="Live jazz and dancing to welcome summer at VMFA's beloved After 5 Fridays series. Held in the stunning Cochrane Atrium, this monthly evening event brings together Richmond's art and music communities for an unforgettable night of performance and connection. June's soirée features a special lineup celebrating the sounds of summer, with local jazz musicians performing from 6–9 pm. Dress to impress — this is Richmond's coolest Friday night out."
+              data-ticket="✦ Free with General Admission · Cash Bar Available">
+              <div class="event-img" style="background-image: url('https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg'); background-size: cover; background-position: center;">
+                <span class="event-img-label">Music &amp; Performing Arts</span>
+              </div>
+              <div class="event-body">
+                <p class="event-category">Music &amp; Performing Arts</p>
+                <h3>After 5 Fridays | Summer Soir&eacute;e</h3>
+                <p class="event-meta">Friday, June 20 &middot; 6 pm &middot; Cochrane Atrium</p>
+                <p class="event-desc">Live jazz and dancing to welcome summer. Free with museum admission. Cash bar available.</p>
+              </div>
+            </div>
+            <div class="event-card" id="event-gallery-talk" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/mughals.jpg"
+              data-badge="current" data-badge-label="Talks"
+              data-category="Talks · Altria Group Gallery"
+              data-title="Gallery Talk: Jewels of the Mughal Court"
+              data-dates="Wednesday, June 18 · 12 pm · Altria Group Gallery"
+              data-desc="Join VMFA curators for an intimate guided conversation exploring the imperial gemstones, jade carvings, and jeweled objects at the heart of the India's Great Mughals exhibition. This 45-minute curator-led talk offers rare insight into the symbolism of Mughal jewelry — how precious stones were used to communicate power, faith, and dynastic legitimacy across six imperial reigns. Limited to 30 participants; free with exhibition admission."
+              data-ticket="✦ Free with Exhibition Admission · Limited Seating">
+              <div class="event-img" style="background-image: url('images/mughals.jpg'); background-size: cover; background-position: center;">
+                <span class="event-img-label">Talks</span>
+              </div>
+              <div class="event-body">
+                <p class="event-category">Talks</p>
+                <h3>Gallery Talk: Jewels of the Mughal Court</h3>
+                <p class="event-meta">Wednesday, June 18 &middot; 12 pm &middot; Altria Group Gallery</p>
+                <p class="event-desc">A curator-led exploration of the imperial gemstones, jade carvings, and jeweled objects on display in India's Great Mughals.</p>
+              </div>
+            </div>
+            <div class="event-card" id="event-family-art" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/outbound/medias?w=800&file=images%2FMC2018_10_v1_TF_201812_d_o4%20%281%29.jpg"
+              data-badge="upcoming" data-badge-label="Family"
+              data-category="Family · Art Education Center"
+              data-title="Family Art Making: Colors of the Mughal Empire"
+              data-dates="Saturday, June 28 · 10 am · Art Education Center"
+              data-desc="Families with children of all ages are invited to explore the vibrant patterns and colors of the Mughal Empire through hands-on art-making. Guided by VMFA educators, participants will try block printing inspired by Mughal textiles and illuminate decorative patterns drawn from the exhibition's manuscripts. All materials provided. Designed for families with children ages 5–12, though all ages are welcome."
+              data-ticket="✦ Free for All Ages · Registration Recommended">
+              <div class="event-img" style="background-image: url('https://www.vmfa.museum/outbound/medias?w=800&file=images%2FMC2018_10_v1_TF_201812_d_o4%20%281%29.jpg'); background-size: cover; background-position: center;">
+                <span class="event-img-label">Family</span>
+              </div>
+              <div class="event-body">
+                <p class="event-category">Family</p>
+                <h3>Family Art Making: Colors of the Mughal Empire</h3>
+                <p class="event-meta">Saturday, June 28 &middot; 10 am &middot; Art Education Center</p>
+                <p class="event-desc">Families explore vibrant Mughal patterns through hands-on textile printing and illumination activities. All ages welcome.</p>
+              </div>
+            </div>
+            <div class="event-card" id="event-3in30" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/img/72286b9e-632b-46fe-82bb-3ed75517b156/2025_118_v3_TD_202510.jpg?fm=jpg&q=80&fit=max&w=800"
+              data-badge="upcoming" data-badge-label="Talks"
+              data-category="Talks · Altria Group Gallery"
+              data-title="3 in 30: Highlights from India's Great Mughals"
+              data-dates="Tuesday, July 8 · 11 am · Altria Group Gallery"
+              data-desc="In just 30 minutes, a VMFA educator spotlights three extraordinary objects from the India's Great Mughals exhibition and unpacks what makes each one remarkable. Fast-paced and engaging, this drop-in program is perfect for visitors who want a guided introduction without committing to a full tour. Three objects. Thirty minutes. Unlimited insight. No registration required — just arrive at the Altria Group Gallery entrance at 11 am with your exhibition ticket."
+              data-ticket="✦ Free with Exhibition Admission · No Registration Required">
+              <div class="event-img" style="background-image: url('https://www.vmfa.museum/img/72286b9e-632b-46fe-82bb-3ed75517b156/2025_118_v3_TD_202510.jpg?fm=jpg&q=80&fit=max&w=800'); background-size: cover; background-position: center;">
+                <span class="event-img-label">Talks</span>
+              </div>
+              <div class="event-body">
+                <p class="event-category">Talks</p>
+                <h3>3 in 30: Highlights from India's Great Mughals</h3>
+                <p class="event-meta">Tuesday, July 8 &middot; 11 am &middot; Altria Group Gallery</p>
+                <p class="event-desc">A 30-minute guided conversation spotlighting three extraordinary objects from the Mughal dynasty exhibition.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COLLECTION PAGE
+         ============================================================ -->
+    <section class="page" id="collection">
+
+      <!-- Page hero -->
+      <div class="page-hero">
+        <h1>The Collection</h1>
+        <p>Over 50,000 works spanning almost every major world culture, from ancient civilizations to the present day.</p>
+      </div>
+
+      <!-- Category nav pills -->
+      <div class="collection-nav">
+        <button class="col-tab active" onclick="showCollection('american', this)">American Art</button>
+        <button class="col-tab" onclick="showCollection('ancient', this)">Ancient Art</button>
+        <button class="col-tab" onclick="showCollection('european', this)">European Art</button>
+        <button class="col-tab" onclick="showCollection('african-american', this)">African American Art</button>
+        <button class="col-tab" onclick="showCollection('modern', this)">Modern &amp; Contemporary</button>
+        <button class="col-tab" onclick="showCollection('faberge', this)">Faberg&eacute; &amp; Russian Arts</button>
+      </div>
+
+      <!-- ── AMERICAN ART ── -->
+      <div class="col-section active" id="col-american">
+        <div class="col-hero" style="background-image: url('https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=1400');">
+          <div class="col-hero-overlay"></div>
+          <div class="col-hero-text">
+            <p class="col-hero-eyebrow">Collection Area</p>
+            <h2>American Art</h2>
+            <p>From colonial portraiture to cutting-edge contemporary work, VMFA's American art holdings trace the full sweep of artistic production in the United States.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header">
+            <h2>Highlights</h2>
+          </div>
+          <div class="col-works-grid">
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=600"
+              data-category="American Art · 19th Century · Oil on Canvas"
+              data-title="The Hunter's Return"
+              data-dates="Thomas Cole · 1845 · Oil on canvas"
+              data-desc="Thomas Cole, founder of the Hudson River School, painted 'The Hunter's Return' as a meditation on the pastoral ideal — a vision of America as a land of abundance and unspoiled nature. The composition centers on a log cabin in a clearing, with a hunter and his dogs emerging from a golden forest at dusk. Cole believed landscape painting could carry the moral weight of history painting, and this work reflects his deep concern for the encroachment of civilization on the American wilderness. One of the jewels of VMFA's 19th-century American collection."
+              data-ticket="✦ Free with General Admission · American Art Galleries">
+              <div class="col-work-img" style="background-image: url('https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=600');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Thomas Cole</p>
+                <p class="col-work-title">The Hunter's Return</p>
+                <p class="col-work-meta">1845 &middot; Oil on canvas</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=600"
+              data-category="American Art · 20th Century · Gouache"
+              data-title="Builders No. 1"
+              data-dates="Jacob Lawrence · 1968 · Gouache on board"
+              data-desc="Jacob Lawrence's 'Builders' series celebrates work, community, and human dignity through his signature flattened geometric style. Created during a period of civil rights activism, this work reads both as a literal depiction — workers constructing a building — and as metaphor for Black Americans building a place in American society. Lawrence's bold palette and sharp angles carry an energy that feels urgent even decades later. VMFA holds several works by Lawrence, considered one of the most important American artists of the 20th century."
+              data-ticket="✦ Free with General Admission · American Art Galleries">
+              <div class="col-work-img" style="background-image: url('https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=600');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Jacob Lawrence</p>
+                <p class="col-work-title">Builders No. 1</p>
+                <p class="col-work-meta">1968 &middot; Gouache on board</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/children.jpg"
+              data-category="American Art · Contemporary · Collage"
+              data-title="Let Them Be Children"
+              data-dates="Deborah Roberts · 2018 · Collage &amp; mixed media"
+              data-desc="Deborah Roberts creates large-scale collages that center Black children — their joy, their innocence, and their right to simply be children. This work draws on found images from fashion magazines, historical photographs, and popular culture, combining them into composite figures that feel both timeless and urgent. Roberts reclaims imagery of Black childhood from narratives of trauma and insists instead on beauty, play, and possibility. Her work has made her one of the most important voices in contemporary American art."
+              data-ticket="✦ Free with General Admission · American Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/children.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Deborah Roberts</p>
+                <p class="col-work-title">Let Them Be Children</p>
+                <p class="col-work-meta">2018 &middot; Collage &amp; mixed media</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/dapper.jpg"
+              data-category="American Art · Photography · 20th Century"
+              data-title="Dapper"
+              data-dates="Jamel Shabazz · 1980 · Photography"
+              data-desc="Taken in Brooklyn during the early years of hip-hop culture, 'Dapper' captures two young men posed with the effortless cool that defined a generation. Shabazz's eye for dignity and style transformed everyday street corners into portraits of pride and self-expression. He spent decades documenting New York's streets, and his archive has become an essential record of a cultural movement that changed the world."
+              data-ticket="✦ Free with General Admission · American Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/dapper.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Jamel Shabazz</p>
+                <p class="col-work-title">Dapper</p>
+                <p class="col-work-meta">1980 &middot; Photography</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-about">
+            <p>VMFA's American art collection spans more than three centuries, from the colonial era to the present. It includes paintings, sculpture, works on paper, photography, and decorative arts that reflect the diverse artistic traditions of the United States. The collection is particularly strong in 19th-century landscape painting, early modernism, and contemporary work by African American artists.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ANCIENT ART ── -->
+      <div class="col-section" id="col-ancient">
+        <div class="col-hero" style="background-image: url('https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=1400');">
+          <div class="col-hero-overlay"></div>
+          <div class="col-hero-text">
+            <p class="col-hero-eyebrow">Collection Area</p>
+            <h2>Ancient Art</h2>
+            <p>Objects from Egypt, Greece, Rome, and the Near East that illuminate the art and culture of the ancient world, spanning more than 5,000 years of human creativity.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header"><h2>Highlights</h2></div>
+          <div class="col-works-grid">
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=600"
+              data-category="Ancient Art · Greek, Attic · ca. 540 BCE"
+              data-title="Black-Figure Amphora"
+              data-dates="Greek, Attic · ca. 540 BCE · Ceramic"
+              data-desc="This black-figure amphora is a masterpiece of Attic pottery from the height of the archaic period. Painted in the black-figure technique, in which figures are rendered in black slip against the natural red clay, it depicts mythological scenes with a precision and energy that defined Greek vase painting for generations. The vessel would have been used to store wine or oil and may have served a funerary purpose. VMFA's collection of Greek vases is among the finest in the southeastern United States."
+              data-ticket="✦ Free with General Admission · Ancient Art Galleries">
+              <div class="col-work-img" style="background-image: url('https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=600');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Greek, Attic</p>
+                <p class="col-work-title">Black-Figure Amphora</p>
+                <p class="col-work-meta">ca. 540 BCE &middot; Ceramic</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/young man.webp"
+              data-category="Ancient Art · Roman · 2nd Century CE"
+              data-title="Portrait of a Young Man"
+              data-dates="Roman · 2nd century CE · Marble"
+              data-desc="Carved with extraordinary sensitivity to the individual features of its subject, this Roman portrait bust exemplifies the Roman tradition of veristic portraiture — the unflinching, highly individualized representation of the human face. During the reign of the Antonine emperors, Roman sculptors achieved a new naturalism in rendering hair, skin texture, and emotional expression in marble. The young man's identity is unknown, but the psychological depth of this portrait transcends its anonymous origins."
+              data-ticket="✦ Free with General Admission · Ancient Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/young man.webp');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Roman</p>
+                <p class="col-work-title">Portrait of a Young Man</p>
+                <p class="col-work-meta">2nd century CE &middot; Marble</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/canopic.webp"
+              data-category="Ancient Art · Egyptian · Late Period"
+              data-title="Canopic Jar with Falcon Head"
+              data-dates="Egyptian · ca. 664–332 BCE · Limestone"
+              data-desc="Canopic jars were used in ancient Egyptian mummification to store and preserve the internal organs of the deceased for the afterlife. This example is topped with the head of Qebehsenuef, the falcon-headed son of Horus, who was charged with protecting the intestines of the dead. Carved from limestone and originally painted, it dates to the Late Period — one of ancient Egypt's final great artistic eras. The jar's serene, idealized features reflect Egyptian art's enduring commitment to timelessness over naturalism."
+              data-ticket="✦ Free with General Admission · Ancient Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/canopic.webp');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Egyptian</p>
+                <p class="col-work-title">Canopic Jar with Falcon Head</p>
+                <p class="col-work-meta">ca. 664–332 BCE &middot; Limestone</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/greek statue.avif"
+              data-category="Ancient Art · Greek · Archaic Period"
+              data-title="Bronze Warrior Statuette"
+              data-dates="Greek · ca. 500 BCE · Bronze"
+              data-desc="Cast using the lost-wax method, this small bronze warrior embodies the Greek ideal of the heroic male body — the kouros tradition translated into a martial context. The figure's rigid frontality and stylized musculature reflect the transition from archaic conventions toward the naturalism of the classical period. Such statuettes were typically offered as votive gifts at sanctuaries of gods like Apollo or Ares. This example is notable for the exceptional preservation of its surface, which retains traces of its original finish."
+              data-ticket="✦ Free with General Admission · Ancient Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/greek statue.avif');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Greek</p>
+                <p class="col-work-title">Bronze Warrior Statuette</p>
+                <p class="col-work-meta">ca. 500 BCE &middot; Bronze</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-about">
+            <p>VMFA's ancient art collection encompasses works from Egypt, the Near East, Greece, Etruria, and Rome. Highlights include a remarkable group of Greek vases, Roman marble sculpture, and Egyptian objects. These works offer direct connections to the civilizations that shaped the course of Western art and culture.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EUROPEAN ART ── -->
+      <div class="col-section" id="col-european">
+        <div class="col-hero" style="background-image: url('https://www.vmfa.museum/img/ee9a0e51-273c-4818-be6e-6c26ef88af71/62_31_v1_KW_200907_d_o4.jpg?fm=jpg&q=80&fit=max&w=1400');">
+          <div class="col-hero-overlay"></div>
+          <div class="col-hero-text">
+            <p class="col-hero-eyebrow">Collection Area</p>
+            <h2>European Art</h2>
+            <p>A sweeping survey of European painting, sculpture, and decorative arts from the medieval period through the early 20th century, including the celebrated Paul and Rachel Mellon Collection.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header"><h2>Highlights</h2></div>
+          <div class="col-works-grid">
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/monet.jpg"
+              data-category="European Art · French Impressionism · Mellon Galleries"
+              data-title="Field of Poppies, Giverny"
+              data-dates="Claude Monet · 1885 · Oil on canvas"
+              data-desc="Painted during one of Monet's most productive summers at his Giverny estate, this work captures the sun-drenched landscape of northern France in a cascade of broken brushwork and luminous color. The painting exemplifies Monet's revolutionary approach to outdoor painting — capturing fleeting light rather than fixed form. It entered VMFA's collection through the bequest of Paul and Rachel Mellon, who assembled one of the most important collections of French Impressionism in the United States. The work hangs as a centerpiece of the Mellon Galleries."
+              data-ticket="✦ Free with General Admission · Mellon Galleries">
+              <div class="col-work-img" style="background-image: url('images/monet.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Claude Monet</p>
+                <p class="col-work-title">Field of Poppies, Giverny</p>
+                <p class="col-work-meta">1885 &middot; Oil on canvas</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/architect fantasy.png"
+              data-category="European Art · 18th Century · French"
+              data-title="Architectural Fantasy"
+              data-dates="Hubert Robert · 1780s · Oil on canvas"
+              data-desc="Hubert Robert, known as 'Robert des Ruines,' was 18th-century France's foremost painter of architectural capricci — imaginative combinations of real and invented classical ruins. This 'Architectural Fantasy' places Roman arches, overgrown colonnades, and crumbling temples in a dreamy landscape suffused with golden light. Robert's work captured the Enlightenment fascination with antiquity and the passage of time, and this painting is a defining example of the French taste for picturesque melancholy that preceded Romanticism."
+              data-ticket="✦ Free with General Admission · European Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/architect fantasy.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Hubert Robert</p>
+                <p class="col-work-title">Architectural Fantasy</p>
+                <p class="col-work-meta">1780s &middot; Oil on canvas</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/ballerina.png"
+              data-category="European Art · French Impressionism · Bronze"
+              data-title="Ballet Dancer"
+              data-dates="Edgar Degas · ca. 1880 · Bronze"
+              data-desc="Edgar Degas was obsessed with the world of the Paris Opéra and its dancers, producing more than 1,500 works on the subject over his career. This bronze is a cast from one of the wax and clay sculpture studies Degas worked on in his studio — figures he used as reference models for his paintings and pastels. The dancer's pose captures a fleeting moment of balance and tension, arms raised and weight forward. Degas's bronzes were mostly cast posthumously, and each one reveals the same intimate observation that defines his greatest work."
+              data-ticket="✦ Free with General Admission · European Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/ballerina.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Edgar Degas</p>
+                <p class="col-work-title">Ballet Dancer</p>
+                <p class="col-work-meta">ca. 1880 &middot; Bronze</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/woman with a parasol.png"
+              data-category="European Art · French Impressionism · Oil on Canvas"
+              data-title="Woman with a Parasol"
+              data-dates="Pierre-Auguste Renoir · 1876 · Oil on canvas"
+              data-desc="Renoir's sunlit figure dissolves into the landscape around her — a hallmark of his Impressionist technique at its most lyrical. Painted in the open air near Paris, this work uses rapid, feathery brushstrokes to capture the shimmer of afternoon light filtering through a parasol and across the sitter's white dress. Renoir believed painting should celebrate beauty and pleasure, and 'Woman with a Parasol' is a pure expression of that philosophy. It is one of the most beloved works in the Mellon Collection and a highlight of the European galleries."
+              data-ticket="✦ Free with General Admission · Mellon Galleries">
+              <div class="col-work-img" style="background-image: url('images/woman with a parasol.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Pierre-Auguste Renoir</p>
+                <p class="col-work-title">Woman with a Parasol</p>
+                <p class="col-work-meta">1876 &middot; Oil on canvas</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-about">
+            <p>The European art collection at VMFA is anchored by the extraordinary Paul and Rachel Mellon Collection, one of the finest assemblages of French Impressionist painting in the American South. Works by Monet, Degas, Renoir, and Cassatt sit alongside Dutch Golden Age paintings, Italian Renaissance works, and British portraiture spanning six centuries.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AFRICAN AMERICAN ART ── -->
+      <div class="col-section" id="col-african-american">
+        <div class="col-hero" style="background-image: url('https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=1400');">
+          <div class="col-hero-overlay"></div>
+          <div class="col-hero-text">
+            <p class="col-hero-eyebrow">Collection Area</p>
+            <h2>African American Art</h2>
+            <p>A powerful and continually growing collection celebrating the contributions of Black artists to American and global visual culture, from the Harlem Renaissance to the present.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header"><h2>Highlights</h2></div>
+          <div class="col-works-grid">
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=600"
+              data-category="African American Art · 20th Century · Tempera"
+              data-title="Catfish Row"
+              data-dates="Jacob Lawrence · 1947 · Tempera on hardboard"
+              data-desc="'Catfish Row' depicts the vibrant community life of the African American neighborhood in Charleston, South Carolina, immortalized in George Gershwin's opera Porgy and Bess. Lawrence renders the scene in his signature flat, geometric style — bold blocks of color describing figures, buildings, and activity with compressed, rhythmic energy. The work celebrates the richness and complexity of Black communal life at a moment when such affirmations carried profound social weight. Lawrence painted it a decade after his legendary Migration Series brought him national recognition."
+              data-ticket="✦ Free with General Admission · African American Art Galleries">
+              <div class="col-work-img" style="background-image: url('https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=600');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Jacob Lawrence</p>
+                <p class="col-work-title">Catfish Row</p>
+                <p class="col-work-meta">1947 &middot; Tempera on hardboard</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/dapper.jpg"
+              data-category="African American Art · Photography · 20th Century"
+              data-title="Dapper"
+              data-dates="Jamel Shabazz · 1980 · Photography"
+              data-desc="Taken in Brooklyn during the early years of hip-hop culture, 'Dapper' captures two young men posed with the effortless cool that defined a generation. Shabazz's eye for dignity and style transformed everyday street corners into portraits of pride and self-expression. He spent decades documenting New York's streets, and his archive has become an essential record of a cultural movement that changed the world."
+              data-ticket="✦ Free with General Admission · African American Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/dapper.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Jamel Shabazz</p>
+                <p class="col-work-title">Dapper</p>
+                <p class="col-work-meta">1980 &middot; Photography</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/vessel.jpg"
+              data-category="African American Art · Contemporary · Mixed Media"
+              data-title="Vessel"
+              data-dates="Radcliffe Bailey · 2012 · Mixed media sculpture"
+              data-desc="Radcliffe Bailey's 'Vessel' is a haunting assemblage that draws on African diaspora history, personal memory, and the imagery of the cosmos. The work evokes the Middle Passage — the transatlantic slave trade — through the metaphor of a vessel adrift in an infinite sea. Piano keys, mirrors, and archival materials are layered to create a meditation on loss, survival, and the enduring spirit of a people. Bailey's work begins with his own family history and expands outward into the collective memory of the African American experience."
+              data-ticket="✦ Free with General Admission · African American Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/vessel.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Radcliffe Bailey</p>
+                <p class="col-work-title">Vessel</p>
+                <p class="col-work-meta">2012 &middot; Mixed media sculpture</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/children.jpg"
+              data-category="African American Art · Contemporary · Collage"
+              data-title="Let Them Be Children"
+              data-dates="Deborah Roberts · 2018 · Collage &amp; mixed media"
+              data-desc="Deborah Roberts creates large-scale collages that center Black children — their joy, their innocence, and their right to simply be children. This work draws on found images from fashion magazines, historical photographs, and popular culture, combining them into composite figures that feel both timeless and urgent. Roberts reclaims imagery of Black childhood from narratives of trauma and insists on beauty, play, and possibility. Her work has made her one of the most important voices in contemporary American art."
+              data-ticket="✦ Free with General Admission · African American Art Galleries">
+              <div class="col-work-img" style="background-image: url('images/children.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Deborah Roberts</p>
+                <p class="col-work-title">Let Them Be Children</p>
+                <p class="col-work-meta">2018 &middot; Collage &amp; mixed media</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-about">
+            <p>VMFA's African American art collection is among the most significant at any encyclopedic museum in the American South. It spans the Harlem Renaissance, the Civil Rights era, and the contemporary moment, with works by Jacob Lawrence, Radcliffe Bailey, Deborah Roberts, Jamel Shabazz, and many others. The collection reflects VMFA's deep commitment to telling the full story of American art.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MODERN & CONTEMPORARY ── -->
+      <div class="col-section" id="col-modern">
+        <div class="col-hero" style="background-image: url('https://www.vmfa.museum/img/1b7be6c4-1d3f-48e3-b463-13755437aab4/2020_19_v1_TF_202009_d_o4.jpg?fm=jpg&q=80&fit=max&w=1400');">
+          <div class="col-hero-overlay"></div>
+          <div class="col-hero-text">
+            <p class="col-hero-eyebrow">Collection Area</p>
+            <h2>Modern &amp; Contemporary Art</h2>
+            <p>Works from the early 20th century to the present day that reflect the radical transformations of modernism and the rich diversity of contemporary global practice.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header"><h2>Highlights</h2></div>
+          <div class="col-works-grid">
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/stadia.jpg"
+              data-category="Modern &amp; Contemporary · Painting · 21st Century"
+              data-title="Stadia III"
+              data-dates="Julie Mehretu · 2004 · Ink &amp; acrylic on canvas"
+              data-desc="Measuring nearly ten feet wide, 'Stadia III' is one of Julie Mehretu's monumental explorations of space, power, and architecture. Mehretu layers architectural drawings — stadiums, arenas, public gathering spaces — with explosive gestural marks that suggest both energy and erasure. The work asks questions about who claims public space, and what histories get buried beneath the surfaces of our built environment. Mehretu, born in Addis Ababa and raised in the United States, is among the most celebrated painters working today. This work entered VMFA's collection in 2008."
+              data-ticket="✦ Free with General Admission · Modern Galleries">
+              <div class="col-work-img" style="background-image: url('images/stadia.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Julie Mehretu</p>
+                <p class="col-work-title">Stadia III</p>
+                <p class="col-work-meta">2004 &middot; Ink &amp; acrylic on canvas</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/orange flip.png"
+              data-category="Modern &amp; Contemporary · Color Field Painting"
+              data-title="Orange Flip"
+              data-dates="Sam Gilliam · 1968 · Acrylic on canvas"
+              data-desc="Washington D.C.-based artist Sam Gilliam was a pioneering figure in the Color Field movement who radically expanded what painting could be. In his 'Drape' paintings of the late 1960s, Gilliam removed the canvas from its stretcher and hung it from the ceiling in cascading folds, treating the canvas itself as sculpture. 'Orange Flip' is one of these landmark works — its saturated acrylic color pooling and bleeding across unstretched canvas in ways that feel simultaneously planned and spontaneous. Gilliam was the first Black artist to represent the United States in the Venice Biennale."
+              data-ticket="✦ Free with General Admission · Modern Galleries">
+              <div class="col-work-img" style="background-image: url('images/orange flip.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Sam Gilliam</p>
+                <p class="col-work-title">Orange Flip</p>
+                <p class="col-work-meta">1968 &middot; Acrylic on canvas</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/spider.png"
+              data-category="Modern &amp; Contemporary · Sculpture"
+              data-title="Spider"
+              data-dates="Louise Bourgeois · 1997 · Steel &amp; mixed media"
+              data-desc="Louise Bourgeois's towering spider sculptures are among the most iconic works in contemporary art. Standing over 30 feet tall in their largest versions, these arachnid figures represent the artist's mother — a weaver and tapestry restorer whom Bourgeois described as 'deliberate, clever, patient, soothing, reasonable, dainty, subtle, indispensable, neat, and as useful as a spider.' This work draws together Bourgeois's lifelong exploration of memory, the body, and the female experience with an imagery at once monstrous and tender."
+              data-ticket="✦ Free with General Admission · Modern Galleries">
+              <div class="col-work-img" style="background-image: url('images/spider.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Louise Bourgeois</p>
+                <p class="col-work-title">Spider</p>
+                <p class="col-work-meta">1997 &middot; Steel &amp; mixed media</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/gone, a historical romance.png"
+              data-category="Modern &amp; Contemporary · Cut Paper · 20th Century"
+              data-title="Gone, An Historical Romance"
+              data-dates="Kara Walker · 1994 · Cut paper silhouette"
+              data-desc="Kara Walker's monumental panoramic silhouette depicts scenes from the antebellum American South in a style drawn from 19th-century parlor decoration — turning a genteel art form into a vehicle for confronting slavery's violence and sexual exploitation. Cut from black paper and applied directly to the gallery wall, the work wraps around the viewer in a panorama that is at once seductive and deeply disturbing. Walker was just 24 years old when she created this piece, which immediately established her as one of the most important artists of her generation."
+              data-ticket="✦ Free with General Admission · Modern Galleries">
+              <div class="col-work-img" style="background-image: url('images/gone, a historical romance.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">Kara Walker</p>
+                <p class="col-work-title">Gone, An Historical Romance</p>
+                <p class="col-work-meta">1994 &middot; Cut paper silhouette</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-about">
+            <p>VMFA's modern and contemporary collection encompasses painting, sculpture, photography, video, and installation art from the 1900s to the present. The collection reflects the full diversity of modern art movements — from Abstract Expressionism and Color Field painting to Minimalism, Conceptual art, and the rich landscape of contemporary global practice. Recent acquisitions have significantly strengthened holdings by artists of color and women artists.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FABERGÉ ── -->
+      <div class="col-section" id="col-faberge">
+        <div class="col-hero" style="background-image: url('images/faberge.jpg');">
+          <div class="col-hero-overlay"></div>
+          <div class="col-hero-text">
+            <p class="col-hero-eyebrow">Collection Area</p>
+            <h2>Faberg&eacute; &amp; Russian Decorative Arts</h2>
+            <p>The largest public collection of Faberg&eacute; outside Russia, including five Imperial Easter Eggs — masterpieces of goldsmithing created for the Russian Imperial family.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header"><h2>Highlights</h2></div>
+          <div class="col-works-grid">
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/faberge.jpg"
+              data-category="Fabergé &amp; Russian Decorative Arts · Imperial Easter Egg"
+              data-title="Imperial Peter the Great Easter Egg"
+              data-dates="House of Fabergé · 1903 · Gold, enamel, diamonds, sapphires"
+              data-desc="Presented by Tsar Nicholas II to Empress Alexandra Feodorovna on Easter morning, 1903, this egg commemorates the 200th anniversary of the founding of St. Petersburg. Enameled in translucent green over a guilloché ground, it opens to reveal a miniature model of the Bronze Horseman — the famous equestrian statue of Peter the Great. One of only 50 Imperial Easter Eggs ever made by the House of Fabergé, it is one of the most historically significant objects in VMFA's collection. Acquired by Lillian Thomas Pratt, whose 1947 gift to VMFA remains unparalleled outside Russia."
+              data-ticket="✦ Free with General Admission · Fabergé Galleries">
+              <div class="col-work-img" style="background-image: url('images/faberge.jpg');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">House of Faberg&eacute;</p>
+                <p class="col-work-title">Imperial Peter the Great Easter Egg</p>
+                <p class="col-work-meta">1903 &middot; Gold, enamel, diamonds, sapphires</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/casacaus.png"
+              data-category="Fabergé &amp; Russian Decorative Arts · Imperial Easter Egg"
+              data-title="Imperial Caucasus Easter Egg"
+              data-dates="House of Fabergé · 1893 · Gold, enamel, rubies"
+              data-desc="Created in 1893 by the House of Fabergé for Tsar Alexander III to give to Empress Maria Feodorovna, the Caucasus Egg commemorates the Russian Imperial family's beloved retreat in the Caucasus region. The egg's exterior is enameled in rich translucent green, and when opened reveals four miniature paintings of Caucasian landscapes set within the shell. Its surpise mechanism, precious materials, and exquisite enamelwork exemplify the technical mastery that made Fabergé the greatest goldsmith of the 19th century."
+              data-ticket="✦ Free with General Admission · Fabergé Galleries">
+              <div class="col-work-img" style="background-image: url('images/casacaus.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">House of Faberg&eacute;</p>
+                <p class="col-work-title">Imperial Caucasus Easter Egg</p>
+                <p class="col-work-meta">1893 &middot; Gold, enamel, rubies</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/imperial duchess egg.png"
+              data-category="Fabergé &amp; Russian Decorative Arts · Imperial Easter Egg"
+              data-title="Imperial Duchess of Marlborough Egg"
+              data-dates="House of Fabergé · 1902 · Gold, enamel, diamonds"
+              data-desc="The Duchess of Marlborough Egg was not made for the Russian Imperial family but for Consuelo Vanderbilt, the American heiress who married the 9th Duke of Marlborough. It is one of a small number of 'non-Imperial' eggs made by Fabergé for private clients and represents the firm's extraordinary reach into international aristocracy. The egg is a tour de force of pink guilloché enamel, set with a diamond trellis and topped with a rose-cut diamond finial. Its surprise interior contains a jeweled watch with a miniature scene of Blenheim Palace."
+              data-ticket="✦ Free with General Admission · Fabergé Galleries">
+              <div class="col-work-img" style="background-image: url('images/imperial duchess egg.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">House of Faberg&eacute;</p>
+                <p class="col-work-title">Imperial Duchess of Marlborough Egg</p>
+                <p class="col-work-meta">1902 &middot; Gold, enamel, diamonds</p>
+              </div>
+            </div>
+            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+              data-img="images/rock crystal egg.png"
+              data-category="Fabergé &amp; Russian Decorative Arts · Decorative Object"
+              data-title="Rock Crystal Kovsh"
+              data-dates="House of Fabergé · ca. 1900 · Rock crystal, gold, diamonds"
+              data-desc="A kovsh is a traditional Russian drinking vessel — a ladle-shaped form used for serving mead or beer at ceremonial feasts. The House of Fabergé elevated this folk form into an object of supreme luxury: this example is carved from a single piece of rock crystal and mounted in gold set with diamonds. The handle terminates in a characteristic Fabergé flourish of enameled flora. Objects like this were given as diplomatic gifts and marks of Imperial favor, and they represent the firm's mastery of combining indigenous Russian tradition with the highest Western goldsmithing techniques."
+              data-ticket="✦ Free with General Admission · Fabergé Galleries">
+              <div class="col-work-img" style="background-image: url('images/rock crystal egg.png');"></div>
+              <div class="col-work-info">
+                <p class="col-work-artist">House of Faberg&eacute;</p>
+                <p class="col-work-title">Rock Crystal Kovsh</p>
+                <p class="col-work-meta">ca. 1900 &middot; Rock crystal, gold, diamonds</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-about">
+            <p>VMFA holds the largest public collection of objects by the House of Faberg&eacute; outside of Russia, including five Imperial Easter Eggs — only 50 were ever created for the Russian Imperial family. The collection was given to VMFA in 1947 by Lillian Thomas Pratt and remains one of the most beloved and visited parts of the museum. Each egg is a masterpiece of goldsmithing, enamelwork, and gemstone setting, representing the pinnacle of decorative arts in Imperial Russia.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- END COLLECTION PAGE -->
+
+    <!-- ARTISTS PAGE -->
+    <section class="page" id="artists">
+      <div class="page-hero">
+        <h1>Featured Artists &amp; Artifacts</h1>
+        <p>Explore highlights from VMFA's permanent collection of more than 50,000 works.</p>
+      </div>
+      <div class="section">
+        <div class="artists-grid">
+          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/dapper.jpg"
+            data-category="Photography · Permanent Collection"
+            data-title="Dapper"
+            data-dates="Jamel Shabazz · 1980 · Photography"
+            data-desc="Taken in Brooklyn during the early years of hip-hop culture, 'Dapper' captures two young men posed with the effortless cool that defined a generation. Shabazz's eye for dignity and style transformed everyday street corners into portraits of pride and self-expression. He spent decades documenting New York's streets, and his archive has become an essential record of a cultural moment that changed the world. This photograph is part of VMFA's growing collection of works that document African American life and culture with authenticity and depth."
+            data-ticket="✦ Free with General Admission · Permanent Collection">
+            <div class="artist-img-wrap"><img src="images/dapper.jpg" alt="Dapper" /></div>
+            <div class="artist-body">
+              <p class="artist-medium">Photography</p>
+              <h3 class="artist-artwork">Dapper</h3>
+              <p class="artist-name-label">Jamel Shabazz &middot; 1980</p>
+              <p class="artist-bio">One of the most beloved street photographers of the hip-hop era, Jamel Shabazz documented the style and dignity of Black New Yorkers with warmth and intimacy.</p>
+            </div>
+          </div>
+          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/vessel.jpg"
+            data-category="Mixed Media · Sculpture · Permanent Collection"
+            data-title="Vessel"
+            data-dates="Radcliffe Bailey · 2012 · Mixed media sculpture"
+            data-desc="Radcliffe Bailey's 'Vessel' is a haunting assemblage that draws on African diaspora history, personal memory, and the imagery of the cosmos. The work evokes the Middle Passage — the transatlantic slave trade — through the metaphor of a vessel adrift in an infinite sea. Piano keys, mirrors, and archival materials are layered to create a meditation on loss, survival, and the enduring spirit of a people. Bailey's work often begins with his own family history and expands outward into the collective memory of the African American experience."
+            data-ticket="✦ Free with General Admission · Permanent Collection">
+            <div class="artist-img-wrap"><img src="images/vessel.jpg" alt="Vessel" /></div>
+            <div class="artist-body">
+              <p class="artist-medium">Mixed Media &middot; Sculpture</p>
+              <h3 class="artist-artwork">Vessel</h3>
+              <p class="artist-name-label">Radcliffe Bailey &middot; 2012</p>
+              <p class="artist-bio">Atlanta-based artist Radcliffe Bailey creates multimedia works that weave together personal memory, African diaspora history, and cosmic imagery.</p>
+            </div>
+          </div>
+          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/monet.jpg"
+            data-category="Oil on Canvas · Impressionism · Mellon Galleries"
+            data-title="Field of Poppies, Giverny"
+            data-dates="Claude Monet · 1885 · Oil on canvas"
+            data-desc="Painted during one of Monet's most productive summers at his Giverny estate, this work captures the sun-drenched landscape of northern France in a cascade of broken brushwork and luminous color. The painting exemplifies Monet's revolutionary approach to outdoor painting — capturing fleeting light rather than fixed form. It entered VMFA's collection through the bequest of Paul and Rachel Mellon, who assembled one of the most important collections of French Impressionism in the United States. The work hangs as a centerpiece of the Mellon Galleries."
+            data-ticket="✦ Free with General Admission · Mellon Galleries">
+            <div class="artist-img-wrap"><img src="images/monet.jpg" alt="Monet" /></div>
+            <div class="artist-body">
+              <p class="artist-medium">Oil on Canvas &middot; Impressionism</p>
+              <h3 class="artist-artwork">Field of Poppies, Giverny</h3>
+              <p class="artist-name-label">Claude Monet &middot; 1885</p>
+              <p class="artist-bio">A cornerstone of the Paul and Rachel Mellon Collection, this radiant Impressionist landscape captures the gardens at Giverny in full bloom.</p>
+            </div>
+          </div>
+          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/faberge.jpg"
+            data-category="Decorative Arts · Goldsmithing · Fabergé Galleries"
+            data-title="Imperial Peter the Great Easter Egg"
+            data-dates="House of Fabergé · 1903 · Gold, enamel, diamonds, sapphires"
+            data-desc="Presented by Tsar Nicholas II to Empress Alexandra Feodorovna on Easter morning, 1903, this egg commemorates the 200th anniversary of the founding of St. Petersburg. Enameled in translucent green over a guilloché ground, it opens to reveal a miniature model of the Bronze Horseman — the famous equestrian statue of Peter the Great. One of only 50 Imperial Easter Eggs ever made by the House of Fabergé, and one of the most historically significant objects in VMFA's collection. Acquired by Lillian Thomas Pratt, whose 1947 gift of Fabergé objects to VMFA remains unparalleled outside Russia."
+            data-ticket="✦ Free with General Admission · Fabergé Galleries">
+            <div class="artist-img-wrap"><img src="images/faberge.jpg" alt="Faberge Easter Egg" /></div>
+            <div class="artist-body">
+              <p class="artist-medium">Decorative Arts &middot; Goldsmith</p>
+              <h3 class="artist-artwork">Imperial Peter the Great Easter Egg</h3>
+              <p class="artist-name-label">Faberg&eacute; firm &middot; 1903</p>
+              <p class="artist-bio">One of only 50 Imperial Easter Eggs ever created by the House of Faberg&eacute;, presented by Tsar Nicholas II to Empress Alexandra in 1903.</p>
+            </div>
+          </div>
+          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/stadia.jpg"
+            data-category="Painting · Contemporary · Modern Galleries"
+            data-title="Stadia III"
+            data-dates="Julie Mehretu · 2004 · Ink &amp; acrylic on canvas"
+            data-desc="Measuring nearly ten feet wide, 'Stadia III' is one of Julie Mehretu's monumental explorations of space, power, and architecture. Mehretu layers architectural drawings — stadiums, arenas, public gathering spaces — with explosive gestural marks that suggest both energy and erasure. The work asks questions about who claims public space, and what histories get buried beneath the surfaces of our built environment. Mehretu, born in Addis Ababa and raised in the United States, is among the most celebrated painters working today. This work entered VMFA's collection in 2008 and anchors the modern and contemporary galleries."
+            data-ticket="✦ Free with General Admission · Modern Galleries">
+            <div class="artist-img-wrap"><img src="images/stadia.jpg" alt="Stadia III" /></div>
+            <div class="artist-body">
+              <p class="artist-medium">Painting &middot; Contemporary</p>
+              <h3 class="artist-artwork">Stadia III</h3>
+              <p class="artist-name-label">Julie Mehretu &middot; 2004</p>
+              <p class="artist-bio">Ethiopian-American artist Julie Mehretu is celebrated for her monumental abstract works that layer architectural diagrams, maps, and gestural mark-making.</p>
+            </div>
+          </div>
+          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            data-img="images/children.jpg"
+            data-category="Collage · Mixed Media · Permanent Collection"
+            data-title="Let Them Be Children"
+            data-dates="Deborah Roberts · 2018 · Collage &amp; mixed media"
+            data-desc="Deborah Roberts creates large-scale collages that center Black children — their joy, their innocence, and their right to simply be children. This work draws on found images from fashion magazines, historical photographs, and popular culture, combining them into new composite figures that feel both timeless and urgent. Roberts reclaims imagery of Black childhood from narratives of trauma and instead insists on beauty, play, and possibility. Her work has made her one of the most important voices in contemporary American art, and this piece is among the most beloved in VMFA's collection."
+            data-ticket="✦ Free with General Admission · Permanent Collection">
+            <div class="artist-img-wrap"><img src="images/children.jpg" alt="Let Them Be Children" /></div>
+            <div class="artist-body">
+              <p class="artist-medium">Collage &middot; Mixed Media</p>
+              <h3 class="artist-artwork">Let Them Be Children</h3>
+              <p class="artist-name-label">Deborah Roberts &middot; 2018</p>
+              <p class="artist-bio">Austin-based artist Deborah Roberts creates large-scale collages that center Black childhood, joy, and innocence.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT PAGE -->
+    <section class="page" id="visit">
+      <div class="page-hero">
+        <h1>Plan Your Visit</h1>
+        <p>Everything you need to know before you arrive at VMFA.</p>
+      </div>
+      <div class="visit-grid">
+        <div class="visit-card">
+          <h3>Hours of Operation</h3>
+          <div class="hours-table">
+            <div class="hours-row"><span class="day">Saturday - Tuesday</span><span class="time">10 am - 5 pm</span></div>
+            <div class="hours-row"><span class="day">Wednesday - Friday</span><span class="time">10 am - 9 pm</span></div>
+          </div>
+          <p class="visit-note">Open 365 days a year, including most holidays. Last entry 30 minutes before closing.</p>
+        </div>
+        <div class="visit-card">
+          <h3>Admission &amp; Tickets</h3>
+          <div class="ticket-table">
+            <div class="ticket-row"><div><strong>General Admission</strong><p>Permanent collection &amp; galleries</p></div><span class="price free">Always Free</span></div>
+            <div class="ticket-row"><div><strong>Special Exhibition - Adult</strong></div><span class="price">$20</span></div>
+            <div class="ticket-row"><div><strong>Special Exhibition - Senior (62+)</strong></div><span class="price">$16</span></div>
+            <div class="ticket-row"><div><strong>Special Exhibition - Student</strong><p>Valid student ID required</p></div><span class="price">$12</span></div>
+            <div class="ticket-row"><div><strong>Children under 7</strong></div><span class="price free">Free</span></div>
+            <div class="ticket-row"><div><strong>VMFA Members</strong></div><span class="price free">Free</span></div>
+          </div>
+          <a href="https://www.vmfa.museum/visit/tickets/" target="_blank" class="btn-red" style="margin-top:16px;width:100%;display:block;text-align:center;">Buy Tickets Online</a>
+        </div>
+        <div class="visit-card">
+          <h3>Location &amp; Getting Here</h3>
+          <address class="visit-address">200 N Arthur Ashe Boulevard<br>Richmond, Virginia 23220</address>
+          <div class="transit-info">
+            <div class="transit-item"><strong>By Car</strong><p>Take I-195 to Exit 1B (Boulevard). Parking available in the museum lot and nearby garages.</p></div>
+            <div class="transit-item"><strong>Parking</strong><p>On-site parking available. Members receive complimentary parking. Daily rate: $5.</p></div>
+            <div class="transit-item"><strong>By Bus</strong><p>GRTC Route 2 (Boulevard) stops directly in front of the museum.</p></div>
+          </div>
+        </div>
+        <div class="visit-card">
+          <h3>Accessibility &amp; Services</h3>
+          <ul class="amenities-list">
+            <li>&#10003; Fully wheelchair accessible</li>
+            <li>&#10003; Elevator access to all floors</li>
+            <li>&#10003; Assistive listening devices available</li>
+            <li>&#10003; Large print guides on request</li>
+            <li>&#10003; Sensory-friendly programming</li>
+            <li>&#10003; Service animals welcome</li>
+            <li>&#10003; Audio guides available</li>
+            <li>&#10003; Free coat &amp; bag check</li>
+          </ul>
+        </div>
+        <div class="visit-card">
+          <h3>Dining at VMFA</h3>
+          <div class="dining-options">
+            <div class="dining-item"><strong>Best Cafe</strong><p>Full-service restaurant offering breakfast, lunch, and dinner. Open daily with seasonal menus.</p><span class="dining-hours">Tue-Sun: 11 am - 3 pm &middot; Fri-Sat: 5 pm - 9 pm</span></div>
+            <div class="dining-item"><strong>Amuse Wine Bar</strong><p>Curated wine and cocktail selection with small plates. Located on the main level.</p><span class="dining-hours">Wed-Sun: 4 pm - closing</span></div>
+          </div>
+        </div>
+        <div class="visit-card">
+          <h3>Contact &amp; Group Visits</h3>
+          <div class="contact-info">
+            <div class="contact-item"><strong>General Info</strong><p>(804) 340-1400</p></div>
+            <div class="contact-item"><strong>Group Visits</strong><p>groups@vmfa.museum</p><p>Groups of 10+ receive guided tours and discounts. Advance booking required.</p></div>
+            <div class="contact-item"><strong>Private Events</strong><p>VMFA's galleries and spaces are available for private events and rentals.</p></div>
+          </div>
+          <a href="https://www.vmfa.museum/visit/group-visits/" target="_blank" class="btn-outline-red" style="margin-top:16px;width:100%;display:block;text-align:center;">Plan a Group Visit</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <p class="eyebrow">Stay in the Know</p>
+      <h2>Join the VMFA Community</h2>
+      <p>Get the latest exhibitions, events, and stories from VMFA delivered to your inbox.</p>
+      <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletter(event);">
+        <input type="email" id="newsletterEmail" placeholder="Your email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="newsletter-success" id="newsletterSuccess">Thank you! You&rsquo;re now subscribed to VMFA updates.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="logo-letters">
+            <span class="logo-v">V</span><span class="logo-m">M</span><span class="logo-f">F</span><span class="logo-a">A</span>
+          </span>
+          <div class="logo-name">Virginia Museum<br>of Fine Arts</div>
+          <address>
+            200 N Arthur Ashe Boulevard<br>
+            Richmond, Virginia 23220<br>
+            (804) 340-1400
+          </address>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/VirginiaMuseumofFineArts" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.instagram.com/vmfa/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+            <a href="https://x.com/vmfa" target="_blank" rel="noopener" aria-label="X">&#x2715;</a>
+            <a href="https://www.youtube.com/@vmfarichmond" target="_blank" rel="noopener" aria-label="YouTube">&#9654;</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Visit</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('visit'); return false;">Plan Your Visit</a></li>
+            <li><a href="#" onclick="showPage('visit'); return false;">Hours &amp; Admission</a></li>
+            <li><a href="#" onclick="showPage('visit'); return false;">Directions &amp; Parking</a></li>
+            <li><a href="#" onclick="showPage('visit'); return false;">Dining</a></li>
+            <li><a href="#" onclick="showPage('visit'); return false;">Accessibility</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('exhibitions'); return false;">Exhibitions</a></li>
+            <li><a href="#" onclick="showPage('exhibitions'); return false;">Events</a></li>
+            <li><a href="#" onclick="showPage('collection'); return false;">Collection</a></li>
+            <li><a href="#" onclick="showPage('artists'); return false;">Featured Artists</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support VMFA</h4>
+          <ul>
+            <li><a href="https://www.vmfa.museum/membership/" target="_blank">Membership</a></li>
+            <li><a href="https://www.vmfa.museum/give/" target="_blank">Give to VMFA</a></li>
+            <li><a href="https://shop.vmfa.museum/" target="_blank">Museum Shop</a></li>
+            <li><a href="https://www.vmfa.museum/about/" target="_blank">About VMFA</a></li>
+            <li><a href="https://www.vmfa.museum/press/" target="_blank">Press</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Designed by Dheepthaa Devarajan Lakshman &nbsp;&middot;&nbsp; &copy; 2026 VMFA</p>
+        <div class="footer-bottom-links">
+          <a href="https://www.vmfa.museum/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+          <a href="https://www.vmfa.museum/terms-of-use/" target="_blank" rel="noopener">Terms of Use</a>
+          <a href="https://www.vmfa.museum/accessibility/" target="_blank" rel="noopener">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Exhibition Detail Panel -->
+  <div id="exhibitOverlay" class="exhibit-overlay" onclick="closeExhibitDetail()"></div>
+  <aside id="exhibitPanel" class="exhibit-panel" role="dialog" aria-modal="true">
+    <button class="exhibit-panel-close" onclick="closeExhibitDetail()" aria-label="Close">&times;</button>
+    <div class="exhibit-panel-img-wrap">
+      <img id="epImg" src="" alt="" />
+      <span id="epBadge" class="exhibit-badge"></span>
+    </div>
+    <div class="exhibit-panel-body">
+      <p id="epCategory" class="exhibit-category"></p>
+      <h2 id="epTitle"></h2>
+      <p id="epDates" class="exhibit-dates"></p>
+      <p id="epDesc" class="exhibit-panel-desc"></p>
+      <p id="epTicket" class="ticket-note"></p>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+  <script src='https://www.noupe.com/embed/019cc04fb202728f9577651f71e12e5eccbf.js'></script>
+</body>
+</html>
