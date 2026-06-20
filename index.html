@@ -257,6 +257,32 @@
             <button class="tab" onclick="filterExhibitions('upcoming', this)">Upcoming</button>
             <button class="tab" onclick="filterExhibitions('past', this)">Past</button>
           </div>
+
+          <!-- View toggle: List | Calendar -->
+          <div class="view-toggle-bar">
+            <button class="vtb active" id="vtbList" onclick="setExhibitionView('list', this)">
+              <svg width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden="true"><rect y="0" width="14" height="2" rx="1" fill="currentColor"/><rect y="5" width="14" height="2" rx="1" fill="currentColor"/><rect y="10" width="14" height="2" rx="1" fill="currentColor"/></svg>
+              List
+            </button>
+            <button class="vtb" id="vtbCalendar" onclick="setExhibitionView('calendar', this)">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 5.5h12" stroke="currentColor" stroke-width="1.2"/><rect x="3.5" y="0.5" width="1.2" height="3" rx="0.6" fill="currentColor"/><rect x="9.3" y="0.5" width="1.2" height="3" rx="0.6" fill="currentColor"/><circle cx="4.5" cy="9" r="0.9" fill="currentColor"/><circle cx="7" cy="9" r="0.9" fill="currentColor"/><circle cx="9.5" cy="9" r="0.9" fill="currentColor"/></svg>
+              Calendar
+            </button>
+          </div>
+
+          <!-- Calendar toolbar: month navigation (hidden in list mode) -->
+          <div class="cal-toolbar" id="calToolbar" style="display:none;">
+            <button class="cal-arrow-btn" onclick="shiftCalMonth(-1)" aria-label="Previous month">&#8592;</button>
+            <div class="cal-month-display">
+              <span id="calMonthLabel"></span>
+              <span class="cal-count" id="calCount"></span>
+            </div>
+            <button class="cal-arrow-btn" onclick="shiftCalMonth(1)" aria-label="Next month">&#8594;</button>
+          </div>
+
+          <!-- Month quick-select pills (hidden in list mode) -->
+          <div class="cal-month-pills" id="calMonthPills" style="display:none;"></div>
+
           <div class="exhibitions-list" id="exhibitionsList">
             <article class="exhibit-row" data-status="past" onclick="openExhibitDetail(this)" style="cursor:pointer;"
               data-img="images/giants.jpg"
@@ -364,6 +390,10 @@
               </div>
             </article>
           </div>
+
+          <!-- Calendar view — populated by JS -->
+          <div id="calView" class="cal-view" style="display:none;"></div>
+
         </div>
 
         <!-- EVENTS content (hidden until Events tab clicked) -->

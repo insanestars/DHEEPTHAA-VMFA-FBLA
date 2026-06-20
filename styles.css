@@ -1583,6 +1583,238 @@ footer {
 }
 
 /* ============================================================
+   EXHIBITION CALENDAR
+   ============================================================ */
+
+/* View toggle bar (List | Calendar) */
+.view-toggle-bar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin: 24px 0 0;
+  padding: 3px;
+  width: fit-content;
+  background: var(--ivory-mid);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.vtb {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 22px;
+  border-radius: 2px;
+  font-family: var(--ff-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .025em;
+  color: var(--ink-mid);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background .16s, color .16s;
+}
+.vtb svg { flex-shrink: 0; }
+.vtb.active { background: var(--ink); color: var(--white); }
+.vtb:not(.active):hover { background: var(--rule); color: var(--ink); }
+
+/* Calendar toolbar: month nav */
+.cal-toolbar {
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px 0 0;
+  padding: 22px 32px;
+  background: var(--black);
+  border-radius: 4px;
+  gap: 16px;
+}
+.cal-arrow-btn {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255,255,255,.18);
+  border-radius: 2px;
+  color: var(--white);
+  font-size: 20px;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color .18s, background .18s, color .18s;
+}
+.cal-arrow-btn:hover {
+  border-color: var(--red);
+  background: rgba(196,18,48,.14);
+  color: var(--red);
+}
+.cal-month-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+#calMonthLabel {
+  font-family: var(--ff-display);
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -.02em;
+  line-height: 1.1;
+}
+.cal-count {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--red);
+}
+
+/* Month pills row */
+.cal-month-pills {
+  gap: 8px;
+  padding: 18px 0 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex-wrap: nowrap;
+}
+.cal-month-pills::-webkit-scrollbar { display: none; }
+.cal-pill {
+  flex-shrink: 0;
+  padding: 7px 15px;
+  border-radius: 20px;
+  border: 1.5px solid var(--rule);
+  font-family: var(--ff-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--ink-mid);
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color .15s, background .15s, color .15s;
+}
+.cal-pill:hover { border-color: var(--ink); color: var(--ink); }
+.cal-pill.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+/* Calendar view container */
+.cal-view { margin-top: 24px; }
+
+/* Calendar exhibition card */
+.cal-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  transition: box-shadow .22s, transform .22s;
+}
+.cal-card:hover {
+  box-shadow: 0 6px 28px rgba(0,0,0,.1);
+  transform: translateY(-2px);
+}
+.cal-card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+.cal-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .42s ease;
+}
+.cal-card:hover .cal-card-img-wrap img { transform: scale(1.05); }
+.cal-card-img-wrap .exhibit-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+}
+.cal-card-body {
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+.cal-card-body .exhibit-category {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.cal-card-body h3 {
+  font-family: var(--ff-display);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 10px;
+  letter-spacing: -.01em;
+}
+.cal-dates-line {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red);
+  letter-spacing: .02em;
+  margin-bottom: 12px;
+}
+.cal-card-body .exhibit-desc {
+  font-size: 14.5px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cal-card-body .ticket-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+}
+
+/* Empty state */
+.cal-empty {
+  padding: 72px 0;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 16px;
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+/* ── Calendar responsive ── */
+@media (max-width: 768px) {
+  .view-toggle-bar { width: 100%; }
+  .vtb { flex: 1; justify-content: center; }
+  .cal-toolbar { padding: 18px 20px; }
+  #calMonthLabel { font-size: clamp(18px, 5vw, 24px); }
+  .cal-card { grid-template-columns: 1fr; }
+  .cal-card-img-wrap { min-height: 200px; max-height: 220px; }
+  .cal-card-body { padding: 22px 20px; }
+}
+@media (max-width: 480px) {
+  .cal-card-img-wrap { max-height: 180px; }
+  .cal-card-body { padding: 18px 16px; }
+  .cal-arrow-btn { width: 40px; height: 40px; font-size: 18px; }
+}
+
+/* ============================================================
    EXHIBITION DETAIL PANEL
    ============================================================ */
 

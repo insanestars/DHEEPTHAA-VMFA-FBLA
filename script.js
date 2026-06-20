@@ -163,6 +163,7 @@ function closeExhibitDetail() {
 function filterExhibitions(filter, btn) {
   document.querySelectorAll('.tab').forEach(function(tab) { tab.classList.remove('active'); });
   if (btn) btn.classList.add('active');
+  calState.statusFilter = filter;
 
   document.querySelectorAll('.exhibit-row').forEach(function(row) {
     var status = row.getAttribute('data-status');
@@ -172,6 +173,196 @@ function filterExhibitions(filter, btn) {
       row.classList.add('hidden');
     }
   });
+
+  if (calState.view === 'calendar') renderCalendar();
+}
+
+// ============================================================
+// Exhibition Calendar
+// ============================================================
+
+var EXHIBITION_DATA = [
+  {
+    title: 'Giants: Art from the Dean Collection of Swizz Beatz and Alicia Keys',
+    img: 'images/giants.jpg',
+    badge: 'past', badgeLabel: 'Closed',
+    category: 'Special Exhibition · Altria Group Gallery',
+    start: new Date(2025, 10, 22), end: new Date(2026, 2, 1),
+    desc: 'Celebrating Black artistic excellence across generations, this landmark exhibition featured over 130 works by Jean-Michel Basquiat, Kerry James Marshall, Amy Sherald, Derrick Adams, and Kehinde Wiley.',
+    ticket: 'This exhibition has closed.', status: 'past'
+  },
+  {
+    title: 'Monet & the Impressionists: French Masterworks',
+    img: 'images/monet.jpg',
+    badge: 'current', badgeLabel: 'Now On View',
+    category: 'Permanent Collection · Mellon Galleries',
+    start: null, end: null, ongoing: true,
+    desc: 'VMFA houses one of the finest collections of Impressionist paintings in the American South, including landmark works by Claude Monet, Edgar Degas, Pierre-Auguste Renoir, and Mary Cassatt.',
+    ticket: '✦ Free with General Admission', status: 'current'
+  },
+  {
+    title: "India’s Great Mughals: Art, Power, and Opulence",
+    img: 'images/mughals.jpg',
+    badge: 'current', badgeLabel: 'Now On View',
+    category: 'Special Exhibition · Altria Group Gallery',
+    start: new Date(2026, 4, 9), end: new Date(2026, 7, 23),
+    desc: 'An unprecedented exhibition drawing on rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty, organized by the Victoria and Albert Museum.',
+    ticket: '✦ Ticketed Exhibition – Members Free', status: 'current'
+  },
+  {
+    title: 'Jazz & Visual Art: The Richmond Renaissance',
+    img: 'images/jazz.jpg',
+    badge: 'upcoming', badgeLabel: 'Upcoming',
+    category: 'Special Exhibition · NewMarket Gallery',
+    start: new Date(2026, 6, 12), end: new Date(2026, 9, 25),
+    datesLabel: 'Summer 2026 (Dates TBA)',
+    desc: 'A celebration of the deep connections between jazz music and the visual arts in Richmond, Virginia, tracing the city’s vibrant jazz scene from the 1920s through today.',
+    ticket: '✦ Free with General Admission', status: 'upcoming'
+  },
+  {
+    title: 'Fabergé: Romance to Revolution',
+    img: 'images/faberge.jpg',
+    badge: 'upcoming', badgeLabel: 'Upcoming',
+    category: 'Special Exhibition',
+    start: new Date(2026, 8, 20), end: new Date(2027, 0, 18),
+    datesLabel: 'Fall 2026 (Dates TBA)',
+    desc: "Drawing on VMFA’s unparalleled Fabergé holdings, this exhibition traces the extraordinary craftsmanship of the Fabergé firm from Imperial Russia to the revolution that ended it all.",
+    ticket: '✦ Ticketed Exhibition – Members Free', status: 'upcoming'
+  }
+];
+
+var CAL_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+var calState = (function() {
+  var n = new Date();
+  return { year: n.getFullYear(), month: n.getMonth(), view: 'list', statusFilter: 'all' };
+}());
+
+function exInMonth(ex, y, m) {
+  if (ex.ongoing) return true;
+  var ms = new Date(y, m, 1);
+  var me = new Date(y, m + 1, 0, 23, 59, 59);
+  return ex.start <= me && ex.end >= ms;
+}
+
+function exDateLabel(ex) {
+  if (ex.datesLabel) return ex.datesLabel;
+  if (ex.ongoing) return 'Ongoing · Permanent Collection';
+  var o = { month: 'long', day: 'numeric', year: 'numeric' };
+  return ex.start.toLocaleDateString('en-US', o) + ' – ' + ex.end.toLocaleDateString('en-US', o);
+}
+
+function renderCalendar() {
+  var labelEl = document.getElementById('calMonthLabel');
+  var countEl = document.getElementById('calCount');
+  var container = document.getElementById('calView');
+  if (!container) return;
+
+  if (labelEl) labelEl.textContent = CAL_MONTHS[calState.month] + ' ' + calState.year;
+
+  var visible = EXHIBITION_DATA.filter(function(ex) {
+    var statusOk = calState.statusFilter === 'all' || ex.status === calState.statusFilter;
+    return statusOk && exInMonth(ex, calState.year, calState.month);
+  });
+
+  if (countEl) {
+    countEl.textContent = visible.length + (visible.length === 1 ? ' exhibition' : ' exhibitions');
+  }
+
+  if (visible.length === 0) {
+    container.innerHTML = '<div class="cal-empty"><p>No exhibitions match for ' +
+      CAL_MONTHS[calState.month] + ' ' + calState.year + '.</p></div>';
+    return;
+  }
+
+  container.innerHTML = visible.map(function(ex) {
+    var st = ex.title.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    var sd = ex.desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    return '<article class="cal-card" onclick="openDetailPanel(this)" style="cursor:pointer;"' +
+      ' data-img="' + ex.img + '"' +
+      ' data-badge="' + ex.badge + '" data-badge-label="' + ex.badgeLabel + '"' +
+      ' data-category="' + ex.category + '"' +
+      ' data-title="' + st + '"' +
+      ' data-dates="' + exDateLabel(ex) + '"' +
+      ' data-desc="' + sd + '"' +
+      ' data-ticket="' + ex.ticket + '">' +
+      '<div class="cal-card-img-wrap">' +
+        '<img src="' + ex.img + '" alt="' + st + '" loading="lazy"/>' +
+        '<span class="exhibit-badge ' + ex.badge + '">' + ex.badgeLabel + '</span>' +
+      '</div>' +
+      '<div class="cal-card-body">' +
+        '<p class="exhibit-category">' + ex.category + '</p>' +
+        '<h3>' + ex.title + '</h3>' +
+        '<p class="cal-dates-line">' + exDateLabel(ex) + '</p>' +
+        '<p class="exhibit-desc">' + ex.desc + '</p>' +
+        '<span class="ticket-note">' + ex.ticket + '</span>' +
+      '</div>' +
+    '</article>';
+  }).join('');
+}
+
+function renderMonthPills() {
+  var container = document.getElementById('calMonthPills');
+  if (!container) return;
+
+  var months = [];
+  var d = new Date(2025, 10, 1);
+  var end = new Date(2027, 2, 1);
+  while (d <= end) {
+    var y = d.getFullYear(), m = d.getMonth();
+    if (EXHIBITION_DATA.some(function(ex) { return exInMonth(ex, y, m); })) {
+      months.push({ y: y, m: m });
+    }
+    d.setMonth(d.getMonth() + 1);
+  }
+
+  container.innerHTML = months.map(function(p) {
+    var active = p.y === calState.year && p.m === calState.month;
+    return '<button class="cal-pill' + (active ? ' active' : '') +
+      '" onclick="jumpCalMonth(' + p.y + ',' + p.m + ')">' +
+      CAL_MONTHS[p.m].substr(0, 3) + ' ’' + String(p.y).slice(2) + '</button>';
+  }).join('');
+
+  setTimeout(function() {
+    var a = container.querySelector('.cal-pill.active');
+    if (a) a.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  }, 60);
+}
+
+function jumpCalMonth(year, month) {
+  calState.year = year; calState.month = month;
+  renderCalendar(); renderMonthPills();
+}
+
+function shiftCalMonth(delta) {
+  calState.month += delta;
+  if (calState.month > 11) { calState.month = 0; calState.year++; }
+  if (calState.month < 0)  { calState.month = 11; calState.year--; }
+  renderCalendar(); renderMonthPills();
+}
+
+function setExhibitionView(view, btn) {
+  calState.view = view;
+  document.querySelectorAll('.vtb').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+
+  var listEl    = document.getElementById('exhibitionsList');
+  var calViewEl = document.getElementById('calView');
+  var toolbar   = document.getElementById('calToolbar');
+  var pills     = document.getElementById('calMonthPills');
+
+  if (view === 'calendar') {
+    if (listEl)    listEl.style.display    = 'none';
+    if (calViewEl) calViewEl.style.display = 'block';
+    if (toolbar)   toolbar.style.display   = 'flex';
+    if (pills)     pills.style.display     = 'flex';
+    renderCalendar(); renderMonthPills();
+  } else {
+    if (listEl)    listEl.style.display    = '';
+    if (calViewEl) calViewEl.style.display = 'none';
+    if (toolbar)   toolbar.style.display   = 'none';
+    if (pills)     pills.style.display     = 'none';
+  }
 }
 
 // ============================================================
