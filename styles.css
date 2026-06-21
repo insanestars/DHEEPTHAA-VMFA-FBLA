@@ -1291,9 +1291,26 @@ footer {
   .exhibit-img-wrap { height: 300px; }
 }
 
-/* ── 1024px ── */
+/* ── 1024px (iPad Pro 12.9" portrait, iPad Air/standard/mini landscape) ── */
 @media (max-width: 1024px) {
-  .hero { padding: 0 40px 72px; }
+  /* Hero — center content for all tablet viewports */
+  .hero { padding: 0 40px 72px; justify-content: center; align-items: center; }
+  .hero-overlay {
+    background:
+      linear-gradient(to top, rgba(12,8,5,.85) 0%, transparent 55%),
+      rgba(12,8,5,.44);
+  }
+  .hero-box { text-align: center; padding-left: 0; max-width: 700px; }
+  .hero-box h1 { text-indent: 0; }
+  .hero-btns { justify-content: center; }
+
+  /* Info bar — 2 columns instead of 4 (prevents text crush on narrow tablets) */
+  .info-bar { grid-template-columns: repeat(2, 1fr); }
+  .info-bar-item:nth-child(2) { border-right: none; }
+
+  /* Featured event card body padding relief on tablets */
+  .event-card:first-child .event-body { padding: 40px 44px; }
+
   .current-exhibition { padding: 80px 40px; }
   .current-exhibition .inner { grid-template-columns: 1fr 380px; gap: 48px; }
   .current-exhibition img { height: 440px; }
@@ -1305,6 +1322,25 @@ footer {
   .visit-card h3 { font-size: 28px; }
   .section { padding: 80px 32px; }
   .section-gray { padding: 80px 32px; }
+}
+
+/* ── Zenbook Fold & large portrait tablets (1025px–1366px in portrait) ── */
+@media (min-width: 1025px) and (max-width: 1366px) and (orientation: portrait) {
+  .hero { justify-content: center; align-items: center; }
+  .hero-overlay {
+    background:
+      linear-gradient(to top, rgba(12,8,5,.85) 0%, transparent 55%),
+      rgba(12,8,5,.44);
+  }
+  .hero-box { text-align: center; padding-left: 0; max-width: 800px; }
+  .hero-box h1 { text-indent: 0; }
+  .hero-btns { justify-content: center; }
+  .info-bar { grid-template-columns: repeat(2, 1fr); }
+  .info-bar-item:nth-child(2) { border-right: none; }
+  .current-exhibition .inner { grid-template-columns: 1fr; gap: 40px; }
+  .current-exhibition img { height: 380px; }
+  .member-cta { grid-template-columns: 1fr; }
+  .member-cta-img { display: none; }
 }
 
 /* ── 900px ── */
