@@ -1623,42 +1623,79 @@ footer {
    ============================================================ */
 
 .util-bar {
-  background: var(--ink);
-  height: 38px;
+  background: linear-gradient(90deg, #b01029 0%, #c41230 40%, #b8112c 100%);
+  height: 44px;
   display: flex;
   align-items: center;
+  box-shadow: 0 2px 12px rgba(196,18,48,0.35);
 }
 .util-bar-inner {
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 32px;
+  padding: 0 36px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+.util-bar-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(246,243,238,0.65);
+  text-transform: uppercase;
 }
 #utilGuest, #utilMember {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .util-link {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   font-weight: 500;
-  color: rgba(246,243,238,0.6);
+  color: rgba(246,243,238,0.8);
   letter-spacing: 0.07em;
   transition: color 0.15s;
 }
-.util-link:hover { color: var(--ivory); }
-.util-link-accent { color: var(--ivory); font-weight: 600; }
-.util-divider { color: rgba(246,243,238,0.25); font-size: 10px; }
+.util-link:hover { color: #fff; }
+.util-link-signin {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  background: var(--ivory);
+  padding: 5px 16px;
+  border-radius: 2px;
+  border: none;
+  transition: background 0.18s, color 0.18s;
+}
+.util-link-signin:hover { background: #fff; color: #a00e25; }
+.util-divider { color: rgba(246,243,238,0.3); font-size: 10px; }
 .util-greeting {
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
-  color: rgba(246,243,238,0.6);
+  color: rgba(246,243,238,0.8);
 }
-.util-greeting strong { color: var(--ivory); }
+.util-greeting strong { color: #fff; }
+.util-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.2);
+  border: 1.5px solid rgba(246,243,238,0.5);
+  color: var(--ivory);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
 @media (max-width: 520px) { .util-bar { display: none; } }
 

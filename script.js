@@ -764,8 +764,10 @@ function enableMemberMode() {
   var utilMember = document.getElementById('utilMember');
   if (utilGuest)  utilGuest.style.display = 'none';
   if (utilMember) {
+    var initials = user.name.split(' ').map(function(n) { return n[0] || ''; }).slice(0, 2).join('').toUpperCase();
     utilMember.style.display = 'flex';
     utilMember.innerHTML =
+      '<div class="util-avatar">' + escHtml(initials) + '</div>' +
       '<span class="util-greeting">Welcome, <strong>' + escHtml(user.name) + '</strong></span>' +
       '<span class="util-divider">&middot;</span>' +
       '<a href="#" class="util-link" onclick="openMyReservations(); return false;">My Reservations</a>' +
