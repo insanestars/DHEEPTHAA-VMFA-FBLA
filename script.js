@@ -150,7 +150,7 @@ function openDetailPanel(el) {
     if (status === 'past') {
       memberArea.innerHTML = '';
     } else if (window.vmfaUser) {
-      memberArea.innerHTML = '<button class="btn-red panel-reserve-btn" onclick="openReserveModal()">Reserve Tickets →</button>';
+      memberArea.innerHTML = '<a href="https://reservations.vmfa.museum/state/ActivityBooking.aspx" target="_blank" rel="noopener" class="btn-red panel-reserve-btn">Reserve Tickets →</a>';
     } else {
       memberArea.innerHTML = '<a href="login.html" class="panel-signin-link">✧ Sign in to reserve tickets</a>';
     }
