@@ -55,6 +55,15 @@
   <!-- Mobile Nav -->
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-close" id="menuClose">&#10005;</button>
+    <div class="mobile-nav-search">
+      <input type="text" id="mobileNavSearchInput" placeholder="Search VMFA&hellip;" autocomplete="off" />
+      <button type="button" aria-label="Search" onclick="mobileNavSearch()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
     <ul>
       <li><a href="#" onclick="showPage('home'); closeMobileNav(); return false;">Home</a></li>
       <li><a href="#" onclick="showPage('exhibitions'); closeMobileNav(); return false;">Exhibitions</a></li>

@@ -665,6 +665,20 @@ function headerSearch() {
   performSearch(query);
 }
 
+function mobileNavSearch() {
+  var input = document.getElementById('mobileNavSearchInput');
+  var query = input ? input.value.trim() : '';
+  closeMobileNav();
+  var overlay = document.getElementById('searchOverlay');
+  var overlayInput = document.getElementById('searchInput');
+  if (overlay) overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (overlayInput) { overlayInput.value = query; }
+  if (query) performSearch(query);
+  else if (overlayInput) overlayInput.focus();
+  if (input) input.value = '';
+}
+
 // ============================================================
 // Newsletter
 // ============================================================
@@ -706,6 +720,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var headerInput = document.getElementById('headerSearchInput');
   if (headerInput) {
     headerInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') headerSearch(); });
+  }
+
+  var mobileNavInput = document.getElementById('mobileNavSearchInput');
+  if (mobileNavInput) {
+    mobileNavInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') mobileNavSearch(); });
   }
 
   var searchInput = document.getElementById('searchInput');
