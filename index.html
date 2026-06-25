@@ -127,16 +127,16 @@
           <a href="#" class="see-all" onclick="showPageEvents(); return false;">View All Events &rarr;</a>
         </div>
         <div class="events-grid">
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" data-status="past" style="cursor:pointer;" onclick="openDetailPanel(this)"
             data-img="https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg"
-            data-badge="current" data-badge-label="Music &amp; Performing Arts"
+            data-badge="past" data-badge-label="Event Ended"
             data-category="Music &amp; Performing Arts · Cochrane Atrium"
             data-title="After 5 Fridays | Summer Soir&eacute;e"
             data-dates="Friday, June 20 · 6 pm · Cochrane Atrium"
             data-desc="Live jazz and dancing to welcome summer at VMFA's beloved After 5 Fridays series. Held in the stunning Cochrane Atrium, this monthly evening event brings together Richmond's art and music communities for an unforgettable night of performance and connection. June's soirée features a special lineup celebrating the sounds of summer, with local jazz musicians performing from 6–9 pm. Dress to impress — this is Richmond's coolest Friday night out."
-            data-ticket="✦ Free with General Admission · Cash Bar Available">
+            data-ticket="This event has passed.">
             <div class="event-img" style="background-image: url('https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg'); background-size: cover; background-position: center;">
-              <span class="event-img-label">Music &amp; Performing Arts</span>
+              <span class="event-img-label past">Event Ended</span>
             </div>
             <div class="event-body">
               <p class="event-category">Music &amp; Performing Arts</p>
@@ -145,16 +145,16 @@
               <p class="event-desc">Live jazz and dancing to welcome summer. Free with museum admission. Cash bar available.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" data-status="past" style="cursor:pointer;" onclick="openDetailPanel(this)"
             data-img="images/mughals.jpg"
-            data-badge="current" data-badge-label="Talks"
+            data-badge="past" data-badge-label="Event Ended"
             data-category="Talks · Altria Group Gallery"
             data-title="Gallery Talk: Jewels of the Mughal Court"
             data-dates="Wednesday, June 18 · 12 pm · Altria Group Gallery"
             data-desc="Join VMFA curators for an intimate guided conversation exploring the imperial gemstones, jade carvings, and jeweled objects at the heart of the India's Great Mughals exhibition. This 45-minute curator-led talk offers rare insight into the symbolism of Mughal jewelry — how precious stones were used to communicate power, faith, and dynastic legitimacy across six imperial reigns. Limited to 30 participants; free with exhibition admission."
-            data-ticket="✦ Free with Exhibition Admission · Limited Seating">
+            data-ticket="This event has passed.">
             <div class="event-img" style="background-image: url('images/mughals.jpg'); background-size: cover; background-position: center;">
-              <span class="event-img-label">Talks</span>
+              <span class="event-img-label past">Event Ended</span>
             </div>
             <div class="event-body">
               <p class="event-category">Talks</p>
@@ -417,16 +417,16 @@
         <div id="eventsContent" style="display:none;">
           <div class="section-header"><h2>Upcoming Events</h2></div>
           <div class="events-grid">
-            <div class="event-card" id="event-after5" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="event-card" id="event-after5" data-status="past" style="cursor:pointer;" onclick="openDetailPanel(this)"
               data-img="https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg"
-              data-badge="current" data-badge-label="Music &amp; Performing Arts"
+              data-badge="past" data-badge-label="Event Ended"
               data-category="Music &amp; Performing Arts · Cochrane Atrium"
               data-title="After 5 Fridays | Summer Soir&eacute;e"
               data-dates="Friday, June 20 · 6 pm · Cochrane Atrium"
               data-desc="Live jazz and dancing to welcome summer at VMFA's beloved After 5 Fridays series. Held in the stunning Cochrane Atrium, this monthly evening event brings together Richmond's art and music communities for an unforgettable night of performance and connection. June's soirée features a special lineup celebrating the sounds of summer, with local jazz musicians performing from 6–9 pm. Dress to impress — this is Richmond's coolest Friday night out."
-              data-ticket="✦ Free with General Admission · Cash Bar Available">
+              data-ticket="This event has passed.">
               <div class="event-img" style="background-image: url('https://www.vmfa.museum/outbound/medias?w=800&file=images%2FHipHop%20Line%20Dancing.jpg'); background-size: cover; background-position: center;">
-                <span class="event-img-label">Music &amp; Performing Arts</span>
+                <span class="event-img-label past">Event Ended</span>
               </div>
               <div class="event-body">
                 <p class="event-category">Music &amp; Performing Arts</p>
@@ -435,16 +435,16 @@
                 <p class="event-desc">Live jazz and dancing to welcome summer. Free with museum admission. Cash bar available.</p>
               </div>
             </div>
-            <div class="event-card" id="event-gallery-talk" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="event-card" id="event-gallery-talk" data-status="past" style="cursor:pointer;" onclick="openDetailPanel(this)"
               data-img="images/mughals.jpg"
-              data-badge="current" data-badge-label="Talks"
+              data-badge="past" data-badge-label="Event Ended"
               data-category="Talks · Altria Group Gallery"
               data-title="Gallery Talk: Jewels of the Mughal Court"
               data-dates="Wednesday, June 18 · 12 pm · Altria Group Gallery"
               data-desc="Join VMFA curators for an intimate guided conversation exploring the imperial gemstones, jade carvings, and jeweled objects at the heart of the India's Great Mughals exhibition. This 45-minute curator-led talk offers rare insight into the symbolism of Mughal jewelry — how precious stones were used to communicate power, faith, and dynastic legitimacy across six imperial reigns. Limited to 30 participants; free with exhibition admission."
-              data-ticket="✦ Free with Exhibition Admission · Limited Seating">
+              data-ticket="This event has passed.">
               <div class="event-img" style="background-image: url('images/mughals.jpg'); background-size: cover; background-position: center;">
-                <span class="event-img-label">Talks</span>
+                <span class="event-img-label past">Event Ended</span>
               </div>
               <div class="event-body">
                 <p class="event-category">Talks</p>
@@ -1217,6 +1217,7 @@
       <div class="footer-bottom">
         <p>Designed by Dheepthaa Devarajan Lakshman &nbsp;&middot;&nbsp; &copy; 2026 VMFA</p>
         <div class="footer-bottom-links">
+          <a href="https://docs.google.com/document/d/1nZb1lxHBpHxvmLE0vpFleC7faOCGr0Ja1B-VtWyQOQM/edit?tab=t.0" target="_blank" rel="noopener">Citations</a>
           <a href="https://www.vmfa.museum/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
           <a href="https://www.vmfa.museum/terms-of-use/" target="_blank" rel="noopener">Terms of Use</a>
           <a href="https://www.vmfa.museum/accessibility/" target="_blank" rel="noopener">Accessibility</a>
