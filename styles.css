@@ -1751,7 +1751,7 @@ footer {
 .login-switch-link a { color: var(--red); font-weight: 600; }
 .login-switch-link a:hover { text-decoration: underline; }
 
-@media (max-width: 400px) { .login-field-row { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .login-field-row { grid-template-columns: 1fr; } }
 
 /* ============================================================
    PAYMENT FORM (Step 2 of reservation modal)
