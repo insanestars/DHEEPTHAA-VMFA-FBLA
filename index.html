@@ -9,6 +9,18 @@
 </head>
 <body>
 
+  <!-- UTILITY BAR -->
+  <div class="util-bar" id="utilBar">
+    <div class="util-bar-inner">
+      <div id="utilGuest">
+        <a href="signup.html" class="util-link">Create Account</a>
+        <span class="util-divider">|</span>
+        <a href="login.html" class="util-link util-link-accent">Sign In</a>
+      </div>
+      <div id="utilMember" style="display:none;"></div>
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header id="site-header">
     <div class="header-main">
@@ -49,6 +61,11 @@
       <li><a href="#" onclick="showPage('collection'); closeMobileNav(); return false;">Collections</a></li>
       <li><a href="#" onclick="showPage('artists'); closeMobileNav(); return false;">Featured Artists</a></li>
       <li><a href="#" onclick="showPage('visit'); closeMobileNav(); return false;">Plan Your Visit</a></li>
+      <li id="mobileAuthItem">
+        <a href="login.html">Sign In</a>
+        &nbsp;&middot;&nbsp;
+        <a href="signup.html">Create Account</a>
+      </li>
     </ul>
   </div>
 
@@ -1222,7 +1239,157 @@
       <p id="epDates" class="exhibit-dates"></p>
       <p id="epDesc" class="exhibit-panel-desc"></p>
       <p id="epTicket" class="ticket-note"></p>
+      <div id="panelMemberArea" class="panel-member-area"></div>
     </div>
+  </aside>
+
+  <!-- ── Reservation Modal ───────────────────────────────── -->
+  <div id="reserveModalOverlay" class="modal-overlay" onclick="closeReserveModal()"></div>
+  <div id="reserveModal" class="reserve-modal" role="dialog" aria-modal="true">
+
+    <!-- STEP 1: Ticket Selection -->
+    <div id="reserveStep1" class="reserve-step">
+      <div class="reserve-modal-header">
+        <div>
+          <p class="reserve-modal-eyebrow">Reservation</p>
+          <h2>Select Tickets</h2>
+        </div>
+        <button class="reserve-modal-close" onclick="closeReserveModal()" aria-label="Close">&times;</button>
+      </div>
+      <div class="reserve-modal-body">
+        <div class="reserve-exhibition-info">
+          <h3 id="reserveModalTitle"></h3>
+          <p id="reserveModalDates" class="reserve-modal-dates"></p>
+        </div>
+        <div class="reserve-field">
+          <label for="reserveDate">Visit Date</label>
+          <input type="date" id="reserveDate" class="reserve-date-input" />
+        </div>
+        <div class="reserve-tickets-section">
+          <p class="reserve-section-label">Tickets</p>
+          <div class="ticket-counter-row">
+            <div class="ticket-counter-info"><strong>Adults (18+)</strong><span class="ticket-price-label" id="priceAdults">$20 each</span></div>
+            <div class="ticket-counter-ctrl">
+              <button class="counter-btn" onclick="changeTicket('adults',-1)">&#8722;</button>
+              <span class="counter-val" id="ctAdults">0</span>
+              <button class="counter-btn" onclick="changeTicket('adults',1)">&#43;</button>
+            </div>
+          </div>
+          <div class="ticket-counter-row">
+            <div class="ticket-counter-info"><strong>Seniors (62+)</strong><span class="ticket-price-label" id="priceSeniors">$16 each</span></div>
+            <div class="ticket-counter-ctrl">
+              <button class="counter-btn" onclick="changeTicket('seniors',-1)">&#8722;</button>
+              <span class="counter-val" id="ctSeniors">0</span>
+              <button class="counter-btn" onclick="changeTicket('seniors',1)">&#43;</button>
+            </div>
+          </div>
+          <div class="ticket-counter-row">
+            <div class="ticket-counter-info"><strong>Students</strong><span class="ticket-price-label" id="priceStudents">$12 each</span></div>
+            <div class="ticket-counter-ctrl">
+              <button class="counter-btn" onclick="changeTicket('students',-1)">&#8722;</button>
+              <span class="counter-val" id="ctStudents">0</span>
+              <button class="counter-btn" onclick="changeTicket('students',1)">&#43;</button>
+            </div>
+          </div>
+          <div class="ticket-counter-row">
+            <div class="ticket-counter-info"><strong>Children (under 7)</strong><span class="ticket-price-label">Free</span></div>
+            <div class="ticket-counter-ctrl">
+              <button class="counter-btn" onclick="changeTicket('children',-1)">&#8722;</button>
+              <span class="counter-val" id="ctChildren">0</span>
+              <button class="counter-btn" onclick="changeTicket('children',1)">&#43;</button>
+            </div>
+          </div>
+        </div>
+        <div class="reserve-total">
+          <span>Total</span>
+          <span id="reserveTotalDisplay">Free</span>
+        </div>
+        <p class="reserve-member-note" id="reserveMemberNote"></p>
+        <button class="btn-red reserve-confirm-btn" id="reserveStep1Btn" onclick="proceedFromStep1()">Reserve Free Tickets &rarr;</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Payment (ticketed exhibitions only) -->
+    <div id="reserveStep2" class="reserve-step" style="display:none;">
+      <div class="reserve-modal-header">
+        <div>
+          <p class="reserve-modal-eyebrow">Secure Checkout</p>
+          <h2>Purchase Tickets</h2>
+        </div>
+        <button class="reserve-modal-close" onclick="closeReserveModal()" aria-label="Close">&times;</button>
+      </div>
+      <div class="reserve-modal-body">
+        <div class="payment-order-summary">
+          <p class="pay-summary-eyebrow">Order Summary</p>
+          <div class="pay-summary-row">
+            <span id="paySummaryTitle"></span>
+            <span id="paySummaryTotal"></span>
+          </div>
+          <p id="paySummaryBreakdown" class="pay-summary-breakdown"></p>
+          <p id="paySummaryDate" class="pay-summary-date"></p>
+        </div>
+        <div class="payment-form">
+          <div class="reserve-field">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" class="reserve-date-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)" />
+          </div>
+          <div class="reserve-field">
+            <label for="cardName">Name on Card</label>
+            <input type="text" id="cardName" class="reserve-date-input" placeholder="Full name as it appears on card" />
+          </div>
+          <div class="payment-row-two">
+            <div class="reserve-field">
+              <label for="cardExpiry">Expiry</label>
+              <input type="text" id="cardExpiry" class="reserve-date-input" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)" />
+            </div>
+            <div class="reserve-field">
+              <label for="cardCvv">CVV</label>
+              <input type="text" id="cardCvv" class="reserve-date-input" placeholder="123" maxlength="4" inputmode="numeric" />
+            </div>
+          </div>
+          <p id="paymentError" class="login-error" style="margin-top:2px;min-height:16px;"></p>
+          <button class="btn-red reserve-confirm-btn" onclick="processPayment()">
+            <span id="payBtnText">Complete Purchase &rarr;</span>
+          </button>
+          <button class="reserve-back-btn" onclick="goToStep(1)">&larr; Back to ticket selection</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Confirmation -->
+    <div id="reserveStep3" class="reserve-step" style="display:none;">
+      <div class="reserve-confirm-screen">
+        <div class="confirm-icon">&#10003;</div>
+        <h2 class="confirm-heading" id="confirmHeading">Confirmed!</h2>
+        <p class="confirm-msg" id="confirmMsg"></p>
+        <div class="confirm-details" id="confirmDetails"></div>
+        <p class="confirm-ref">Booking reference: <strong id="confirmRef"></strong></p>
+        <button class="btn-red reserve-confirm-btn" onclick="closeReserveModal()">Done</button>
+        <button class="reserve-back-btn" onclick="openMyReservations(); closeReserveModal();">View My Reservations &rarr;</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── My Panels Shared Overlay ────────────────────────── -->
+  <div id="myPanelOverlay" class="exhibit-overlay" onclick="closeMyPanels()"></div>
+
+  <!-- ── My Reservations Panel ────────────────────────────── -->
+  <aside id="myReservationsPanel" class="my-panel exhibit-panel" role="dialog" aria-modal="true" aria-label="My Reservations">
+    <div class="my-panel-header">
+      <h2>My Reservations</h2>
+      <button class="exhibit-panel-close" onclick="closeMyPanels()" aria-label="Close">&times;</button>
+    </div>
+    <div class="my-panel-content" id="myReservationsContent"></div>
+  </aside>
+
+  <!-- ── My Collection Panel ──────────────────────────────── -->
+  <aside id="myCollectionPanel" class="my-panel exhibit-panel" role="dialog" aria-modal="true" aria-label="My Collection">
+    <div class="my-panel-header">
+      <h2>My Collection</h2>
+      <button class="exhibit-panel-close" onclick="closeMyPanels()" aria-label="Close">&times;</button>
+    </div>
+    <div class="my-panel-content" id="myCollectionContent"></div>
   </aside>
 
   <script src="script.js"></script>

@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.vmfa.museum)"
+      "WebFetch(domain:www.vmfa.museum)",
+      "Bash(cd /c/Users/luxma/OneDrive/Desktop/\"VMFA WEBSITE DESIGN\" && find . -type f | head -100)",
+      "Read(//c/c/Users/luxma/OneDrive/Desktop/**)"
     ]
   }
 }

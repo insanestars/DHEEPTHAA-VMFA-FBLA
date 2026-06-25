@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In – Virginia Museum of Fine Arts</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="login-body">
+
+  <div class="login-page-wrap">
+    <div class="login-card">
+      <a href="index.html" class="login-back-link">&larr; Back to VMFA</a>
+
+      <div class="login-logo">
+        <div class="logo-letters">
+          <span class="logo-v">V</span><span class="logo-m">M</span><span class="logo-f">F</span><span class="logo-a">A</span>
+        </div>
+        <div class="logo-name">Virginia Museum<br>of Fine Arts</div>
+      </div>
+
+      <h1 class="login-heading">Member Portal</h1>
+      <p class="login-subheading">Sign in to reserve tickets, save artworks to your personal collection, and access exclusive member features.</p>
+
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="login-field">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" name="email" placeholder="your@email.com" autocomplete="email" required />
+        </div>
+        <div class="login-field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password" required />
+        </div>
+        <p id="loginError" class="login-error" aria-live="polite"></p>
+        <button type="submit" class="login-submit-btn">Sign In &rarr;</button>
+      </form>
+
+      <p class="login-switch-link">Don&rsquo;t have an account? <a href="signup.html">Create Account</a></p>
+
+      <div class="login-demo-note">
+        <strong>Demo mode &mdash;</strong> Enter any email address and any password (6+ characters) to explore member features.
+      </div>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

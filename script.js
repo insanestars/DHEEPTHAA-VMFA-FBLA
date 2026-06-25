@@ -143,6 +143,19 @@ function openDetailPanel(el) {
   badge.textContent = el.dataset.badgeLabel || '';
   badge.className   = 'exhibit-badge ' + (el.dataset.badge || '');
 
+  // Member area: reserve button (logged in) or sign-in prompt
+  var memberArea = document.getElementById('panelMemberArea');
+  if (memberArea) {
+    var status = (el.dataset.badge || '').toLowerCase();
+    if (status === 'past') {
+      memberArea.innerHTML = '';
+    } else if (window.vmfaUser) {
+      memberArea.innerHTML = '<button class="btn-red panel-reserve-btn" onclick="openReserveModal()">Reserve Tickets →</button>';
+    } else {
+      memberArea.innerHTML = '<a href="login.html" class="panel-signin-link">✧ Sign in to reserve tickets</a>';
+    }
+  }
+
   panel.classList.add('open');
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -299,6 +312,8 @@ function renderCalendar() {
       '</div>' +
     '</article>';
   }).join('');
+
+  if (window.vmfaUser) attachExhibitionHearts();
 }
 
 function renderMonthPills() {
@@ -712,6 +727,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') {
       closeMobileNav();
       if (searchOverlay && searchOverlay.classList.contains('open')) toggleSearch();
+      var rm = document.getElementById('reserveModal');
+      if (rm && rm.classList.contains('open')) closeReserveModal();
+      var rp = document.getElementById('myReservationsPanel');
+      var cp = document.getElementById('myCollectionPanel');
+      if ((rp && rp.classList.contains('open')) || (cp && cp.classList.contains('open'))) closeMyPanels();
     }
   });
 
@@ -719,6 +739,468 @@ document.addEventListener('DOMContentLoaded', function() {
   revealOnScroll();
   updateTodaysHours();
   showPage('home');
+  initAuth();
 
-  console.log('VMFA site initialized.');
+
+  console.log('VMFA site initialized. Member features active:', !!window.vmfaUser);
 });
+
+// ============================================================
+// Auth & Member System
+// ============================================================
+
+window.vmfaUser = null;
+
+function initAuth() {
+  try { window.vmfaUser = JSON.parse(localStorage.getItem('vmfa_user')); } catch(e) {}
+  if (window.vmfaUser) enableMemberMode();
+}
+
+function enableMemberMode() {
+  var user = window.vmfaUser;
+
+  // Update utility bar
+  var utilGuest  = document.getElementById('utilGuest');
+  var utilMember = document.getElementById('utilMember');
+  if (utilGuest)  utilGuest.style.display = 'none';
+  if (utilMember) {
+    utilMember.style.display = 'flex';
+    utilMember.innerHTML =
+      '<span class="util-greeting">Welcome, <strong>' + escHtml(user.name) + '</strong></span>' +
+      '<span class="util-divider">&middot;</span>' +
+      '<a href="#" class="util-link" onclick="openMyReservations(); return false;">My Reservations</a>' +
+      '<span class="util-divider">&middot;</span>' +
+      '<a href="#" class="util-link" onclick="openMyCollection(); return false;">My Collection</a>' +
+      '<span class="util-divider">&middot;</span>' +
+      '<a href="#" class="util-link" onclick="logout(); return false;">Sign Out</a>';
+  }
+
+  // Mobile nav auth item
+  var mobileAuth = document.getElementById('mobileAuthItem');
+  if (mobileAuth) {
+    mobileAuth.innerHTML =
+      '<a href="#" onclick="openMyReservations(); closeMobileNav(); return false;">My Reservations</a>' +
+      '&nbsp;&middot;&nbsp;' +
+      '<a href="#" onclick="logout(); return false;">Sign Out</a>';
+  }
+
+  // Add heart (favorite) buttons to artwork and artist cards
+  document.querySelectorAll('.col-work, .artist-card').forEach(function(card) {
+    if (card.querySelector('.fav-btn')) return;
+    var btn = document.createElement('button');
+    btn.className = 'fav-btn';
+    btn.setAttribute('aria-label', 'Save to My Collection');
+    btn.innerHTML = '&#9829;';
+    btn.addEventListener('click', function(e) { e.stopPropagation(); toggleFavorite(card, btn); });
+    card.appendChild(btn);
+  });
+
+  attachExhibitionHearts();
+}
+
+function attachExhibitionHearts() {
+  if (!window.vmfaUser) return;
+  document.querySelectorAll('.exhibit-row, .cal-card').forEach(function(card) {
+    var wrap = card.querySelector('.exhibit-img-wrap, .cal-card-img-wrap');
+    if (!wrap || wrap.querySelector('.fav-btn')) return;
+    var btn = document.createElement('button');
+    btn.className = 'fav-btn';
+    btn.setAttribute('aria-label', 'Save to My Collection');
+    btn.innerHTML = '&#9829;';
+    btn.addEventListener('click', function(e) { e.stopPropagation(); toggleFavorite(card, btn); });
+    wrap.appendChild(btn);
+  });
+  restoreFavorites();
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function closeUserDropdown() {}  // kept for any stale calls
+
+function logout() {
+  localStorage.removeItem('vmfa_user');
+  window.location.href = 'login.html';
+}
+
+// ============================================================
+// Reservation System
+// ============================================================
+
+var _resContext = { title: '', dates: '', ticketText: '', isTicketed: false, lastRef: '', savedDate: '' };
+var _ticketCounts = { adults: 0, seniors: 0, students: 0, children: 0 };
+var _ticketPrices = { adults: 20, seniors: 16, students: 12, children: 0 };
+
+function openReserveModal() {
+  _resContext.title      = document.getElementById('epTitle')  ? document.getElementById('epTitle').textContent  : '';
+  _resContext.dates      = document.getElementById('epDates')  ? document.getElementById('epDates').textContent  : '';
+  _resContext.ticketText = document.getElementById('epTicket') ? document.getElementById('epTicket').textContent : '';
+  _resContext.isTicketed = _resContext.ticketText.toLowerCase().indexOf('ticketed') !== -1;
+
+  document.getElementById('reserveModalTitle').textContent = _resContext.title;
+  document.getElementById('reserveModalDates').textContent = _resContext.dates;
+
+  // Set prices and button text based on ticketed vs free
+  if (_resContext.isTicketed) {
+    _ticketPrices = { adults: 20, seniors: 16, students: 12, children: 0 };
+    document.getElementById('priceAdults').textContent   = '$20 each';
+    document.getElementById('priceSeniors').textContent  = '$16 each';
+    document.getElementById('priceStudents').textContent = '$12 each';
+    document.getElementById('reserveStep1Btn').innerHTML = 'Proceed to Payment &rarr;';
+    document.getElementById('reserveMemberNote').textContent = '✦ Members receive complimentary admission to ticketed exhibitions.';
+  } else {
+    _ticketPrices = { adults: 0, seniors: 0, students: 0, children: 0 };
+    document.getElementById('priceAdults').textContent   = 'Free';
+    document.getElementById('priceSeniors').textContent  = 'Free';
+    document.getElementById('priceStudents').textContent = 'Free';
+    document.getElementById('reserveStep1Btn').innerHTML = 'Reserve Free Tickets &rarr;';
+    document.getElementById('reserveMemberNote').textContent = '';
+  }
+
+  // Reset counts
+  _ticketCounts = { adults: 0, seniors: 0, students: 0, children: 0 };
+  ['Adults','Seniors','Students','Children'].forEach(function(k) {
+    var el = document.getElementById('ct' + k);
+    if (el) el.textContent = '0';
+  });
+  updateReserveTotal();
+
+  // Set min date to today
+  var today = new Date().toISOString().slice(0, 10);
+  var dateInput = document.getElementById('reserveDate');
+  if (dateInput) { dateInput.min = today; dateInput.value = today; }
+
+  // Clear payment fields
+  ['cardNumber','cardName','cardExpiry','cardCvv'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  var errEl = document.getElementById('paymentError');
+  if (errEl) errEl.textContent = '';
+  var payBtn = document.getElementById('payBtnText');
+  if (payBtn) payBtn.textContent = 'Complete Purchase →';
+
+  goToStep(1);
+
+  document.getElementById('reserveModal').classList.add('open');
+  document.getElementById('reserveModalOverlay').classList.add('open');
+}
+
+function closeReserveModal() {
+  document.getElementById('reserveModal').classList.remove('open');
+  document.getElementById('reserveModalOverlay').classList.remove('open');
+  setTimeout(function() { goToStep(1); }, 350);
+}
+
+function goToStep(n) {
+  var steps = [1, 2, 3];
+  steps.forEach(function(i) {
+    var el = document.getElementById('reserveStep' + i);
+    if (el) el.style.display = (i === n) ? 'block' : 'none';
+  });
+}
+
+function proceedFromStep1() {
+  var date = document.getElementById('reserveDate') ? document.getElementById('reserveDate').value : '';
+  if (!date) { alert('Please select a visit date.'); return; }
+  var totalTickets = Object.keys(_ticketCounts).reduce(function(s, k) { return s + _ticketCounts[k]; }, 0);
+  if (totalTickets === 0) { alert('Please add at least one ticket.'); return; }
+
+  if (_resContext.isTicketed) {
+    var total = calcTotal();
+    document.getElementById('paySummaryTitle').textContent = _resContext.title;
+    document.getElementById('paySummaryTotal').textContent = '$' + total + '.00';
+    var parts = [];
+    if (_ticketCounts.adults)   parts.push(_ticketCounts.adults   + ' × Adult ($20)');
+    if (_ticketCounts.seniors)  parts.push(_ticketCounts.seniors  + ' × Senior ($16)');
+    if (_ticketCounts.students) parts.push(_ticketCounts.students + ' × Student ($12)');
+    if (_ticketCounts.children) parts.push(_ticketCounts.children + ' × Child (Free)');
+    document.getElementById('paySummaryBreakdown').textContent = parts.join(' · ');
+    document.getElementById('paySummaryDate').textContent = 'Visit: ' + fmtDate(date);
+    goToStep(2);
+  } else {
+    saveReservation(date);
+    showConfirmation(date, false);
+    goToStep(3);
+  }
+}
+
+function processPayment() {
+  var cardNum  = (document.getElementById('cardNumber').value  || '').replace(/\s/g, '');
+  var cardName = (document.getElementById('cardName').value    || '').trim();
+  var expiry   = (document.getElementById('cardExpiry').value  || '').replace(/\s/g, '');
+  var cvv      = (document.getElementById('cardCvv').value     || '').trim();
+  var errEl    = document.getElementById('paymentError');
+  errEl.textContent = '';
+
+  if (cardNum.length < 16)               { errEl.textContent = 'Please enter a valid 16-digit card number.'; return; }
+  if (!cardName)                          { errEl.textContent = 'Please enter the name on your card.'; return; }
+  if (!/^\d{2}\/\d{2}$/.test(expiry))    { errEl.textContent = 'Please enter a valid expiry date (MM/YY).'; return; }
+  if (cvv.length < 3)                    { errEl.textContent = 'Please enter a valid CVV.'; return; }
+
+  var payBtn = document.getElementById('payBtnText');
+  if (payBtn) payBtn.textContent = 'Processing…';
+
+  var date = document.getElementById('reserveDate').value;
+  setTimeout(function() {
+    if (payBtn) payBtn.textContent = 'Complete Purchase →';
+    saveReservation(date);
+    showConfirmation(date, true);
+    goToStep(3);
+  }, 1800);
+}
+
+function saveReservation(date) {
+  _resContext.lastRef  = 'VMFA-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+  _resContext.savedDate = date;
+  var reservations = getReservations();
+  reservations.push({
+    id: Date.now(),
+    ref: _resContext.lastRef,
+    title: _resContext.title,
+    dates: _resContext.dates,
+    visitDate: date,
+    tickets: JSON.parse(JSON.stringify(_ticketCounts)),
+    cost: calcTotal(),
+    isTicketed: _resContext.isTicketed
+  });
+  localStorage.setItem('vmfa_reservations', JSON.stringify(reservations));
+
+  var memberArea = document.getElementById('panelMemberArea');
+  if (memberArea) {
+    memberArea.innerHTML = '<div class="panel-reserve-success">&#10003; ' + (_resContext.isTicketed ? 'Purchase' : 'Reservation') + ' confirmed for ' + fmtDate(date) + '</div>';
+  }
+}
+
+function showConfirmation(date, isPurchase) {
+  var total = calcTotal();
+  var parts = [];
+  if (_ticketCounts.adults)   parts.push(_ticketCounts.adults   + ' Adult ticket'   + (_ticketCounts.adults   > 1 ? 's' : ''));
+  if (_ticketCounts.seniors)  parts.push(_ticketCounts.seniors  + ' Senior ticket'  + (_ticketCounts.seniors  > 1 ? 's' : ''));
+  if (_ticketCounts.students) parts.push(_ticketCounts.students + ' Student ticket' + (_ticketCounts.students > 1 ? 's' : ''));
+  if (_ticketCounts.children) parts.push(_ticketCounts.children + ' Child ticket'   + (_ticketCounts.children > 1 ? 's' : ''));
+
+  document.getElementById('confirmMsg').textContent = isPurchase
+    ? 'Your tickets have been purchased and confirmed. See you soon!'
+    : 'Your reservation is confirmed. We look forward to seeing you!';
+
+  document.getElementById('confirmDetails').innerHTML =
+    '<p><strong>' + escHtml(_resContext.title) + '</strong></p>' +
+    '<p>' + fmtDate(date) + '</p>' +
+    '<p>' + parts.join(', ') + '</p>' +
+    (total > 0 ? '<p>Total paid: $' + total + '.00</p>' : '<p>Free admission</p>');
+
+  document.getElementById('confirmRef').textContent = _resContext.lastRef;
+}
+
+function calcTotal() {
+  return Object.keys(_ticketCounts).reduce(function(s, k) { return s + (_ticketCounts[k] || 0) * (_ticketPrices[k] || 0); }, 0);
+}
+
+function fmtDate(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+function formatCardNumber(input) {
+  var v = input.value.replace(/\D/g, '').slice(0, 16);
+  input.value = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+}
+
+function formatExpiry(input) {
+  var v = input.value.replace(/\D/g, '').slice(0, 4);
+  if (v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2);
+  input.value = v;
+}
+
+function changeTicket(type, delta) {
+  _ticketCounts[type] = Math.max(0, (_ticketCounts[type] || 0) + delta);
+  var keyMap = { adults: 'ctAdults', seniors: 'ctSeniors', students: 'ctStudents', children: 'ctChildren' };
+  var el = document.getElementById(keyMap[type]);
+  if (el) el.textContent = _ticketCounts[type];
+  updateReserveTotal();
+}
+
+function updateReserveTotal() {
+  var total = calcTotal();
+  var display = document.getElementById('reserveTotalDisplay');
+  if (display) display.textContent = total > 0 ? '$' + total + '.00' : 'Free';
+}
+
+function getReservations() {
+  try { return JSON.parse(localStorage.getItem('vmfa_reservations')) || []; } catch(e) { return []; }
+}
+
+// ============================================================
+// My Reservations Panel
+// ============================================================
+
+function openMyReservations() {
+  closeUserDropdown();
+  var reservations = getReservations();
+  var content = document.getElementById('myReservationsContent');
+  if (!content) return;
+
+  if (reservations.length === 0) {
+    content.innerHTML =
+      '<div class="my-panel-empty">' +
+        '<p>No reservations yet.</p>' +
+        '<p>Browse exhibitions and events, open a detail panel, and click <strong>Reserve Tickets</strong> to book your visit.</p>' +
+      '</div>';
+  } else {
+    content.innerHTML = reservations.map(function(r) {
+      var ticketParts = [];
+      if (r.tickets.adults)   ticketParts.push(r.tickets.adults   + ' adult'   + (r.tickets.adults   > 1 ? 's' : ''));
+      if (r.tickets.seniors)  ticketParts.push(r.tickets.seniors  + ' senior'  + (r.tickets.seniors  > 1 ? 's' : ''));
+      if (r.tickets.students) ticketParts.push(r.tickets.students + ' student' + (r.tickets.students > 1 ? 's' : ''));
+      if (r.tickets.children) ticketParts.push(r.tickets.children + ' child'   + (r.tickets.children > 1 ? 'ren' : ''));
+      var dateStr = new Date(r.visitDate + 'T12:00:00').toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+      return '<div class="res-item">' +
+        '<div class="res-item-body">' +
+          '<h3>' + escHtml(r.title) + '</h3>' +
+          '<p class="res-date">' + dateStr + '</p>' +
+          '<p class="res-tickets">' + ticketParts.join(', ') + '</p>' +
+          '<p class="res-cost">' + (r.cost > 0 ? 'Total: $' + r.cost + '.00' : 'Free Admission') + '</p>' +
+        '</div>' +
+        '<button class="res-cancel-btn" onclick="cancelReservation(' + r.id + ')">Cancel</button>' +
+      '</div>';
+    }).join('');
+  }
+
+  document.getElementById('myReservationsPanel').classList.add('open');
+  document.getElementById('myPanelOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cancelReservation(id) {
+  var updated = getReservations().filter(function(r) { return r.id !== id; });
+  localStorage.setItem('vmfa_reservations', JSON.stringify(updated));
+  openMyReservations();
+}
+
+function closeMyPanels() {
+  ['myReservationsPanel', 'myCollectionPanel'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove('open');
+  });
+  var overlay = document.getElementById('myPanelOverlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ============================================================
+// Favorites / My Collection
+// ============================================================
+
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem('vmfa_favorites')) || []; } catch(e) { return []; }
+}
+
+function toggleFavorite(card, btn) {
+  var title = card.dataset.title || '';
+  var isExhibition = card.classList.contains('exhibit-row') || card.classList.contains('cal-card');
+  var favorites = getFavorites();
+  var idx = favorites.findIndex(function(f) { return f.title === title; });
+
+  if (idx >= 0) {
+    favorites.splice(idx, 1);
+    btn.classList.remove('saved');
+    btn.setAttribute('aria-label', 'Save to My Collection');
+  } else {
+    favorites.push({
+      type:       isExhibition ? 'exhibition' : 'artwork',
+      title:      title,
+      img:        card.dataset.img        || '',
+      artist:     isExhibition ? (card.dataset.category || '') : (card.dataset.dates || '').split('·')[0].trim(),
+      meta:       card.dataset.dates      || '',
+      desc:       card.dataset.desc       || '',
+      category:   card.dataset.category   || '',
+      ticket:     card.dataset.ticket     || '',
+      badge:      card.dataset.badge      || '',
+      badgeLabel: card.dataset.badgeLabel || ''
+    });
+    btn.classList.add('saved');
+    btn.setAttribute('aria-label', 'Remove from My Collection');
+  }
+
+  localStorage.setItem('vmfa_favorites', JSON.stringify(favorites));
+}
+
+function restoreFavorites() {
+  var favorites = getFavorites();
+  if (!favorites.length) return;
+  document.querySelectorAll('.col-work, .artist-card, .exhibit-row, .cal-card').forEach(function(card) {
+    var isSaved = favorites.some(function(f) { return f.title === card.dataset.title; });
+    if (isSaved) {
+      var btn = card.querySelector('.fav-btn');
+      if (btn) { btn.classList.add('saved'); btn.setAttribute('aria-label', 'Remove from My Collection'); }
+    }
+  });
+}
+
+function openMyCollection() {
+  closeUserDropdown();
+  var favorites = getFavorites();
+  var content = document.getElementById('myCollectionContent');
+  if (!content) return;
+
+  if (favorites.length === 0) {
+    content.innerHTML =
+      '<div class="my-panel-empty">' +
+        '<p>No saved items yet.</p>' +
+        '<p>Tap the &#9829; button on any <strong>exhibition</strong>, <strong>artwork</strong>, or <strong>artist</strong> to save it here.</p>' +
+      '</div>';
+  } else {
+    content.innerHTML = '<div class="my-coll-grid">' +
+      favorites.map(function(f) {
+        var safeTitle      = escHtml(f.title);
+        var safeMeta       = escHtml(f.meta);
+        var safeDesc       = escHtml(f.desc);
+        var safeCat        = escHtml(f.category);
+        var safeTicket     = escHtml(f.ticket);
+        var safeBadge      = escHtml(f.badge      || '');
+        var safeBadgeLabel = escHtml(f.badgeLabel || '');
+        var isExhibition   = f.type === 'exhibition';
+        return '<div class="my-coll-item"' +
+          ' data-img="'         + f.img         + '"' +
+          ' data-category="'    + safeCat        + '"' +
+          ' data-title="'       + safeTitle      + '"' +
+          ' data-dates="'       + safeMeta       + '"' +
+          ' data-desc="'        + safeDesc       + '"' +
+          ' data-ticket="'      + safeTicket     + '"' +
+          ' data-badge="'       + safeBadge      + '"' +
+          ' data-badge-label="' + safeBadgeLabel + '"' +
+          ' onclick="openSavedItem(this)">' +
+          '<div class="my-coll-img" style="background-image:url(\'' + f.img + '\')">' +
+            (isExhibition && safeBadge ? '<span class="exhibit-badge ' + safeBadge + ' my-coll-badge">' + safeBadgeLabel + '</span>' : '') +
+          '</div>' +
+          '<div class="my-coll-info">' +
+            (isExhibition ? '<p class="my-coll-type-tag">Exhibition</p>' : '') +
+            '<p class="my-coll-artist">' + escHtml(f.artist) + '</p>' +
+            '<p class="my-coll-title">'  + safeTitle + '</p>' +
+          '</div>' +
+          '<button class="my-coll-remove" onclick="event.stopPropagation();removeFavorite(\'' + f.title.replace(/'/g,"\\'") + '\')" aria-label="Remove">&#10005;</button>' +
+        '</div>';
+      }).join('') + '</div>';
+  }
+
+  document.getElementById('myCollectionPanel').classList.add('open');
+  document.getElementById('myPanelOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openSavedItem(el) {
+  closeMyPanels();
+  setTimeout(function() { openDetailPanel(el); }, 120);
+}
+
+function removeFavorite(title) {
+  var updated = getFavorites().filter(function(f) { return f.title !== title; });
+  localStorage.setItem('vmfa_favorites', JSON.stringify(updated));
+  document.querySelectorAll('.col-work, .artist-card, .exhibit-row, .cal-card').forEach(function(card) {
+    if (card.dataset.title === title) {
+      var btn = card.querySelector('.fav-btn');
+      if (btn) { btn.classList.remove('saved'); btn.setAttribute('aria-label', 'Save to My Collection'); }
+    }
+  });
+  openMyCollection();
+}
