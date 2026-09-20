@@ -26,10 +26,10 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <div class="site-banner" role="note">Student design concept for FBLA. Not the official VMFA website.</div>
+  <aside class="site-banner" aria-label="Demo notice">Student design concept for FBLA. Not the official VMFA website.</aside>
 
   <!-- UTILITY BAR -->
-  <div class="util-bar" id="utilBar">
+  <div class="util-bar" id="utilBar" role="navigation" aria-label="Account">
     <div class="util-bar-inner">
 <div id="utilGuest">
         <a href="signup.html" class="util-link">Create Account</a>
@@ -59,9 +59,9 @@
         </ul>
       </nav>
       <div class="header-search">
-        <input type="text" id="headerSearchInput" placeholder="Search exhibitions, artists, events&hellip;" autocomplete="off" />
+        <input type="text" id="headerSearchInput" aria-label="Search exhibitions, artists, and events" placeholder="Search exhibitions, artists, events&hellip;" autocomplete="off" />
         <button type="button" id="searchBtn" aria-label="Search" onclick="headerSearch()">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
             <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
             <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
@@ -73,12 +73,12 @@
   </header>
 
   <!-- Mobile Nav -->
-  <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-close" id="menuClose">&#10005;</button>
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Site menu">
+    <button class="mobile-close" id="menuClose" aria-label="Close menu">&#10005;</button>
     <div class="mobile-nav-search">
-      <input type="text" id="mobileNavSearchInput" placeholder="Search VMFA&hellip;" autocomplete="off" />
+      <input type="text" id="mobileNavSearchInput" aria-label="Search VMFA" placeholder="Search VMFA&hellip;" autocomplete="off" />
       <button type="button" aria-label="Search" onclick="mobileNavSearch()">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
           <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
@@ -99,12 +99,12 @@
   </div>
 
   <!-- Search Overlay -->
-  <div class="search-overlay" id="searchOverlay">
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Search">
     <div class="search-overlay-inner">
-      <label>Search VMFA</label>
+      <label for="searchInput">Search VMFA</label>
       <input type="text" id="searchInput" placeholder="Exhibitions, events, artists, hours&hellip;" autocomplete="off" />
       <div id="searchResults" class="search-results"></div>
-      <button class="search-close" id="searchClose">&#10005;</button>
+      <button class="search-close" id="searchClose" aria-label="Close search">&#10005;</button>
     </div>
   </div>
 
@@ -150,7 +150,7 @@
             <p>This exhibition reveals the rebellious origins of the independent artist collective known as the Impressionists and the revolutionary course they charted for modern art. Tickets: $15 adults, $12 seniors 65+, $10 youth ages 7&ndash;17 and college students with ID.</p>
             <button class="btn-red" onclick="showPage('exhibitions')">View Exhibition</button>
           </div>
-          <img src="images/impressionist-revolution.jpg" alt="The Impressionist Revolution Exhibition" />
+          <img src="images/impressionist-revolution.jpg" alt="" />
         </div>
       </div>
 
@@ -244,27 +244,27 @@
           </div>
           <div class="collection-grid">
             <div class="collection-tile" onclick="showCollection('american')">
-              <img src="https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="American Art" />
+              <img src="https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <div class="tile-label">American Art</div>
             </div>
             <div class="collection-tile" onclick="showCollection('ancient')">
-              <img src="https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=500" alt="Ancient Art" />
+              <img src="https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <div class="tile-label">Ancient Art</div>
             </div>
             <div class="collection-tile" onclick="showCollection('european')">
-              <img src="https://www.vmfa.museum/img/ee9a0e51-273c-4818-be6e-6c26ef88af71/62_31_v1_KW_200907_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="European Art" />
+              <img src="https://www.vmfa.museum/img/ee9a0e51-273c-4818-be6e-6c26ef88af71/62_31_v1_KW_200907_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <div class="tile-label">European Art</div>
             </div>
             <div class="collection-tile" onclick="showCollection('african-american')">
-              <img src="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=500" alt="African American Art" />
+              <img src="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <div class="tile-label">African American Art</div>
             </div>
             <div class="collection-tile" onclick="showCollection('modern')">
-              <img src="https://www.vmfa.museum/img/1b7be6c4-1d3f-48e3-b463-13755437aab4/2020_19_v1_TF_202009_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="Modern and Contemporary" />
+              <img src="https://www.vmfa.museum/img/1b7be6c4-1d3f-48e3-b463-13755437aab4/2020_19_v1_TF_202009_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <div class="tile-label">Modern &amp; Contemporary</div>
             </div>
             <div class="collection-tile" onclick="showCollection('faberge')">
-              <img src="images/faberge.jpg" alt="Faberge" />
+              <img src="images/faberge.jpg" alt="" />
               <div class="tile-label">Faberg&eacute; &amp; Russian Arts</div>
             </div>
           </div>
@@ -344,7 +344,7 @@
               data-desc="More than 100 watercolors by artists from across Virginia, selected for the Virginia Watercolor Society's 47th annual juried exhibition and on view in the 21st-Century Art Gallery."
               data-ticket="✦ Free with General Admission">
               <div class="exhibit-img-wrap">
-                <img src="images/watercolor-society.jpg" alt="Virginia Watercolor Society Exhibition" />
+                <img src="images/watercolor-society.jpg" alt="" />
                 <span class="exhibit-badge current">Now On View</span>
               </div>
               <div class="exhibit-info">
@@ -365,7 +365,7 @@
               data-desc="Recent acquisitions in American landscape photography, on view in the Photography Gallery. Free with general admission."
               data-ticket="✦ Free with General Admission">
               <div class="exhibit-img-wrap">
-                <img src="images/promise-and-peril.jpg" alt="Promise and Peril" />
+                <img src="images/promise-and-peril.jpg" alt="" />
                 <span class="exhibit-badge current">Now On View</span>
               </div>
               <div class="exhibit-info">
@@ -386,7 +386,7 @@
               data-desc="Highlights of American watercolor from VMFA's permanent collection, on view in the Mary Ann Frable Works on Paper Gallery. Free with general admission."
               data-ticket="✦ Free with General Admission">
               <div class="exhibit-img-wrap">
-                <img src="images/painted-on-paper.jpg" alt="Painted on Paper" />
+                <img src="images/painted-on-paper.jpg" alt="" />
                 <span class="exhibit-badge current">Now On View</span>
               </div>
               <div class="exhibit-info">
@@ -407,7 +407,7 @@
               data-desc="VMFA houses one of the finest collections of Impressionist paintings in the American South, including landmark works by Claude Monet, Edgar Degas, Pierre-Auguste Renoir, and Mary Cassatt. The Mellon Collection traces the movement from its origins in 1860s Paris to its full flowering in the 1880s and 90s, with particular depth in Monet's serial landscapes and Degas's intimate studies of movement."
               data-ticket="✦ Free with General Admission">
               <div class="exhibit-img-wrap">
-                <img src="images/monet.jpg" alt="Monet" />
+                <img src="images/monet.jpg" alt="" />
                 <span class="exhibit-badge current">Now On View</span>
               </div>
               <div class="exhibit-info">
@@ -428,7 +428,7 @@
               data-desc="VMFA's biennial, museum-wide exhibition of spectacular floral designs inspired by works of art in the permanent collection, created by designers from the Garden Club of Virginia, the Virginia Federation of Garden Clubs, and Ikebana of Richmond. The festivities begin with an Opening Preview Gala on October 7, and special events include talks by renowned speakers, luncheons, guided tours, floral workshops, a fashion show featuring designs by VCUarts fashion students, and children's activities."
               data-ticket="✦ Free Admission · No Tickets Required">
               <div class="exhibit-img-wrap">
-                <img src="images/fine-arts-flowers.jpg" alt="Fine Arts &amp; Flowers" />
+                <img src="images/fine-arts-flowers.jpg" alt="" />
                 <span class="exhibit-badge upcoming">Upcoming</span>
               </div>
               <div class="exhibit-info">
@@ -449,7 +449,7 @@
               data-desc="Organized with the Dallas Museum of Art, this exhibition reveals the rebellious origins of the independent artist collective known as the Impressionists and the revolutionary course they charted for modern art, from Monet to Matisse. The run has been extended through April 4, 2027."
               data-ticket="✦ Ticketed Exhibition – Members Free">
               <div class="exhibit-img-wrap">
-                <img src="images/impressionist-revolution.jpg" alt="The Impressionist Revolution" />
+                <img src="images/impressionist-revolution.jpg" alt="" />
                 <span class="exhibit-badge upcoming">Upcoming</span>
               </div>
               <div class="exhibit-info">
@@ -470,7 +470,7 @@
               data-desc="An exhibition of French photography from the age of Impressionism, opening in the Photography Gallery. Free with general admission."
               data-ticket="✦ Free with General Admission">
               <div class="exhibit-img-wrap">
-                <img src="images/french-photography.jpg" alt="French Photography in the Age of Impressionism" />
+                <img src="images/french-photography.jpg" alt="" />
                 <span class="exhibit-badge upcoming">Upcoming</span>
               </div>
               <div class="exhibit-info">
@@ -491,7 +491,7 @@
               data-desc="Drawing on rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty and organized by the Victoria and Albert Museum, this exhibition brought together 200 sumptuous objects — intricate paintings and manuscripts, lavish textiles, architectural elements, metalwork, furniture, arms and armor, and dazzling precious stones. Due to popular demand, the run was extended through Labor Day."
               data-ticket="This exhibition has closed.">
               <div class="exhibit-img-wrap">
-                <img src="images/mughals.jpg" alt="India's Great Mughals" />
+                <img src="images/mughals.jpg" alt="" />
                 <span class="exhibit-badge past">Closed</span>
               </div>
               <div class="exhibit-info">
@@ -512,7 +512,7 @@
               data-desc="Presented as part of VMFA's commemoration of Virginia's 250th anniversary of the American Revolution (VA250), this free exhibition paired contemporary artist Titus Kaphar with 19th-century painter Junius Brutus Stearns to examine how images of the nation's founding shape our understanding of American history."
               data-ticket="This exhibition has closed.">
               <div class="exhibit-img-wrap">
-                <img src="images/kaphar-stearns.jpg" alt="Titus Kaphar and Junius Brutus Stearns Exhibition" />
+                <img src="images/kaphar-stearns.jpg" alt="" />
                 <span class="exhibit-badge past">Closed</span>
               </div>
               <div class="exhibit-info">
@@ -533,7 +533,7 @@
               data-desc="Celebrating Black artistic excellence across generations, this landmark exhibition brought together over 130 works by Jean-Michel Basquiat, Kerry James Marshall, Amy Sherald, Derrick Adams, and Kehinde Wiley. Drawn from the personal collection of music icons Swizz Beatz and Alicia Keys, the exhibition traced five decades of boundary-pushing art that challenged, inspired, and redefined cultural narratives."
               data-ticket="This exhibition has closed.">
               <div class="exhibit-img-wrap">
-                <img src="images/giants.jpg" alt="Giants Exhibition" />
+                <img src="images/giants.jpg" alt="" />
                 <span class="exhibit-badge past">Closed</span>
               </div>
               <div class="exhibit-info">
@@ -1184,10 +1184,10 @@
             data-dates="Jamel Shabazz · 1980 · Photography"
             data-desc="Taken in Brooklyn during the early years of hip-hop culture, 'Dapper' captures two young men posed with the effortless cool that defined a generation. Shabazz's eye for dignity and style transformed everyday street corners into portraits of pride and self-expression. He spent decades documenting New York's streets, and his archive has become an essential record of a cultural moment that changed the world. This photograph is part of VMFA's growing collection of works that document African American life and culture with authenticity and depth."
             data-ticket="✦ Free with General Admission · Permanent Collection">
-            <div class="artist-img-wrap"><img src="images/dapper.jpg" alt="Dapper" /></div>
+            <div class="artist-img-wrap"><img src="images/dapper.jpg" alt="" /></div>
             <div class="artist-body">
               <p class="artist-medium">Photography</p>
-              <h3 class="artist-artwork">Dapper</h3>
+              <h2 class="artist-artwork">Dapper</h2>
               <p class="artist-name-label">Jamel Shabazz &middot; 1980</p>
               <p class="artist-bio">One of the most beloved street photographers of the hip-hop era, Jamel Shabazz documented the style and dignity of Black New Yorkers with warmth and intimacy.</p>
             </div>
@@ -1199,10 +1199,10 @@
             data-dates="Radcliffe Bailey · 2012 · Mixed media sculpture"
             data-desc="Radcliffe Bailey's 'Vessel' is a haunting assemblage that draws on African diaspora history, personal memory, and the imagery of the cosmos. The work evokes the Middle Passage — the transatlantic slave trade — through the metaphor of a vessel adrift in an infinite sea. Piano keys, mirrors, and archival materials are layered to create a meditation on loss, survival, and the enduring spirit of a people. Bailey's work often begins with his own family history and expands outward into the collective memory of the African American experience."
             data-ticket="✦ Free with General Admission · Permanent Collection">
-            <div class="artist-img-wrap"><img src="images/vessel.jpg" alt="Vessel" /></div>
+            <div class="artist-img-wrap"><img src="images/vessel.jpg" alt="" /></div>
             <div class="artist-body">
               <p class="artist-medium">Mixed Media &middot; Sculpture</p>
-              <h3 class="artist-artwork">Vessel</h3>
+              <h2 class="artist-artwork">Vessel</h2>
               <p class="artist-name-label">Radcliffe Bailey &middot; 2012</p>
               <p class="artist-bio">Atlanta-based artist Radcliffe Bailey creates multimedia works that weave together personal memory, African diaspora history, and cosmic imagery.</p>
             </div>
@@ -1214,10 +1214,10 @@
             data-dates="Claude Monet · 1885 · Oil on canvas"
             data-desc="Painted during one of Monet's most productive summers at his Giverny estate, this work captures the sun-drenched landscape of northern France in a cascade of broken brushwork and luminous color. The painting exemplifies Monet's revolutionary approach to outdoor painting — capturing fleeting light rather than fixed form. It entered VMFA's collection through the bequest of Paul and Rachel Mellon, who assembled one of the most important collections of French Impressionism in the United States. The work hangs as a centerpiece of the Mellon Galleries."
             data-ticket="✦ Free with General Admission · Mellon Galleries">
-            <div class="artist-img-wrap"><img src="images/monet.jpg" alt="Monet" /></div>
+            <div class="artist-img-wrap"><img src="images/monet.jpg" alt="" /></div>
             <div class="artist-body">
               <p class="artist-medium">Oil on Canvas &middot; Impressionism</p>
-              <h3 class="artist-artwork">Field of Poppies, Giverny</h3>
+              <h2 class="artist-artwork">Field of Poppies, Giverny</h2>
               <p class="artist-name-label">Claude Monet &middot; 1885</p>
               <p class="artist-bio">A cornerstone of the Paul and Rachel Mellon Collection, this radiant Impressionist landscape captures the gardens at Giverny in full bloom.</p>
             </div>
@@ -1229,10 +1229,10 @@
             data-dates="House of Fabergé · 1903 · Gold, enamel, diamonds, sapphires"
             data-desc="Presented by Tsar Nicholas II to Empress Alexandra Feodorovna on Easter morning, 1903, this egg commemorates the 200th anniversary of the founding of St. Petersburg. Enameled in translucent green over a guilloché ground, it opens to reveal a miniature model of the Bronze Horseman — the famous equestrian statue of Peter the Great. One of only 50 Imperial Easter Eggs ever made by the House of Fabergé, and one of the most historically significant objects in VMFA's collection. Acquired by Lillian Thomas Pratt, whose 1947 gift of Fabergé objects to VMFA remains unparalleled outside Russia."
             data-ticket="✦ Free with General Admission · Fabergé Galleries">
-            <div class="artist-img-wrap"><img src="images/faberge.jpg" alt="Faberge Easter Egg" /></div>
+            <div class="artist-img-wrap"><img src="images/faberge.jpg" alt="" /></div>
             <div class="artist-body">
               <p class="artist-medium">Decorative Arts &middot; Goldsmith</p>
-              <h3 class="artist-artwork">Imperial Peter the Great Easter Egg</h3>
+              <h2 class="artist-artwork">Imperial Peter the Great Easter Egg</h2>
               <p class="artist-name-label">Faberg&eacute; firm &middot; 1903</p>
               <p class="artist-bio">One of only 50 Imperial Easter Eggs ever created by the House of Faberg&eacute;, presented by Tsar Nicholas II to Empress Alexandra in 1903.</p>
             </div>
@@ -1244,10 +1244,10 @@
             data-dates="Julie Mehretu · 2004 · Ink &amp; acrylic on canvas"
             data-desc="Measuring nearly ten feet wide, 'Stadia III' is one of Julie Mehretu's monumental explorations of space, power, and architecture. Mehretu layers architectural drawings — stadiums, arenas, public gathering spaces — with explosive gestural marks that suggest both energy and erasure. The work asks questions about who claims public space, and what histories get buried beneath the surfaces of our built environment. Mehretu, born in Addis Ababa and raised in the United States, is among the most celebrated painters working today. This work entered VMFA's collection in 2008 and anchors the modern and contemporary galleries."
             data-ticket="✦ Free with General Admission · Modern Galleries">
-            <div class="artist-img-wrap"><img src="images/stadia.jpg" alt="Stadia III" /></div>
+            <div class="artist-img-wrap"><img src="images/stadia.jpg" alt="" /></div>
             <div class="artist-body">
               <p class="artist-medium">Painting &middot; Contemporary</p>
-              <h3 class="artist-artwork">Stadia III</h3>
+              <h2 class="artist-artwork">Stadia III</h2>
               <p class="artist-name-label">Julie Mehretu &middot; 2004</p>
               <p class="artist-bio">Ethiopian-American artist Julie Mehretu is celebrated for her monumental abstract works that layer architectural diagrams, maps, and gestural mark-making.</p>
             </div>
@@ -1259,10 +1259,10 @@
             data-dates="Deborah Roberts · 2018 · Collage &amp; mixed media"
             data-desc="Deborah Roberts creates large-scale collages that center Black children — their joy, their innocence, and their right to simply be children. This work draws on found images from fashion magazines, historical photographs, and popular culture, combining them into new composite figures that feel both timeless and urgent. Roberts reclaims imagery of Black childhood from narratives of trauma and instead insists on beauty, play, and possibility. Her work has made her one of the most important voices in contemporary American art, and this piece is among the most beloved in VMFA's collection."
             data-ticket="✦ Free with General Admission · Permanent Collection">
-            <div class="artist-img-wrap"><img src="images/children.jpg" alt="Let Them Be Children" /></div>
+            <div class="artist-img-wrap"><img src="images/children.jpg" alt="" /></div>
             <div class="artist-body">
               <p class="artist-medium">Collage &middot; Mixed Media</p>
-              <h3 class="artist-artwork">Let Them Be Children</h3>
+              <h2 class="artist-artwork">Let Them Be Children</h2>
               <p class="artist-name-label">Deborah Roberts &middot; 2018</p>
               <p class="artist-bio">Austin-based artist Deborah Roberts creates large-scale collages that center Black childhood, joy, and innocence.</p>
             </div>
@@ -1279,7 +1279,7 @@
       </div>
       <div class="visit-grid">
         <div class="visit-card">
-          <h3>Hours of Operation</h3>
+          <h2>Hours of Operation</h2>
           <div class="hours-table">
             <div class="hours-row"><span class="day">Saturday - Tuesday</span><span class="time">10 am - 5 pm</span></div>
             <div class="hours-row"><span class="day">Wednesday - Friday</span><span class="time">10 am - 9 pm</span></div>
@@ -1287,7 +1287,7 @@
           <p class="visit-note">Open 365 days a year. Holiday hours (Thanksgiving, Christmas Eve, Christmas Day, New Year's Eve, New Year's Day): 10 am - 5 pm. Some galleries are temporarily closed during the museum's expansion and renovation project (21st Century, African, Decorative Arts after 1890, Indigenous American, Mid to Late 20th Century, and Pre-Columbian collections).</p>
         </div>
         <div class="visit-card">
-          <h3>Admission &amp; Tickets</h3>
+          <h2>Admission &amp; Tickets</h2>
           <div class="ticket-table">
             <div class="ticket-row"><div><strong>General Admission</strong><p>Permanent collection &amp; galleries</p></div><span class="price free">Always Free</span></div>
             <div class="ticket-row"><div><strong>Special Exhibition - Adult</strong></div><span class="price">$15</span></div>
@@ -1303,7 +1303,7 @@
           </div>
         </div>
         <div class="visit-card">
-          <h3>Location &amp; Getting Here</h3>
+          <h2>Location &amp; Getting Here</h2>
           <address class="visit-address">200 N Arthur Ashe Boulevard<br>Richmond, Virginia 23220</address>
           <div class="transit-info">
             <div class="transit-item"><strong>By Car</strong><p>Take I-195 to Exit 1B (Boulevard). Parking available in the museum parking deck and nearby streets.</p></div>
@@ -1312,7 +1312,7 @@
           </div>
         </div>
         <div class="visit-card">
-          <h3>Accessibility &amp; Services</h3>
+          <h2>Accessibility &amp; Services</h2>
           <ul class="amenities-list">
             <li>&#10003; Fully wheelchair accessible</li>
             <li>&#10003; Elevator access to all floors</li>
@@ -1325,7 +1325,7 @@
           </ul>
         </div>
         <div class="visit-card">
-          <h3>Dining at VMFA</h3>
+          <h2>Dining at VMFA</h2>
           <div class="dining-options">
             <div class="dining-item"><strong>Amuse Restaurant</strong><p>Full-service restaurant at VMFA.</p><span class="dining-hours">Sat-Tue: 11:30 am - 4:30 pm &middot; Wed-Fri: 11:30 am - 8 pm</span></div>
             <div class="dining-item"><strong>Floris at VMFA</strong><p>Dining at VMFA.</p><span class="dining-hours">Sat-Wed: 11:30 am - 4 pm</span></div>
@@ -1333,7 +1333,7 @@
           </div>
         </div>
         <div class="visit-card">
-          <h3>Contact &amp; Group Visits</h3>
+          <h2>Contact &amp; Group Visits</h2>
           <div class="contact-info">
             <div class="contact-item"><strong>General Info</strong><p>(804) 340-1400</p></div>
             <div class="contact-item"><strong>Group Visits</strong><p>groups@vmfa.museum</p><p>Groups of 10+ receive guided tours and discounts. Advance booking required.</p></div>
@@ -1347,13 +1347,13 @@
   </main>
 
   <!-- Newsletter -->
-  <section class="newsletter">
+  <section class="newsletter" aria-label="Newsletter signup">
     <div class="newsletter-inner">
       <p class="eyebrow">Stay in the Know</p>
       <h2>Join the VMFA Community</h2>
       <p>Get the latest exhibitions, events, and stories from VMFA delivered to your inbox.</p>
       <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletter(event);">
-        <input type="email" id="newsletterEmail" placeholder="Your email address" required />
+        <input type="email" id="newsletterEmail" aria-label="Email address for the VMFA newsletter" placeholder="Your email address" required />
         <button type="submit">Subscribe</button>
       </form>
       <p class="newsletter-success" id="newsletterSuccess">Thank you! You&rsquo;re now subscribed to VMFA updates.</p>
@@ -1382,7 +1382,7 @@
           </div>
         </div>
         <div class="footer-col">
-          <h4>Visit</h4>
+          <h3>Visit</h3>
           <ul>
             <li><a href="#" onclick="showPage('visit'); return false;">Plan Your Visit</a></li>
             <li><a href="#" onclick="showPage('visit'); return false;">Hours &amp; Admission</a></li>
@@ -1392,7 +1392,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Explore</h4>
+          <h3>Explore</h3>
           <ul>
             <li><a href="#" onclick="showPage('exhibitions'); return false;">Exhibitions</a></li>
             <li><a href="#" onclick="showPage('exhibitions'); return false;">Events</a></li>
@@ -1401,7 +1401,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Support VMFA</h4>
+          <h3>Support VMFA</h3>
           <ul>
             <li><a href="https://www.vmfa.museum/membership/" target="_blank">Membership</a></li>
             <li><a href="https://www.vmfa.museum/give/" target="_blank">Give to VMFA</a></li>
@@ -1425,7 +1425,7 @@
 
   <!-- Exhibition Detail Panel -->
   <div id="exhibitOverlay" class="exhibit-overlay" onclick="closeExhibitDetail()"></div>
-  <aside id="exhibitPanel" class="exhibit-panel" role="dialog" aria-modal="true">
+  <aside id="exhibitPanel" class="exhibit-panel" role="dialog" aria-modal="true" aria-labelledby="epTitle" aria-label="Details">
     <button class="exhibit-panel-close" onclick="closeExhibitDetail()" aria-label="Close">&times;</button>
     <div class="exhibit-panel-img-wrap">
       <img id="epImg" src="" alt="" />
@@ -1443,7 +1443,7 @@
 
   <!-- ── Reservation Modal ───────────────────────────────── -->
   <div id="reserveModalOverlay" class="modal-overlay" onclick="closeReserveModal()"></div>
-  <div id="reserveModal" class="reserve-modal" role="dialog" aria-modal="true">
+  <div id="reserveModal" class="reserve-modal" role="dialog" aria-modal="true" aria-label="Reserve tickets">
 
     <!-- STEP 1: Ticket Selection -->
     <div id="reserveStep1" class="reserve-step">
@@ -1468,33 +1468,33 @@
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Adults (18+)</strong><span class="ticket-price-label" id="priceAdults">$15 each</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('adults',-1)">&#8722;</button>
+              <button class="counter-btn" onclick="changeTicket('adults',-1)" aria-label="Remove one adult ticket">&#8722;</button>
               <span class="counter-val" id="ctAdults">0</span>
-              <button class="counter-btn" onclick="changeTicket('adults',1)">&#43;</button>
+              <button class="counter-btn" onclick="changeTicket('adults',1)" aria-label="Add one adult ticket">&#43;</button>
             </div>
           </div>
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Seniors (65+)</strong><span class="ticket-price-label" id="priceSeniors">$12 each</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('seniors',-1)">&#8722;</button>
+              <button class="counter-btn" onclick="changeTicket('seniors',-1)" aria-label="Remove one senior ticket">&#8722;</button>
               <span class="counter-val" id="ctSeniors">0</span>
-              <button class="counter-btn" onclick="changeTicket('seniors',1)">&#43;</button>
+              <button class="counter-btn" onclick="changeTicket('seniors',1)" aria-label="Add one senior ticket">&#43;</button>
             </div>
           </div>
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Youth (7&ndash;17) &amp; College Students</strong><span class="ticket-price-label" id="priceStudents">$10 each</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('students',-1)">&#8722;</button>
+              <button class="counter-btn" onclick="changeTicket('students',-1)" aria-label="Remove one youth or student ticket">&#8722;</button>
               <span class="counter-val" id="ctStudents">0</span>
-              <button class="counter-btn" onclick="changeTicket('students',1)">&#43;</button>
+              <button class="counter-btn" onclick="changeTicket('students',1)" aria-label="Add one youth or student ticket">&#43;</button>
             </div>
           </div>
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Children (under 7)</strong><span class="ticket-price-label">Free</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('children',-1)">&#8722;</button>
+              <button class="counter-btn" onclick="changeTicket('children',-1)" aria-label="Remove one child ticket">&#8722;</button>
               <span class="counter-val" id="ctChildren">0</span>
-              <button class="counter-btn" onclick="changeTicket('children',1)">&#43;</button>
+              <button class="counter-btn" onclick="changeTicket('children',1)" aria-label="Add one child ticket">&#43;</button>
             </div>
           </div>
         </div>

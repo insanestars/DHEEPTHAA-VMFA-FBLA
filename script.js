@@ -132,7 +132,7 @@ function openDetailPanel(el) {
   var overlay = document.getElementById('exhibitOverlay');
 
   document.getElementById('epImg').src              = el.dataset.img || '';
-  document.getElementById('epImg').alt              = el.dataset.title || '';
+  document.getElementById('epImg').alt              = '';   // decorative: the title is right beside it
   document.getElementById('epCategory').textContent = el.dataset.category || '';
   document.getElementById('epTitle').innerHTML      = el.dataset.title || '';
   document.getElementById('epDates').textContent    = el.dataset.dates || '';
@@ -344,7 +344,7 @@ function renderCalendar() {
       ' data-desc="' + sd + '"' +
       ' data-ticket="' + ex.ticket + '">' +
       '<div class="cal-card-img-wrap">' +
-        '<img src="' + ex.img + '" alt="' + st + '" loading="lazy"/>' +
+        '<img src="' + ex.img + '" alt="" loading="lazy"/>' +
         '<span class="exhibit-badge ' + ex.badge + '">' + ex.badgeLabel + '</span>' +
       '</div>' +
       '<div class="cal-card-body">' +

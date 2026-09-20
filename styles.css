@@ -48,7 +48,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --fg-mid:       #4a4540;
   --fg-soft:      #6f6866;
   --line:         #ddd8d0;   /* decorative dividers */
-  --line-ctl:     #ddd8d0;   /* borders of inputs, buttons, tabs */
+  --line-ctl:     #898581;   /* borders of inputs, buttons, tabs (3:1 on white, cream and beige) */
+  --card-line:    #898581;   /* borders of card-style widgets: calendar cards, saved items, account menu */
 
   /* semantic: accent */
   --accent:       #c41230;   /* filled buttons, badges, bars */
@@ -134,11 +135,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --dk-t-82: rgba(255,255,255,0.82);
   --dk-b-07: rgba(255,255,255,0.07);
   --dk-b-08: rgba(255,255,255,0.08);
-  --dk-b-14: rgba(255,255,255,0.14);
+  --dk-b-14: rgba(255,255,255,0.35);
   --dk-b-15: rgba(255,255,255,0.15);
-  --dk-b-16: rgba(255,255,255,0.16);
-  --dk-b-18: rgba(255,255,255,0.18);
-  --dk-b-25: rgba(255,255,255,0.25);
+  --dk-b-16: rgba(255,255,255,0.35);
+  --dk-b-18: rgba(255,255,255,0.35);
+  --dk-b-25: rgba(255,255,255,0.35);
   --dk-b-30: rgba(255,255,255,0.30);
   --dk-b-36: rgba(255,255,255,0.36);
   --dk-b-50: rgba(255,255,255,0.50);
@@ -171,6 +172,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --fg-soft:   #a3a09b;
   --line:      #3a3d44;
   --line-ctl:  #7d828c;
+  --card-line: #3a3d44;
 
   --accent:        #d13a52;
   --accent-hover:  #b32d43;
@@ -273,6 +275,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --fg-soft:   #d6d6d6;
   --line:      #b3b3b3;
   --line-ctl:  #ffffff;
+  --card-line: #b3b3b3;
 
   --accent:        #ffd60a;
   --accent-hover:  #fff27a;
@@ -1376,7 +1379,7 @@ nav a.active {
 }
 .visit-card:last-child { border-bottom: none; }
 
-.visit-card h3 {
+.visit-card h2 {
   grid-column: 1;
   font-family: var(--ff-display);
   font-size: 36px;
@@ -1390,7 +1393,7 @@ nav a.active {
   position: sticky;
   top: calc(var(--header-h) + 20px);
 }
-.visit-card > *:not(h3) { grid-column: 2; }
+.visit-card > *:not(h2) { grid-column: 2; }
 
 /* Hours */
 .hours-table { margin-bottom: 16px; }
@@ -1595,7 +1598,7 @@ footer {
 }
 .footer-social a:hover { background: var(--accent); border-color: var(--accent-text); color: var(--on-accent); }
 
-.footer-col h4 {
+.footer-col h3 {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1679,7 +1682,7 @@ footer {
   .artist-body { padding: 56px 56px; }
   .artist-artwork { font-size: clamp(26px, 3vw, 38px); }
   .visit-card { column-gap: 64px; }
-  .visit-card h3 { font-size: 28px; }
+  .visit-card h2 { font-size: 28px; }
   .section { padding: 80px 32px; }
   .section-gray { padding: 80px 32px; }
 }
@@ -1779,8 +1782,8 @@ footer {
   /* Visit */
   .visit-grid { padding: 0 24px 56px; }
   .visit-card { grid-template-columns: 1fr; column-gap: 0; row-gap: 28px; padding: 56px 0; }
-  .visit-card h3 { font-size: 26px; position: static; }
-  .visit-card > *:not(h3) { grid-column: 1; }
+  .visit-card h2 { font-size: 26px; position: static; }
+  .visit-card > *:not(h2) { grid-column: 1; }
   .amenities-list { grid-template-columns: 1fr; }
 
   /* Newsletter */
@@ -1811,7 +1814,7 @@ footer {
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
   .artist-body { padding: 36px 20px; }
   .artist-artwork { font-size: 24px; }
-  .visit-card h3 { font-size: 22px; }
+  .visit-card h2 { font-size: 22px; }
   .section { padding: 48px 20px; }
   .section-gray { padding: 48px 20px; }
 }
@@ -2403,7 +2406,7 @@ footer {
   top: calc(100% + 10px);
   right: 0;
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   min-width: 210px;
   box-shadow: 0 8px 32px rgba(26,23,20,0.18);
   z-index: 2000;
@@ -2776,7 +2779,7 @@ footer {
   position: relative;
   cursor: pointer;
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   overflow: hidden;
   transition: box-shadow 0.18s;
 }
@@ -2981,7 +2984,7 @@ footer {
   display: grid;
   grid-template-columns: 240px 1fr;
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid var(--card-line);
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 16px;
