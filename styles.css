@@ -90,6 +90,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   /* controls over images */
   --fav-idle:       #636363;
+  --fav-shadow:     0 0 0 1px #898581, 0 2px 8px rgba(0,0,0,0.14);   /* thin boundary ring + soft shadow on the heart buttons */
   --fav-bg:         rgba(255,255,255,0.88);
   --fav-bg-saved:   rgba(255,255,255,0.96);
   --chip-bg:        rgba(246,243,238,0.9);
@@ -207,6 +208,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --ok-icon-fg: #ffffff;
 
   --fav-idle:       #b5b2ad;
+  --fav-shadow:     0 2px 8px rgba(0,0,0,0.14);
   --fav-bg:         rgba(30,31,35,0.9);
   --fav-bg-saved:   rgba(30,31,35,0.96);
   --chip-bg:        rgba(38,40,45,0.92);
@@ -311,6 +313,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   --ok-icon-fg: #000000;
 
   --fav-idle:       #ffffff;
+  --fav-shadow:     0 2px 8px rgba(0,0,0,0.14);
   --fav-bg:         rgba(0,0,0,0.9);
   --fav-bg-saved:   #000000;
   --chip-bg:        #000000;
@@ -2835,7 +2838,7 @@ footer {
   justify-content: center;
   z-index: 5;
   transition: color 0.18s, background 0.18s, transform 0.15s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.14);
+  box-shadow: var(--fav-shadow);
 }
 .fav-btn:hover { color: var(--accent-text); transform: scale(1.12); }
 .fav-btn.saved { color: var(--accent-text); background: var(--fav-bg-saved); }
@@ -3345,8 +3348,8 @@ html :focus-visible {
 .theme-option:hover { background: var(--surface-3); }
 .theme-option svg { width: 18px; height: 18px; flex-shrink: 0; }
 .theme-option-check { margin-left: auto; font-weight: 700; visibility: hidden; }
-.theme-option[aria-checked="true"] { background: var(--surface-2); font-weight: 700; }
-.theme-option[aria-checked="true"] .theme-option-check { visibility: visible; }
+.theme-option[aria-pressed="true"] { background: var(--surface-2); font-weight: 700; }
+.theme-option[aria-pressed="true"] .theme-option-check { visibility: visible; }
 .theme-switcher--floating {
   position: absolute;
   top: 16px;
@@ -3450,3 +3453,16 @@ html :focus-visible {
 
 /* Dot between Sign In and Create Account in the phone menu (was inheriting near-black on black) */
 #mobileAuthItem { color: var(--mobile-sep); }
+
+/* Text for screen readers only (used for the "opens in a new tab" hints) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}

@@ -62,14 +62,14 @@
     var n = ++uid;
     var menuId = 'themeMenu' + n;
     host.innerHTML =
-      '<button type="button" class="theme-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="' + menuId + '">' +
+      '<button type="button" class="theme-toggle" aria-expanded="false" aria-controls="' + menuId + '">' +
         '<span class="theme-toggle-icon"></span>' +
         '<span class="theme-toggle-label">Theme</span>' +
       '</button>' +
       '<div class="theme-menu" id="' + menuId + '" role="group" aria-label="Color theme" hidden>' +
         '<p class="theme-menu-title" aria-hidden="true">Theme</p>' +
         OPTIONS.map(function (o) {
-          return '<button type="button" class="theme-option" role="menuitemradio" aria-checked="false" data-theme-value="' + o.id + '">' +
+          return '<button type="button" class="theme-option" aria-pressed="false" data-theme-value="' + o.id + '">' +
                    svg(o.icon) + '<span>' + o.label + '</span><span class="theme-option-check" aria-hidden="true">&#10003;</span>' +
                  '</button>';
         }).join('') +
@@ -86,7 +86,7 @@
     btn.addEventListener('click', function () {
       if (isOpen()) { close(); return; }
       closeAll(host); open();
-      var cur = menu.querySelector('[aria-checked="true"]') || opts[0];
+      var cur = menu.querySelector('[aria-pressed="true"]') || opts[0];
       cur.focus();
     });
     opts.forEach(function (o, i) {
@@ -103,7 +103,7 @@
       });
     });
     btn.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown' && !isOpen()) { e.preventDefault(); closeAll(host); open(); (menu.querySelector('[aria-checked="true"]') || opts[0]).focus(); }
+      if (e.key === 'ArrowDown' && !isOpen()) { e.preventDefault(); closeAll(host); open(); (menu.querySelector('[aria-pressed="true"]') || opts[0]).focus(); }
       if (e.key === 'Escape' && isOpen()) { close(true); }
     });
 
@@ -118,10 +118,10 @@
     var cur = byId(pref);
     widgets.forEach(function (w) {
       w.btn.querySelector('.theme-toggle-icon').innerHTML = svg(cur.icon);
-      w.btn.setAttribute('aria-label', 'Color theme: ' + cur.label + '. Change theme');
+      w.btn.setAttribute('aria-label', 'Theme: ' + cur.label + '. Change theme');
       w.btn.setAttribute('title', 'Theme: ' + cur.label);
       w.opts.forEach(function (o) {
-        o.setAttribute('aria-checked', o.getAttribute('data-theme-value') === pref ? 'true' : 'false');
+        o.setAttribute('aria-pressed', o.getAttribute('data-theme-value') === pref ? 'true' : 'false');
       });
     });
   }
