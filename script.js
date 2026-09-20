@@ -196,13 +196,31 @@ function filterExhibitions(filter, btn) {
 
 var EXHIBITION_DATA = [
   {
-    title: 'Giants: Art from the Dean Collection of Swizz Beatz and Alicia Keys',
-    img: 'images/giants.jpg',
-    badge: 'past', badgeLabel: 'Closed',
-    category: 'Special Exhibition · Altria Group Gallery',
-    start: new Date(2025, 10, 22), end: new Date(2026, 2, 1),
-    desc: 'Celebrating Black artistic excellence across generations, this landmark exhibition featured over 130 works by Jean-Michel Basquiat, Kerry James Marshall, Amy Sherald, Derrick Adams, and Kehinde Wiley.',
-    ticket: 'This exhibition has closed.', status: 'past'
+    title: '47th Annual Exhibition of the Virginia Watercolor Society',
+    img: 'images/watercolor-society.jpg',
+    badge: 'current', badgeLabel: 'Now On View',
+    category: 'Special Exhibition · 21st-Century Art Gallery',
+    start: new Date(2026, 8, 5), end: new Date(2026, 10, 1),
+    desc: 'More than 100 watercolors by artists from across Virginia.',
+    ticket: '✦ Free with General Admission', status: 'current'
+  },
+  {
+    title: 'Promise and Peril: Recent Acquisitions in American Landscape Photography',
+    img: 'images/promise-and-peril.jpg',
+    badge: 'current', badgeLabel: 'Now On View',
+    category: 'Collection Exhibition · Photography Gallery',
+    start: new Date(2026, 4, 9), end: new Date(2026, 10, 15),
+    desc: 'Recent acquisitions in American landscape photography, on view in the Photography Gallery.',
+    ticket: '✦ Free with General Admission', status: 'current'
+  },
+  {
+    title: 'Painted on Paper: American Watercolors from the Permanent Collection',
+    img: 'images/painted-on-paper.jpg',
+    badge: 'current', badgeLabel: 'Now On View',
+    category: 'Collection Exhibition · Mary Ann Frable Works on Paper Gallery',
+    start: new Date(2026, 7, 15), end: new Date(2027, 1, 15),
+    desc: 'Highlights of American watercolor from VMFA’s permanent collection.',
+    ticket: '✦ Free with General Admission', status: 'current'
   },
   {
     title: 'Monet & the Impressionists: French Masterworks',
@@ -214,33 +232,59 @@ var EXHIBITION_DATA = [
     ticket: '✦ Free with General Admission', status: 'current'
   },
   {
-    title: "India’s Great Mughals: Art, Power, and Opulence",
-    img: 'images/mughals.jpg',
-    badge: 'current', badgeLabel: 'Now On View',
-    category: 'Special Exhibition · Altria Group Gallery',
-    start: new Date(2026, 4, 9), end: new Date(2026, 7, 23),
-    desc: 'An unprecedented exhibition drawing on rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty, organized by the Victoria and Albert Museum.',
-    ticket: '✦ Ticketed Exhibition – Members Free', status: 'current'
+    title: 'Fine Arts & Flowers 2026',
+    img: 'images/fine-arts-flowers.jpg',
+    badge: 'upcoming', badgeLabel: 'Upcoming',
+    category: 'Special Exhibition · Museum-wide',
+    start: new Date(2026, 9, 8), end: new Date(2026, 9, 11),
+    desc: 'A biennial museum-wide exhibition of floral designs inspired by works of art in VMFA’s permanent collection.',
+    ticket: '✦ Free Admission · No Tickets Required', status: 'upcoming'
   },
   {
-    title: 'Jazz & Visual Art: The Richmond Renaissance',
-    img: 'images/jazz.jpg',
+    title: 'The Impressionist Revolution: Monet to Matisse from the Dallas Museum of Art',
+    img: 'images/impressionist-revolution.jpg',
     badge: 'upcoming', badgeLabel: 'Upcoming',
-    category: 'Special Exhibition · NewMarket Gallery',
-    start: new Date(2026, 6, 12), end: new Date(2026, 9, 25),
-    datesLabel: 'Summer 2026 (Dates TBA)',
-    desc: 'A celebration of the deep connections between jazz music and the visual arts in Richmond, Virginia, tracing the city’s vibrant jazz scene from the 1920s through today.',
+    category: 'Special Exhibition · Altria Group Gallery & NewMarket Gallery',
+    start: new Date(2026, 10, 14), end: new Date(2027, 3, 4),
+    desc: 'The rebellious origins of the Impressionists and the revolutionary course they charted for modern art.',
+    ticket: '✦ Ticketed Exhibition – Members Free', status: 'upcoming'
+  },
+  {
+    title: 'French Photography in the Age of Impressionism',
+    img: 'images/french-photography.jpg',
+    badge: 'upcoming', badgeLabel: 'Upcoming',
+    category: 'Collection Exhibition · Photography Gallery',
+    start: new Date(2026, 10, 21), end: new Date(2027, 3, 4),
+    datesLabel: 'Opening November 21, 2026',
+    desc: 'French photography from the age of Impressionism, opening in the Photography Gallery.',
     ticket: '✦ Free with General Admission', status: 'upcoming'
   },
   {
-    title: 'Fabergé: Romance to Revolution',
-    img: 'images/faberge.jpg',
-    badge: 'upcoming', badgeLabel: 'Upcoming',
-    category: 'Special Exhibition',
-    start: new Date(2026, 8, 20), end: new Date(2027, 0, 18),
-    datesLabel: 'Fall 2026 (Dates TBA)',
-    desc: "Drawing on VMFA’s unparalleled Fabergé holdings, this exhibition traces the extraordinary craftsmanship of the Fabergé firm from Imperial Russia to the revolution that ended it all.",
-    ticket: '✦ Ticketed Exhibition – Members Free', status: 'upcoming'
+    title: "India’s Great Mughals: Art, Power, and Opulence",
+    img: 'images/mughals.jpg',
+    badge: 'past', badgeLabel: 'Closed',
+    category: 'Special Exhibition · Altria Group Gallery & NewMarket Gallery',
+    start: new Date(2026, 4, 9), end: new Date(2026, 8, 7),
+    desc: '200 sumptuous objects from the Mughal dynasty, including manuscripts, jewels, textiles, and paintings, organized by the Victoria and Albert Museum.',
+    ticket: 'This exhibition has closed.', status: 'past'
+  },
+  {
+    title: 'Titus Kaphar and Junius Brutus Stearns: Pictures More Famous than the Truth',
+    img: 'images/kaphar-stearns.jpg',
+    badge: 'past', badgeLabel: 'Closed',
+    category: 'Special Exhibition · VA250',
+    start: new Date(2026, 1, 14), end: new Date(2026, 6, 26),
+    desc: 'A free VA250 exhibition pairing contemporary artist Titus Kaphar with 19th-century painter Junius Brutus Stearns to explore how images of the nation’s founding shape our understanding of history.',
+    ticket: 'This exhibition has closed.', status: 'past'
+  },
+  {
+    title: 'Giants: Art from the Dean Collection of Swizz Beatz and Alicia Keys',
+    img: 'images/giants.jpg',
+    badge: 'past', badgeLabel: 'Closed',
+    category: 'Special Exhibition · Altria Group Gallery',
+    start: new Date(2025, 10, 22), end: new Date(2026, 2, 1),
+    desc: 'Celebrating Black artistic excellence across generations, this landmark exhibition featured over 130 works by Jean-Michel Basquiat, Kerry James Marshall, Amy Sherald, Derrick Adams, and Kehinde Wiley.',
+    ticket: 'This exhibition has closed.', status: 'past'
   }
 ];
 
@@ -322,7 +366,7 @@ function renderMonthPills() {
 
   var months = [];
   var d = new Date(2025, 10, 1);
-  var end = new Date(2027, 2, 1);
+  var end = new Date(2027, 3, 1);
   while (d <= end) {
     var y = d.getFullYear(), m = d.getMonth();
     if (EXHIBITION_DATA.some(function(ex) { return exInMonth(ex, y, m); })) {
@@ -696,7 +740,7 @@ function handleNewsletter(e) {
 // ============================================================
 
 function updateTodaysHours() {
-  var hoursMap = { 0:'10 am – 5 pm', 1:'10 am – 5 pm', 2:'10 am – 9 pm', 3:'10 am – 9 pm', 4:'10 am – 9 pm', 5:'10 am – 9 pm', 6:'10 am – 5 pm' };
+  var hoursMap = { 0:'10 am – 5 pm', 1:'10 am – 5 pm', 2:'10 am – 5 pm', 3:'10 am – 9 pm', 4:'10 am – 9 pm', 5:'10 am – 9 pm', 6:'10 am – 5 pm' };
   var todaysHours = hoursMap[new Date().getDay()];
   document.querySelectorAll('.todays-hours-display').forEach(function(el) { el.textContent = todaysHours; });
 }
@@ -851,7 +895,7 @@ function logout() {
 
 var _resContext = { title: '', dates: '', ticketText: '', isTicketed: false, lastRef: '', savedDate: '' };
 var _ticketCounts = { adults: 0, seniors: 0, students: 0, children: 0 };
-var _ticketPrices = { adults: 20, seniors: 16, students: 12, children: 0 };
+var _ticketPrices = { adults: 15, seniors: 12, students: 10, children: 0 };
 
 function openReserveModal() {
   _resContext.title      = document.getElementById('epTitle')  ? document.getElementById('epTitle').textContent  : '';
@@ -864,10 +908,10 @@ function openReserveModal() {
 
   // Set prices and button text based on ticketed vs free
   if (_resContext.isTicketed) {
-    _ticketPrices = { adults: 20, seniors: 16, students: 12, children: 0 };
-    document.getElementById('priceAdults').textContent   = '$20 each';
-    document.getElementById('priceSeniors').textContent  = '$16 each';
-    document.getElementById('priceStudents').textContent = '$12 each';
+    _ticketPrices = { adults: 15, seniors: 12, students: 10, children: 0 };
+    document.getElementById('priceAdults').textContent   = '$15 each';
+    document.getElementById('priceSeniors').textContent  = '$12 each';
+    document.getElementById('priceStudents').textContent = '$10 each';
     document.getElementById('reserveStep1Btn').innerHTML = 'Proceed to Payment &rarr;';
     document.getElementById('reserveMemberNote').textContent = '✦ Members receive complimentary admission to ticketed exhibitions.';
   } else {
@@ -932,9 +976,9 @@ function proceedFromStep1() {
     document.getElementById('paySummaryTitle').textContent = _resContext.title;
     document.getElementById('paySummaryTotal').textContent = '$' + total + '.00';
     var parts = [];
-    if (_ticketCounts.adults)   parts.push(_ticketCounts.adults   + ' × Adult ($20)');
-    if (_ticketCounts.seniors)  parts.push(_ticketCounts.seniors  + ' × Senior ($16)');
-    if (_ticketCounts.students) parts.push(_ticketCounts.students + ' × Student ($12)');
+    if (_ticketCounts.adults)   parts.push(_ticketCounts.adults   + ' × Adult ($15)');
+    if (_ticketCounts.seniors)  parts.push(_ticketCounts.seniors  + ' × Senior ($12)');
+    if (_ticketCounts.students) parts.push(_ticketCounts.students + ' × Youth/Student ($10)');
     if (_ticketCounts.children) parts.push(_ticketCounts.children + ' × Child (Free)');
     document.getElementById('paySummaryBreakdown').textContent = parts.join(' · ');
     document.getElementById('paySummaryDate').textContent = 'Visit: ' + fmtDate(date);

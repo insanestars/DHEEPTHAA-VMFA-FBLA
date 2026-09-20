@@ -2,7 +2,7 @@
   'use strict';
 
   // ── Hours map (matches site logic) ──────────────────────────
-  var HOURS = { 0:'10 am – 5 pm', 1:'10 am – 5 pm', 2:'10 am – 9 pm', 3:'10 am – 9 pm', 4:'10 am – 9 pm', 5:'10 am – 9 pm', 6:'10 am – 5 pm' };
+  var HOURS = { 0:'10 am – 5 pm', 1:'10 am – 5 pm', 2:'10 am – 5 pm', 3:'10 am – 9 pm', 4:'10 am – 9 pm', 5:'10 am – 9 pm', 6:'10 am – 5 pm' };
   var DAYS  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
   // ── Intent library ───────────────────────────────────────────
@@ -21,19 +21,19 @@
       keys: ['hour','open','close','closing','when','time','tonight','today','schedule','what day','weekday','weekend'],
       reply: function () {
         var d = new Date().getDay();
-        return 'VMFA is open today (' + DAYS[d] + ') from ' + HOURS[d] + '.\n\nFull weekly schedule:\n• Monday & Sunday — 10 am – 5 pm\n• Tuesday through Friday — 10 am – 9 pm\n• Saturday — 10 am – 5 pm\n\nWe\'re open 365 days a year — no days off!';
+        return 'VMFA is open today (' + DAYS[d] + ') from ' + HOURS[d] + '.\n\nFull weekly schedule:\n• Saturday through Tuesday — 10 am – 5 pm\n• Wednesday through Friday — 10 am – 9 pm\n\nWe\'re open 365 days a year — no days off!';
       }
     },
     {
       keys: ['ticket','admission','cost','price','free','pay','charge','entry','fee','how much','entrance','afford'],
       reply: function () {
-        return 'General admission to VMFA is always free — no tickets needed for the permanent collection!\n\nSpecial exhibitions like India\'s Great Mughals and the upcoming Fabergé show are ticketed. VMFA members get free admission to every ticketed exhibition.\n\nAsk me about a specific show for details.';
+        return 'General admission to VMFA is always free — no tickets needed for the permanent collection!\n\nSpecial exhibitions like the upcoming Impressionist Revolution: Monet to Matisse (opens Nov 14) are ticketed: $15 adults, $12 seniors 65+, $10 youth ages 7–17 and college students with ID. VMFA members get free admission to every ticketed exhibition.\n\nAsk me about a specific show for details.';
       }
     },
     {
       keys: ['location','address','where is','direction','get there','how do i get','find you','map','drive','parking','park','navigate','near'],
       reply: function () {
-        return 'VMFA is located at:\n200 N Arthur Ashe Blvd\nRichmond, VA 23220\n\nParking is available on-site. Members park free.\nPhone: (804) 340-1400';
+        return 'VMFA is located at:\n200 N Arthur Ashe Blvd\nRichmond, VA 23220\n\nParking: the VMFA Parking Deck is $6 per day. Members park free.\nPhone: (804) 340-1400';
       }
     },
     {
@@ -45,19 +45,19 @@
     {
       keys: ['mughal','india','jewel','south asia','victoria and albert','opulence','emperor','dynasty','jade','manuscript','mughal court'],
       reply: function () {
-        return 'India\'s Great Mughals: Art, Power, and Opulence is on view through August 23, 2026 in the Altria Group Gallery.\n\nThis landmark show features rarely seen manuscripts, jewels, textiles, and paintings from the Mughal dynasty, organized by the Victoria and Albert Museum.\n\nTickets required · VMFA members get in free.';
+        return 'India\'s Great Mughals: Art, Power, and Opulence closed on September 7, 2026 after being extended through Labor Day.\n\nThe show featured 200 objects — manuscripts, jewels, textiles, and paintings from the Mughal dynasty — organized by the Victoria and Albert Museum.';
       }
     },
     {
       keys: ['faberg','russian art','imperial egg','romanov','easter egg','tsar','czar','enamel','revolution','faberge'],
       reply: function () {
-        return 'Fabergé: Romance to Revolution opens Fall 2026!\n\nDrawing on VMFA\'s unparalleled Fabergé holdings — the largest collection outside Russia — this exhibition traces the extraordinary craftsmanship from Imperial Russia to the revolution that ended it all.\n\nTicketed exhibition · Members get in free.';
+        return 'VMFA holds the largest public collection of Fabergé outside Russia, including five Imperial Easter Eggs. They\'re part of the permanent collection and free with general admission.';
       }
     },
     {
-      keys: ['jazz','richmond renaissance','music and visual','richmond jazz'],
+      keys: ['jazz','richmond jazz','live music','after 5','friday'],
       reply: function () {
-        return 'Jazz & Visual Art: The Richmond Renaissance opens Summer 2026!\n\nThis exhibition celebrates the deep connections between jazz and the visual arts in Richmond — tracing the city\'s vibrant scene from the 1920s through today.\n\nFree with general admission.';
+        return 'Live music at VMFA:\n\n🎷 Dominion Energy Jazz Café — Wednesdays at 6 pm in the Cochrane Atrium (Lawrence Olds Band Sept 23, Spell & Co. Sept 30).\n\n🎶 After 5 Fridays | Summer Breeze with Jungle Brother — Friday, Sept 25 at 5:30 pm in the Cochrane Atrium.\n\nFree with general admission.';
       }
     },
     {
@@ -69,7 +69,7 @@
     {
       keys: ['event','program','workshop','family art','lecture','tour','activity','upcoming','calendar','class','3 in 30','gallery talk'],
       reply: function () {
-        return 'Upcoming events at VMFA:\n\n🎨 Family Art Making: Colors of the Mughal Empire\nSaturday, June 28 · 10 am · Art Education Center\nFree for all ages\n\n🎙 3 in 30: Highlights from India\'s Great Mughals\nTuesday, July 8 · 11 am · Altria Group Gallery\nFree with exhibition admission — no registration needed';
+        return 'Upcoming events at VMFA:\n\n🎷 Dominion Energy Jazz Café | Lawrence Olds Band\nWed, Sept 23 · 6 pm · Cochrane Atrium\n\n🎙 Circle Lecture | Dr. Ashley Spivey\nThu, Sept 24 · 6 pm · Cheek Theater\n\n🎶 After 5 Fridays | Summer Breeze with Jungle Brother\nFri, Sept 25 · 5:30 pm · Cochrane Atrium\n\n🌸 Fine Arts & Flowers Opening Gala Preview\nWed, Oct 7 · 6:30 pm\n\n🌸 Fine Arts & Flowers 2026\nOct 8–11 · Museum-wide · Free admission';
       }
     },
     {
@@ -93,7 +93,7 @@
     {
       keys: ['exhibit','exhibition','show','on view','gallery','what\'s on','what is on','current show','now showing'],
       reply: function () {
-        return 'Currently on view at VMFA:\n\n🖼 Monet & the Impressionists: French Masterworks\nOngoing · Mellon Galleries · Free with admission\n\n🏛 India\'s Great Mughals: Art, Power, and Opulence\nThrough August 23, 2026 · Ticketed (Members free)\n\nComing soon: Jazz & Visual Art (Summer 2026) and Fabergé: Romance to Revolution (Fall 2026).\n\nWant details on any of these?';
+        return 'Currently on view at VMFA:\n\n🖼 Monet & the Impressionists: French Masterworks\nOngoing · Mellon Galleries · Free with admission\n\n📷 Promise and Peril: Recent Acquisitions in American Landscape Photography\nThrough November 15, 2026 · Photography Gallery · Free\n\n🎨 47th Annual Exhibition of the Virginia Watercolor Society\nThrough November 1, 2026 · 21st-Century Art Gallery · Free\n\n🖌 Painted on Paper: American Watercolors\nThrough February 15, 2027 · Free\n\nComing soon: Fine Arts & Flowers 2026 (Oct 8–11, free), The Impressionist Revolution: Monet to Matisse (Nov 14, 2026 – Apr 4, 2027, ticketed), and French Photography in the Age of Impressionism (opens Nov 21, free).\n\nWant details on any of these?';
       }
     },
     {
