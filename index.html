@@ -1284,7 +1284,7 @@
           <div class="transit-info">
             <div class="transit-item"><strong>By Car</strong><p>Take I-195 to Exit 1B (Boulevard). Parking available in the museum parking deck and nearby streets.</p></div>
             <div class="transit-item"><strong>Parking</strong><p>VMFA Parking Deck: $6 per day, open during museum hours (Sat&ndash;Tue 7 am&ndash;7 pm; Wed&ndash;Fri 7 am&ndash;10 pm). Members receive complimentary parking. Accessible parking is available in the deck and on the north side of the main building.</p></div>
-            <div class="transit-item"><strong>By Bus</strong><p>GRTC Route 2 (Boulevard) stops directly in front of the museum.</p></div>
+            <div class="transit-item"><strong>By Bus</strong><p>The closest GRTC bus stop is on Grove Ave via route 77. Check out <a href="https://www.ridegrtc.com/" target="_blank" rel="noopener">GRTC's website</a> for more information.</p></div>
           </div>
         </div>
         <div class="visit-card">
@@ -1493,6 +1493,7 @@
         <button class="reserve-modal-close" onclick="closeReserveModal()" aria-label="Close">&times;</button>
       </div>
       <div class="reserve-modal-body">
+        <p class="reserve-member-note"><strong>&#9888; Demo only.</strong> This is a demonstration checkout and no real payment is processed. Please do not enter real card or personal information.</p>
         <div class="payment-order-summary">
           <p class="pay-summary-eyebrow">Order Summary</p>
           <div class="pay-summary-row">
@@ -1521,6 +1522,7 @@
               <input type="text" id="cardCvv" class="reserve-date-input" placeholder="123" maxlength="4" inputmode="numeric" />
             </div>
           </div>
+          <p class="reserve-member-note">Demo only &mdash; use fake numbers (e.g., 4242 4242 4242 4242). Do not enter real payment information.</p>
           <p id="paymentError" class="login-error" style="margin-top:2px;min-height:16px;"></p>
           <button class="btn-red reserve-confirm-btn" onclick="processPayment()">
             <span id="payBtnText">Complete Purchase &rarr;</span>
