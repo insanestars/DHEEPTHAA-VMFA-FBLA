@@ -1169,6 +1169,7 @@ function toggleFavorite(card, btn) {
   if (idx >= 0) {
     favorites.splice(idx, 1);
     btn.classList.remove('saved');
+    btn.setAttribute('aria-pressed', 'false');
     btn.setAttribute('aria-label', 'Save to My Collection');
   } else {
     favorites.push({
@@ -1184,6 +1185,7 @@ function toggleFavorite(card, btn) {
       badgeLabel: card.dataset.badgeLabel || ''
     });
     btn.classList.add('saved');
+    btn.setAttribute('aria-pressed', 'true');
     btn.setAttribute('aria-label', 'Remove from My Collection');
   }
 
@@ -1197,7 +1199,7 @@ function restoreFavorites() {
     var isSaved = favorites.some(function(f) { return f.title === card.dataset.title; });
     if (isSaved) {
       var btn = card.querySelector('.fav-btn');
-      if (btn) { btn.classList.add('saved'); btn.setAttribute('aria-label', 'Remove from My Collection'); }
+      if (btn) { btn.classList.add('saved'); btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Remove from My Collection'); }
     }
   });
 }
@@ -1264,8 +1266,126 @@ function removeFavorite(title) {
   document.querySelectorAll('.col-work, .artist-card, .exhibit-row, .cal-card').forEach(function(card) {
     if (card.dataset.title === title) {
       var btn = card.querySelector('.fav-btn');
-      if (btn) { btn.classList.remove('saved'); btn.setAttribute('aria-label', 'Save to My Collection'); }
+      if (btn) { btn.classList.remove('saved'); btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', 'Save to My Collection'); }
     }
   });
   openMyCollection();
 }
+
+// ============================================================
+// Accessibility: hero video control, keyboard access, dialog focus
+// ============================================================
+(function () {
+  'use strict';
+
+  /* ── Hero video: pause / play; never autoplay when the visitor prefers reduced motion ── */
+  function initHeroVideo() {
+    var video = document.querySelector('.hero-video-wrap video');
+    var btn = document.getElementById('heroVideoToggle');
+    if (!video || !btn) return;
+    var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+    function sync() {
+      var playing = !video.paused && !video.ended;
+      btn.classList.toggle('is-paused', !playing);
+      btn.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+      btn.setAttribute('title', playing ? 'Pause background video' : 'Play background video');
+    }
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    btn.addEventListener('click', function () {
+      if (video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      else video.pause();
+    });
+
+    if (mq && mq.matches) {
+      video.pause();                                   // reduced motion: start paused (shows the first frame)
+    } else {
+      var p = video.play();                            // autoplay is started here so it can be skipped for reduced motion
+      if (p && p.catch) p.catch(function () {});       // if the browser blocks it, the button just shows "Play"
+    }
+    var onChange = function () { if (mq.matches) video.pause(); };
+    if (mq) { if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange); }
+    sync();
+  }
+
+  /* ── Keyboard access for clickable cards / tiles (elements that only have an onclick) ── */
+  var NATIVE = 'a[href],button,input,select,textarea,summary,[tabindex],[contenteditable="true"]';
+  var BACKDROPS = '.exhibit-overlay,.modal-overlay';
+  var HAS_INNER_CONTROLS = '.col-work,.artist-card,.exhibit-row,.cal-card,.my-coll-item';
+
+  function enhance(root) {
+    var list = [];
+    if (root.nodeType === 1 && root.hasAttribute('onclick')) list.push(root);
+    if (root.querySelectorAll) list = list.concat(Array.prototype.slice.call(root.querySelectorAll('[onclick]')));
+    list.forEach(function (el) {
+      if (el.matches(NATIVE) || el.matches(BACKDROPS)) return;
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('data-kbd', '1');
+      if (!el.hasAttribute('role') && !el.matches(HAS_INNER_CONTROLS)) el.setAttribute('role', 'button');
+    });
+  }
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target && e.target.hasAttribute && e.target.hasAttribute('data-kbd') && !e.defaultPrevented) {
+      e.preventDefault();
+      e.target.click();
+    }
+  });
+
+  /* ── Dialogs: move focus in, keep it inside, give it back, Escape closes the detail panel ── */
+  var DIALOG_IDS = ['reserveModal', 'myReservationsPanel', 'myCollectionPanel', 'searchOverlay', 'mobileNav', 'exhibitPanel'];
+  var openers = {};
+
+  function focusables(container) {
+    return Array.prototype.slice.call(container.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled]),[tabindex="0"]'))
+      .filter(function (el) { return el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden'; });
+  }
+  function isOpen(el) { return el && el.classList.contains('open'); }
+  function topDialog() {
+    for (var i = 0; i < DIALOG_IDS.length; i++) { var d = document.getElementById(DIALOG_IDS[i]); if (isOpen(d)) return d; }
+    return null;
+  }
+  function watch(dialog) {
+    var wasOpen = isOpen(dialog);
+    new MutationObserver(function () {
+      var now = isOpen(dialog);
+      if (now === wasOpen) return;
+      wasOpen = now;
+      if (now) {
+        var a = document.activeElement;
+        openers[dialog.id] = (a && a !== document.body && !dialog.contains(a)) ? a : null;
+        setTimeout(function () {
+          var f = focusables(dialog);
+          var target = dialog.querySelector('input[type="text"]:not([disabled])') && dialog.id === 'searchOverlay' ? dialog.querySelector('input[type="text"]') : f[0];
+          if (target) target.focus();
+        }, 60);
+      } else {
+        var o = openers[dialog.id]; openers[dialog.id] = null;
+        if (o && document.contains(o) && o.getClientRects().length) { try { o.focus({ preventScroll: true }); } catch (err) { o.focus(); } }
+      }
+    }).observe(dialog, { attributes: true, attributeFilter: ['class'] });
+  }
+  document.addEventListener('keydown', function (e) {
+    var d = topDialog();
+    if (!d) return;
+    if (e.key === 'Escape' && d.id === 'exhibitPanel' && typeof closeExhibitDetail === 'function') { closeExhibitDetail(); return; }
+    if (e.key !== 'Tab') return;
+    var f = focusables(d);
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1], active = document.activeElement;
+    if (!d.contains(active)) { e.preventDefault(); first.focus(); }
+    else if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+  });
+
+  function init() {
+    initHeroVideo();
+    enhance(document);
+    new MutationObserver(function (muts) {
+      muts.forEach(function (m) { m.addedNodes.forEach(function (n) { if (n.nodeType === 1) enhance(n); }); });
+    }).observe(document.body, { childList: true, subtree: true });
+    DIALOG_IDS.forEach(function (id) { var d = document.getElementById(id); if (d) watch(d); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();

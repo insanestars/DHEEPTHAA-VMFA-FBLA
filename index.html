@@ -4,10 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="unsafe-url" />
-  <title>Virginia Museum of Fine Arts</title>
+  <title>Virginia Museum of Fine Arts | Student Design Concept</title>
+  <meta name="description" content="Student design concept for FBLA: a redesigned Virginia Museum of Fine Arts website with exhibitions, events, collections and visit info. Not the official VMFA website." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://insanestars.github.io/DHEEPTHAA-VMFA-FBLA/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="VMFA Student Design Concept" />
+  <meta property="og:title" content="Virginia Museum of Fine Arts | Student Design Concept" />
+  <meta property="og:description" content="Student design concept for FBLA: a redesigned Virginia Museum of Fine Arts website with exhibitions, events, collections and visit info. Not the official VMFA website." />
+  <meta property="og:url" content="https://insanestars.github.io/DHEEPTHAA-VMFA-FBLA/" />
+  <meta property="og:image" content="https://insanestars.github.io/DHEEPTHAA-VMFA-FBLA/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Monet's Field of Poppies with the words Virginia Museum of Fine Arts, student design concept for FBLA" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Virginia Museum of Fine Arts | Student Design Concept" />
+  <meta name="twitter:description" content="Student design concept for FBLA: a redesigned Virginia Museum of Fine Arts website with exhibitions, events, collections and visit info. Not the official VMFA website." />
+  <meta name="twitter:image" content="https://insanestars.github.io/DHEEPTHAA-VMFA-FBLA/og-image.jpg" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="site-banner" role="note">Student design concept for FBLA. Not the official VMFA website.</div>
 
   <!-- UTILITY BAR -->
   <div class="util-bar" id="utilBar">
@@ -48,7 +67,8 @@
           </svg>
         </button>
       </div>
-      <button class="mobile-menu-btn" id="menuBtn">&#9776;</button>
+      <div class="theme-switcher" data-theme-switcher></div>
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">&#9776;</button>
     </div>
   </header>
 
@@ -88,18 +108,22 @@
     </div>
   </div>
 
-  <main>
+  <main id="main-content" tabindex="-1">
 
     <!-- HOME PAGE -->
     <section class="page active" id="home">
 
       <div class="hero">
         <div class="hero-video-wrap">
-          <video autoplay muted loop playsinline>
+          <video muted loop playsinline preload="auto">
             <source src="VMFAFinalWebsiteLoop5mb.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="hero-overlay"></div>
+        <button type="button" class="hero-video-toggle" id="heroVideoToggle" aria-label="Pause background video">
+          <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+        </button>
         <div class="hero-box">
           <h1>Welcome to VMFA</h1>
           <p>A world-class art museum with hometown hospitality. Over 50,000 works from almost every major world culture.</p>
@@ -1388,7 +1412,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>Designed by Dheepthaa Devarajan Lakshman &nbsp;&middot;&nbsp; &copy; 2026 VMFA</p>
+        <p>Student design concept by Dheepthaa Devarajan Lakshman. VMFA name, images, and content belong to the Virginia Museum of Fine Arts.</p>
         <div class="footer-bottom-links">
           <a href="https://docs.google.com/document/d/1nZb1lxHBpHxvmLE0vpFleC7faOCGr0Ja1B-VtWyQOQM/edit?tab=t.0" target="_blank" rel="noopener">Citations</a>
           <a href="https://www.vmfa.museum/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
@@ -1493,7 +1517,7 @@
         <button class="reserve-modal-close" onclick="closeReserveModal()" aria-label="Close">&times;</button>
       </div>
       <div class="reserve-modal-body">
-        <p class="reserve-member-note"><strong>&#9888; Demo only.</strong> This is a demonstration checkout and no real payment is processed. Please do not enter real card or personal information.</p>
+
         <div class="payment-order-summary">
           <p class="pay-summary-eyebrow">Order Summary</p>
           <div class="pay-summary-row">
@@ -1504,6 +1528,7 @@
           <p id="paySummaryDate" class="pay-summary-date"></p>
         </div>
         <div class="payment-form">
+          <p class="reserve-member-note reserve-member-note--demo"><strong>Demo only.</strong> Do not enter real card details.</p>
           <div class="reserve-field">
             <label for="cardNumber">Card Number</label>
             <input type="text" id="cardNumber" class="reserve-date-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)" />
@@ -1522,7 +1547,7 @@
               <input type="text" id="cardCvv" class="reserve-date-input" placeholder="123" maxlength="4" inputmode="numeric" />
             </div>
           </div>
-          <p class="reserve-member-note">Demo only &mdash; use fake numbers (e.g., 4242 4242 4242 4242). Do not enter real payment information.</p>
+          <p class="reserve-member-note reserve-member-note--demo">Demo only &mdash; use fake numbers (e.g., 4242 4242 4242 4242). Do not enter real payment information.</p>
           <p id="paymentError" class="login-error" style="margin-top:2px;min-height:16px;"></p>
           <button class="btn-red reserve-confirm-btn" onclick="processPayment()">
             <span id="payBtnText">Complete Purchase &rarr;</span>
