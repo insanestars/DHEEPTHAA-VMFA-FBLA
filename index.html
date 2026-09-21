@@ -45,7 +45,7 @@
   <!-- HEADER -->
   <header id="site-header">
     <div class="header-main">
-      <a class="logo" href="#" onclick="showPage('home'); return false;">
+      <a class="logo" href="#" data-action="showPage-home-nodefault">
         <div class="logo-letters">
           <span class="logo-v">V</span><span class="logo-m">M</span><span class="logo-f">F</span><span class="logo-a">A</span>
         </div>
@@ -53,11 +53,11 @@
       </a>
       <nav>
         <ul>
-          <li><a href="#" onclick="showPage('home'); return false;" data-page="home" class="active">Home</a></li>
-          <li><a href="#" onclick="showPage('exhibitions'); return false;" data-page="exhibitions">Exhibitions</a></li>
-          <li><a href="#" onclick="showPage('collection'); return false;" data-page="collection">Collections</a></li>
-          <li><a href="#" onclick="showPage('artists'); return false;" data-page="artists">Featured Artists</a></li>
-          <li><a href="#" onclick="showPage('visit'); return false;" data-page="visit">Plan Your Visit</a></li>
+          <li><a href="#" data-action="showPage-home-nodefault" data-page="home" class="active">Home</a></li>
+          <li><a href="#" data-action="showPage-exhibitions-nodefault" data-page="exhibitions">Exhibitions</a></li>
+          <li><a href="#" data-action="showPage-collection-nodefault" data-page="collection">Collections</a></li>
+          <li><a href="#" data-action="showPage-artists-nodefault" data-page="artists">Featured Artists</a></li>
+          <li><a href="#" data-action="showPage-visit-nodefault" data-page="visit">Plan Your Visit</a></li>
         </ul>
       </nav>
       <div class="header-search">
@@ -79,7 +79,7 @@
     <button class="mobile-close" id="menuClose" aria-label="Close menu">&#10005;</button>
     <div class="mobile-nav-search">
       <input type="text" id="mobileNavSearchInput" aria-label="Search VMFA" placeholder="Search VMFA&hellip;" autocomplete="off" />
-      <button type="button" aria-label="Search" onclick="mobileNavSearch()">
+      <button type="button" aria-label="Search" data-action="mobileNavSearch">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/>
           <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -87,11 +87,11 @@
       </button>
     </div>
     <ul>
-      <li><a href="#" onclick="showPage('home'); closeMobileNav(); return false;">Home</a></li>
-      <li><a href="#" onclick="showPage('exhibitions'); closeMobileNav(); return false;">Exhibitions</a></li>
-      <li><a href="#" onclick="showPage('collection'); closeMobileNav(); return false;">Collections</a></li>
-      <li><a href="#" onclick="showPage('artists'); closeMobileNav(); return false;">Featured Artists</a></li>
-      <li><a href="#" onclick="showPage('visit'); closeMobileNav(); return false;">Plan Your Visit</a></li>
+      <li><a href="#" data-action="showPage-home-closeMobileNav-nodefault">Home</a></li>
+      <li><a href="#" data-action="showPage-exhibitions-closeMobileNav-nodefault">Exhibitions</a></li>
+      <li><a href="#" data-action="showPage-collection-closeMobileNav-nodefault">Collections</a></li>
+      <li><a href="#" data-action="showPage-artists-closeMobileNav-nodefault">Featured Artists</a></li>
+      <li><a href="#" data-action="showPage-visit-closeMobileNav-nodefault">Plan Your Visit</a></li>
       <li><button type="button" class="mobile-a11y-btn" data-a11y-open>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="7.2" r="1.4" fill="currentColor" stroke="none"/><path d="M7 10.2l5 1 5-1M12 11.2v3.6M9.6 19.4L12 14.8l2.4 4.6"/></svg>
         <span>Accessibility</span></button></li>
@@ -133,8 +133,8 @@
           <h1>Welcome to VMFA</h1>
           <p>A world-class art museum with hometown hospitality. Over 50,000 works from almost every major world culture.</p>
           <div class="hero-btns">
-            <button class="btn-red" onclick="showPage('visit')">Plan Your Visit</button>
-            <button class="btn-outline" onclick="showPage('exhibitions')">See What's On</button>
+            <button class="btn-red" data-action="showPage-visit">Plan Your Visit</button>
+            <button class="btn-outline" data-action="showPage-exhibitions">See What's On</button>
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@
             <h2>The Impressionist Revolution: Monet to Matisse from the Dallas Museum of Art</h2>
             <p class="dates">November 14, 2026 &ndash; April 4, 2027 &nbsp;&middot;&nbsp; Special Exhibition</p>
             <p>This exhibition reveals the rebellious origins of the independent artist collective known as the Impressionists and the revolutionary course they charted for modern art. Tickets: $15 adults, $12 seniors 65+, $10 youth ages 7&ndash;17 and college students with ID.</p>
-            <button class="btn-red" onclick="showPage('exhibitions')">View Exhibition</button>
+            <button class="btn-red" data-action="showPage-exhibitions">View Exhibition</button>
           </div>
           <img src="images/impressionist-revolution.jpg" alt="" />
         </div>
@@ -162,10 +162,10 @@
       <div class="section">
         <div class="section-header">
           <h2>Featured Events</h2>
-          <a href="#" class="see-all" onclick="showPageEvents(); return false;">View All Events &rarr;</a>
+          <a href="#" class="see-all" data-action="showPageEvents-nodefault">View All Events &rarr;</a>
         </div>
         <div class="events-grid">
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-jazz-cafe.jpg"
             data-badge="upcoming" data-badge-label="Music"
             data-category="Music &amp; Performing Arts · Cochrane Atrium"
@@ -183,7 +183,7 @@
               <p class="event-desc">Live jazz in the Cochrane Atrium every Wednesday evening. Free with general admission.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-circle-lecture.jpg"
             data-badge="upcoming" data-badge-label="Talks"
             data-category="Talks · Cheek Theater"
@@ -201,7 +201,7 @@
               <p class="event-desc">A Circle Lecture with Dr. Ashley Spivey in the Cheek Theater.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-after5.jpg"
             data-badge="upcoming" data-badge-label="Music"
             data-category="Music &amp; Performing Arts · Cochrane Atrium"
@@ -219,7 +219,7 @@
               <p class="event-desc">Highlight tours, drink specials, live music, and dancing on a Friday evening at VMFA.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/fine-arts-flowers.jpg"
             data-badge="upcoming" data-badge-label="Exhibition"
             data-category="Special Event · Museum-wide"
@@ -245,30 +245,30 @@
         <div class="inner">
           <div class="section-header">
             <h2>Explore the Collection</h2>
-            <a href="#" class="see-all" onclick="showPage('collection'); return false;">View All Collections &rarr;</a>
+            <a href="#" class="see-all" data-action="showPage-collection-nodefault">View All Collections &rarr;</a>
           </div>
           <div class="collection-grid">
-            <div class="collection-tile" onclick="showCollection('american')">
+            <div class="collection-tile" data-action="showCollection-american">
               <img src="https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <h3 class="tile-label">American Art</h3>
             </div>
-            <div class="collection-tile" onclick="showCollection('ancient')">
+            <div class="collection-tile" data-action="showCollection-ancient">
               <img src="https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <h3 class="tile-label">Ancient Art</h3>
             </div>
-            <div class="collection-tile" onclick="showCollection('european')">
+            <div class="collection-tile" data-action="showCollection-european">
               <img src="https://www.vmfa.museum/img/ee9a0e51-273c-4818-be6e-6c26ef88af71/62_31_v1_KW_200907_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <h3 class="tile-label">European Art</h3>
             </div>
-            <div class="collection-tile" onclick="showCollection('african-american')">
+            <div class="collection-tile" data-action="showCollection-african-american">
               <img src="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <h3 class="tile-label">African American Art</h3>
             </div>
-            <div class="collection-tile" onclick="showCollection('modern')">
+            <div class="collection-tile" data-action="showCollection-modern">
               <img src="https://www.vmfa.museum/img/1b7be6c4-1d3f-48e3-b463-13755437aab4/2020_19_v1_TF_202009_d_o4.jpg?fm=jpg&q=80&fit=max&w=500" alt="" />
               <h3 class="tile-label">Modern &amp; Contemporary</h3>
             </div>
-            <div class="collection-tile" onclick="showCollection('faberge')">
+            <div class="collection-tile" data-action="showCollection-faberge">
               <img src="images/faberge.jpg" alt="" />
               <h3 class="tile-label">Faberg&eacute; &amp; Russian Arts</h3>
             </div>
@@ -299,27 +299,27 @@
 
         <!-- Main tab switcher: Exhibitions | Events -->
         <div class="main-tab-bar">
-          <button class="main-tab active" id="tabExhibitions" onclick="showMainTab('exhibitions', this)">Exhibitions</button>
-          <button class="main-tab" id="tabEvents" onclick="showMainTab('events', this)">Events</button>
+          <button class="main-tab active" id="tabExhibitions" data-action="showMainTab-exhibitions-this">Exhibitions</button>
+          <button class="main-tab" id="tabEvents" data-action="showMainTab-events-this">Events</button>
         </div>
 
         <!-- EXHIBITIONS content -->
         <div id="exhibitionsContent">
           <div class="section-header"><h2>Current &amp; Upcoming Exhibitions</h2></div>
           <div class="filter-tabs">
-            <button class="tab active" onclick="filterExhibitions('all', this)">All</button>
-            <button class="tab" onclick="filterExhibitions('current', this)">Now On View</button>
-            <button class="tab" onclick="filterExhibitions('upcoming', this)">Upcoming</button>
-            <button class="tab" onclick="filterExhibitions('past', this)">Past</button>
+            <button class="tab active" data-action="filterExhibitions-all-this">All</button>
+            <button class="tab" data-action="filterExhibitions-current-this">Now On View</button>
+            <button class="tab" data-action="filterExhibitions-upcoming-this">Upcoming</button>
+            <button class="tab" data-action="filterExhibitions-past-this">Past</button>
           </div>
 
           <!-- View toggle: List | Calendar -->
           <div class="view-toggle-bar">
-            <button class="vtb active" id="vtbList" onclick="setExhibitionView('list', this)">
+            <button class="vtb active" id="vtbList" data-action="setExhibitionView-list-this">
               <svg width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden="true"><rect y="0" width="14" height="2" rx="1" fill="currentColor"/><rect y="5" width="14" height="2" rx="1" fill="currentColor"/><rect y="10" width="14" height="2" rx="1" fill="currentColor"/></svg>
               List
             </button>
-            <button class="vtb" id="vtbCalendar" onclick="setExhibitionView('calendar', this)">
+            <button class="vtb" id="vtbCalendar" data-action="setExhibitionView-calendar-this">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="2" width="12" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M1 5.5h12" stroke="currentColor" stroke-width="1.2"/><rect x="3.5" y="0.5" width="1.2" height="3" rx="0.6" fill="currentColor"/><rect x="9.3" y="0.5" width="1.2" height="3" rx="0.6" fill="currentColor"/><circle cx="4.5" cy="9" r="0.9" fill="currentColor"/><circle cx="7" cy="9" r="0.9" fill="currentColor"/><circle cx="9.5" cy="9" r="0.9" fill="currentColor"/></svg>
               Calendar
             </button>
@@ -327,19 +327,19 @@
 
           <!-- Calendar toolbar: month navigation (hidden in list mode) -->
           <div class="cal-toolbar" id="calToolbar" style="display:none;">
-            <button class="cal-arrow-btn" onclick="shiftCalMonth(-1)" aria-label="Previous month">&#8592;</button>
+            <button class="cal-arrow-btn" data-action="shiftCalMonth-neg1" aria-label="Previous month">&#8592;</button>
             <div class="cal-month-display">
               <span id="calMonthLabel"></span>
               <span class="cal-count" id="calCount"></span>
             </div>
-            <button class="cal-arrow-btn" onclick="shiftCalMonth(1)" aria-label="Next month">&#8594;</button>
+            <button class="cal-arrow-btn" data-action="shiftCalMonth-1" aria-label="Next month">&#8594;</button>
           </div>
 
           <!-- Month quick-select pills (hidden in list mode) -->
           <div class="cal-month-pills" id="calMonthPills" style="display:none;"></div>
 
           <div class="exhibitions-list" id="exhibitionsList">
-            <article class="exhibit-row" data-status="current" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="current" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/watercolor-society.jpg"
               data-badge="current"
               data-badge-label="Now On View"
@@ -360,7 +360,7 @@
                 <span class="ticket-note">&#10022; Free with General Admission</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="current" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="current" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/promise-and-peril.jpg"
               data-badge="current"
               data-badge-label="Now On View"
@@ -381,7 +381,7 @@
                 <span class="ticket-note">&#10022; Free with General Admission</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="current" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="current" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/painted-on-paper.jpg"
               data-badge="current"
               data-badge-label="Now On View"
@@ -402,7 +402,7 @@
                 <span class="ticket-note">&#10022; Free with General Admission</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="current" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="current" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/monet.jpg"
               data-badge="current"
               data-badge-label="Now On View"
@@ -423,7 +423,7 @@
                 <span class="ticket-note">&#10022; Free with General Admission</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="upcoming" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="upcoming" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/fine-arts-flowers.jpg"
               data-badge="upcoming"
               data-badge-label="Upcoming"
@@ -444,7 +444,7 @@
                 <span class="ticket-note">&#10022; Free Admission &middot; No Tickets Required</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="upcoming" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="upcoming" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/impressionist-revolution.jpg"
               data-badge="upcoming"
               data-badge-label="Upcoming"
@@ -465,7 +465,7 @@
                 <span class="ticket-note">&#10022; Ticketed Exhibition - Members Free</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="upcoming" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="upcoming" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/french-photography.jpg"
               data-badge="upcoming"
               data-badge-label="Upcoming"
@@ -486,7 +486,7 @@
                 <span class="ticket-note">&#10022; Free with General Admission</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="past" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="past" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/mughals.jpg"
               data-badge="past"
               data-badge-label="Closed"
@@ -507,7 +507,7 @@
                 <span class="ticket-note">This exhibition has closed.</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="past" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="past" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/kaphar-stearns.jpg"
               data-badge="past"
               data-badge-label="Closed"
@@ -528,7 +528,7 @@
                 <span class="ticket-note">This exhibition has closed.</span>
               </div>
             </article>
-            <article class="exhibit-row" data-status="past" onclick="openExhibitDetail(this)" style="cursor:pointer;"
+            <article class="exhibit-row" data-status="past" data-action="openExhibitDetail-this" style="cursor:pointer;"
               data-img="images/giants.jpg"
               data-badge="past"
               data-badge-label="Closed"
@@ -560,7 +560,7 @@
         <div id="eventsContent" style="display:none;">
           <div class="section-header"><h2>Upcoming Events</h2></div>
           <div class="events-grid">
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-jazz-cafe.jpg"
             data-badge="upcoming" data-badge-label="Music"
             data-category="Music &amp; Performing Arts · Cochrane Atrium"
@@ -578,7 +578,7 @@
               <p class="event-desc">Live jazz in the Cochrane Atrium every Wednesday evening. Free with general admission.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-circle-lecture.jpg"
             data-badge="upcoming" data-badge-label="Talks"
             data-category="Talks · Cheek Theater"
@@ -596,7 +596,7 @@
               <p class="event-desc">A Circle Lecture with Dr. Ashley Spivey in the Cheek Theater.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-after5.jpg"
             data-badge="upcoming" data-badge-label="Music"
             data-category="Music &amp; Performing Arts · Cochrane Atrium"
@@ -614,7 +614,7 @@
               <p class="event-desc">Highlight tours, drink specials, live music, and dancing on a Friday evening at VMFA.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-art-of-wine.jpg"
             data-badge="upcoming" data-badge-label="Shop &amp; Dine"
             data-category="Shop &amp; Dine · Cochrane Atrium"
@@ -632,7 +632,7 @@
               <p class="event-desc">An evening of ros&eacute;, bubbles, and oysters in the Cochrane Atrium.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/event-terrains-talk.jpg"
             data-badge="upcoming" data-badge-label="Talks"
             data-category="Talks · Cheek Theater"
@@ -650,7 +650,7 @@
               <p class="event-desc">A talk in the Cheek Theater.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/gala-preview.jpg"
             data-badge="upcoming" data-badge-label="Gala"
             data-category="Social · Fine Arts &amp; Flowers"
@@ -668,7 +668,7 @@
               <p class="event-desc">An evening preview the night before Fine Arts &amp; Flowers opens.</p>
             </div>
           </div>
-          <div class="event-card event-card--link" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="event-card event-card--link" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/fine-arts-flowers.jpg"
             data-badge="upcoming" data-badge-label="Exhibition"
             data-category="Special Event · Museum-wide"
@@ -705,12 +705,12 @@
 
       <!-- Category nav pills -->
       <div class="collection-nav">
-        <button class="col-tab active" onclick="showCollection('american', this)">American Art</button>
-        <button class="col-tab" onclick="showCollection('ancient', this)">Ancient Art</button>
-        <button class="col-tab" onclick="showCollection('european', this)">European Art</button>
-        <button class="col-tab" onclick="showCollection('african-american', this)">African American Art</button>
-        <button class="col-tab" onclick="showCollection('modern', this)">Modern &amp; Contemporary</button>
-        <button class="col-tab" onclick="showCollection('faberge', this)">Faberg&eacute; &amp; Russian Arts</button>
+        <button class="col-tab active" data-action="showCollection-american-this">American Art</button>
+        <button class="col-tab" data-action="showCollection-ancient-this">Ancient Art</button>
+        <button class="col-tab" data-action="showCollection-european-this">European Art</button>
+        <button class="col-tab" data-action="showCollection-african-american-this">African American Art</button>
+        <button class="col-tab" data-action="showCollection-modern-this">Modern &amp; Contemporary</button>
+        <button class="col-tab" data-action="showCollection-faberge-this">Faberg&eacute; &amp; Russian Arts</button>
       </div>
 
       <!-- ── AMERICAN ART ── -->
@@ -728,7 +728,7 @@
             <h2>Highlights</h2>
           </div>
           <div class="col-works-grid">
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="https://www.vmfa.museum/img/f03c2da2-c435-4044-8645-556aa6dc5414/AM2018_9_v1_TF_201812_d_o4.jpg?fm=jpg&q=80&fit=max&w=600"
               data-category="American Art · 19th Century · Oil on Canvas"
               data-title="The Hunter's Return"
@@ -742,7 +742,7 @@
                 <p class="col-work-meta">1845 &middot; Oil on canvas</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=600"
               data-category="American Art · 20th Century · Gouache"
               data-title="Builders No. 1"
@@ -756,7 +756,7 @@
                 <p class="col-work-meta">1968 &middot; Gouache on board</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/children.jpg"
               data-category="American Art · Contemporary · Collage"
               data-title="Let Them Be Children"
@@ -770,7 +770,7 @@
                 <p class="col-work-meta">2018 &middot; Collage &amp; mixed media</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/dapper.jpg"
               data-category="American Art · Photography · 20th Century"
               data-title="Dapper"
@@ -804,7 +804,7 @@
         <div class="section">
           <div class="section-header"><h2>Highlights</h2></div>
           <div class="col-works-grid">
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="https://www.vmfa.museum/img/4292c323-6962-47fa-b688-71b5bdc125e6/62_1_2_v2_TF_201609_o5.jpg?fm=jpg&q=80&fit=max&w=600"
               data-category="Ancient Art · Greek, Attic · ca. 540 BCE"
               data-title="Black-Figure Amphora"
@@ -818,7 +818,7 @@
                 <p class="col-work-meta">ca. 540 BCE &middot; Ceramic</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/young man.webp"
               data-category="Ancient Art · Roman · 2nd Century CE"
               data-title="Portrait of a Young Man"
@@ -832,7 +832,7 @@
                 <p class="col-work-meta">2nd century CE &middot; Marble</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/canopic.webp"
               data-category="Ancient Art · Egyptian · Late Period"
               data-title="Canopic Jar with Falcon Head"
@@ -846,7 +846,7 @@
                 <p class="col-work-meta">ca. 664–332 BCE &middot; Limestone</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/greek statue.avif"
               data-category="Ancient Art · Greek · Archaic Period"
               data-title="Bronze Warrior Statuette"
@@ -880,7 +880,7 @@
         <div class="section">
           <div class="section-header"><h2>Highlights</h2></div>
           <div class="col-works-grid">
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/monet.jpg"
               data-category="European Art · French Impressionism · Mellon Galleries"
               data-title="Field of Poppies, Giverny"
@@ -894,7 +894,7 @@
                 <p class="col-work-meta">1885 &middot; Oil on canvas</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/architect fantasy.png"
               data-category="European Art · 18th Century · French"
               data-title="Architectural Fantasy"
@@ -908,7 +908,7 @@
                 <p class="col-work-meta">1780s &middot; Oil on canvas</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/ballerina.png"
               data-category="European Art · French Impressionism · Bronze"
               data-title="Ballet Dancer"
@@ -922,7 +922,7 @@
                 <p class="col-work-meta">ca. 1880 &middot; Bronze</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/woman with a parasol.png"
               data-category="European Art · French Impressionism · Oil on Canvas"
               data-title="Woman with a Parasol"
@@ -956,7 +956,7 @@
         <div class="section">
           <div class="section-header"><h2>Highlights</h2></div>
           <div class="col-works-grid">
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="https://www.vmfa.museum/img/fd885944-e883-4979-aa18-6a13266c2e5e/C_61_2013_v1_TF_201311_d_o41.jpg?fm=jpg&q=80&fit=max&w=600"
               data-category="African American Art · 20th Century · Tempera"
               data-title="Catfish Row"
@@ -970,7 +970,7 @@
                 <p class="col-work-meta">1947 &middot; Tempera on hardboard</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/dapper.jpg"
               data-category="African American Art · Photography · 20th Century"
               data-title="Dapper"
@@ -984,7 +984,7 @@
                 <p class="col-work-meta">1980 &middot; Photography</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/vessel.jpg"
               data-category="African American Art · Contemporary · Mixed Media"
               data-title="Vessel"
@@ -998,7 +998,7 @@
                 <p class="col-work-meta">2012 &middot; Mixed media sculpture</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/children.jpg"
               data-category="African American Art · Contemporary · Collage"
               data-title="Let Them Be Children"
@@ -1032,7 +1032,7 @@
         <div class="section">
           <div class="section-header"><h2>Highlights</h2></div>
           <div class="col-works-grid">
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/stadia.jpg"
               data-category="Modern &amp; Contemporary · Painting · 21st Century"
               data-title="Stadia III"
@@ -1046,7 +1046,7 @@
                 <p class="col-work-meta">2004 &middot; Ink &amp; acrylic on canvas</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/orange flip.png"
               data-category="Modern &amp; Contemporary · Color Field Painting"
               data-title="Orange Flip"
@@ -1060,7 +1060,7 @@
                 <p class="col-work-meta">1968 &middot; Acrylic on canvas</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/spider.png"
               data-category="Modern &amp; Contemporary · Sculpture"
               data-title="Spider"
@@ -1074,7 +1074,7 @@
                 <p class="col-work-meta">1997 &middot; Steel &amp; mixed media</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/gone, a historical romance.png"
               data-category="Modern &amp; Contemporary · Cut Paper · 20th Century"
               data-title="Gone, An Historical Romance"
@@ -1108,7 +1108,7 @@
         <div class="section">
           <div class="section-header"><h2>Highlights</h2></div>
           <div class="col-works-grid">
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/faberge.jpg"
               data-category="Fabergé &amp; Russian Decorative Arts · Imperial Easter Egg"
               data-title="Imperial Peter the Great Easter Egg"
@@ -1122,7 +1122,7 @@
                 <p class="col-work-meta">1903 &middot; Gold, enamel, diamonds, sapphires</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/casacaus.png"
               data-category="Fabergé &amp; Russian Decorative Arts · Imperial Easter Egg"
               data-title="Imperial Caucasus Easter Egg"
@@ -1136,7 +1136,7 @@
                 <p class="col-work-meta">1893 &middot; Gold, enamel, rubies</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/imperial duchess egg.png"
               data-category="Fabergé &amp; Russian Decorative Arts · Imperial Easter Egg"
               data-title="Imperial Duchess of Marlborough Egg"
@@ -1150,7 +1150,7 @@
                 <p class="col-work-meta">1902 &middot; Gold, enamel, diamonds</p>
               </div>
             </div>
-            <div class="col-work" style="cursor:pointer;" onclick="openDetailPanel(this)"
+            <div class="col-work" style="cursor:pointer;" data-action="openDetailPanel-this"
               data-img="images/rock crystal egg.png"
               data-category="Fabergé &amp; Russian Decorative Arts · Decorative Object"
               data-title="Rock Crystal Kovsh"
@@ -1182,7 +1182,7 @@
       </div>
       <div class="section">
         <div class="artists-grid">
-          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="artist-card" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/dapper.jpg"
             data-category="Photography · Permanent Collection"
             data-title="Dapper"
@@ -1197,7 +1197,7 @@
               <p class="artist-bio">One of the most beloved street photographers of the hip-hop era, Jamel Shabazz documented the style and dignity of Black New Yorkers with warmth and intimacy.</p>
             </div>
           </div>
-          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="artist-card" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/vessel.jpg"
             data-category="Mixed Media · Sculpture · Permanent Collection"
             data-title="Vessel"
@@ -1212,7 +1212,7 @@
               <p class="artist-bio">Atlanta-based artist Radcliffe Bailey creates multimedia works that weave together personal memory, African diaspora history, and cosmic imagery.</p>
             </div>
           </div>
-          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="artist-card" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/monet.jpg"
             data-category="Oil on Canvas · Impressionism · Mellon Galleries"
             data-title="Field of Poppies, Giverny"
@@ -1227,7 +1227,7 @@
               <p class="artist-bio">A cornerstone of the Paul and Rachel Mellon Collection, this radiant Impressionist landscape captures the gardens at Giverny in full bloom.</p>
             </div>
           </div>
-          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="artist-card" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/faberge.jpg"
             data-category="Decorative Arts · Goldsmithing · Fabergé Galleries"
             data-title="Imperial Peter the Great Easter Egg"
@@ -1242,7 +1242,7 @@
               <p class="artist-bio">One of only 50 Imperial Easter Eggs ever created by the House of Faberg&eacute;, presented by Tsar Nicholas II to Empress Alexandra in 1903.</p>
             </div>
           </div>
-          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="artist-card" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/stadia.jpg"
             data-category="Painting · Contemporary · Modern Galleries"
             data-title="Stadia III"
@@ -1257,7 +1257,7 @@
               <p class="artist-bio">Ethiopian-American artist Julie Mehretu is celebrated for her monumental abstract works that layer architectural diagrams, maps, and gestural mark-making.</p>
             </div>
           </div>
-          <div class="artist-card" style="cursor:pointer;" onclick="openDetailPanel(this)"
+          <div class="artist-card" style="cursor:pointer;" data-action="openDetailPanel-this"
             data-img="images/children.jpg"
             data-category="Collage · Mixed Media · Permanent Collection"
             data-title="Let Them Be Children"
@@ -1304,7 +1304,7 @@
             <div class="ticket-row"><div><strong>VMFA Members</strong></div><span class="price free">Free</span></div>
           </div>
           <div class="ticket-instructions">
-            <p><strong>How to purchase tickets:</strong> Navigate to the <a href="#" onclick="showPage('exhibitions'); return false;" class="ticket-instructions-link">Exhibitions</a> or <a href="#" onclick="showPageEvents(); return false;" class="ticket-instructions-link">Events</a> page, select the exhibition or event you wish to attend, and click <strong>Reserve Tickets</strong> to choose your tickets and complete your purchase.</p>
+            <p><strong>How to purchase tickets:</strong> Navigate to the <a href="#" data-action="showPage-exhibitions-nodefault" class="ticket-instructions-link">Exhibitions</a> or <a href="#" data-action="showPageEvents-nodefault" class="ticket-instructions-link">Events</a> page, select the exhibition or event you wish to attend, and click <strong>Reserve Tickets</strong> to choose your tickets and complete your purchase.</p>
           </div>
         </div>
         <div class="visit-card">
@@ -1357,7 +1357,7 @@
       <p class="eyebrow">Stay in the Know</p>
       <h2>Join the VMFA Community</h2>
       <p>Get the latest exhibitions, events, and stories from VMFA delivered to your inbox.</p>
-      <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletter(event);">
+      <form class="newsletter-form" id="newsletterForm">
         <input type="email" id="newsletterEmail" aria-label="Email address for the VMFA newsletter" placeholder="Your email address" required />
         <button type="submit">Subscribe</button>
       </form>
@@ -1389,20 +1389,20 @@
         <div class="footer-col">
           <h3>Visit</h3>
           <ul>
-            <li><a href="#" onclick="showPage('visit'); return false;">Plan Your Visit</a></li>
-            <li><a href="#" onclick="showPage('visit'); return false;">Hours &amp; Admission</a></li>
-            <li><a href="#" onclick="showPage('visit'); return false;">Directions &amp; Parking</a></li>
-            <li><a href="#" onclick="showPage('visit'); return false;">Dining</a></li>
-            <li><a href="#" onclick="showPage('visit'); return false;">Accessibility</a></li>
+            <li><a href="#" data-action="showPage-visit-nodefault">Plan Your Visit</a></li>
+            <li><a href="#" data-action="showPage-visit-nodefault">Hours &amp; Admission</a></li>
+            <li><a href="#" data-action="showPage-visit-nodefault">Directions &amp; Parking</a></li>
+            <li><a href="#" data-action="showPage-visit-nodefault">Dining</a></li>
+            <li><a href="#" data-action="showPage-visit-nodefault">Accessibility</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h3>Explore</h3>
           <ul>
-            <li><a href="#" onclick="showPage('exhibitions'); return false;">Exhibitions</a></li>
-            <li><a href="#" onclick="showPage('exhibitions'); return false;">Events</a></li>
-            <li><a href="#" onclick="showPage('collection'); return false;">Collections</a></li>
-            <li><a href="#" onclick="showPage('artists'); return false;">Featured Artists</a></li>
+            <li><a href="#" data-action="showPage-exhibitions-nodefault">Exhibitions</a></li>
+            <li><a href="#" data-action="showPage-exhibitions-nodefault">Events</a></li>
+            <li><a href="#" data-action="showPage-collection-nodefault">Collections</a></li>
+            <li><a href="#" data-action="showPage-artists-nodefault">Featured Artists</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1429,16 +1429,16 @@
   </footer>
 
   <!-- Exhibition Detail Panel -->
-  <div id="exhibitOverlay" class="exhibit-overlay" onclick="closeExhibitDetail()"></div>
+  <div id="exhibitOverlay" class="exhibit-overlay" data-action="closeExhibitDetail"></div>
   <aside id="exhibitPanel" class="exhibit-panel" role="dialog" aria-modal="true" aria-labelledby="epTitle" aria-label="Details">
-    <button class="exhibit-panel-close" onclick="closeExhibitDetail()" aria-label="Close">&times;</button>
+    <button class="exhibit-panel-close" data-action="closeExhibitDetail" aria-label="Close">&times;</button>
     <div class="exhibit-panel-img-wrap">
       <img id="epImg" src="" alt="" />
       <span id="epBadge" class="exhibit-badge"></span>
     </div>
     <div class="exhibit-panel-body">
       <p id="epCategory" class="exhibit-category"></p>
-      <h2 id="epTitle"></h2>
+      <h2 id="epTitle">Details</h2>
       <p id="epDates" class="exhibit-dates"></p>
       <p id="epDesc" class="exhibit-panel-desc"></p>
       <p id="epTicket" class="ticket-note"></p>
@@ -1447,7 +1447,7 @@
   </aside>
 
   <!-- ── Reservation Modal ───────────────────────────────── -->
-  <div id="reserveModalOverlay" class="modal-overlay" onclick="closeReserveModal()"></div>
+  <div id="reserveModalOverlay" class="modal-overlay" data-action="closeReserveModal"></div>
   <div id="reserveModal" class="reserve-modal" role="dialog" aria-modal="true" aria-label="Reserve tickets">
 
     <!-- STEP 1: Ticket Selection -->
@@ -1457,11 +1457,11 @@
           <p class="reserve-modal-eyebrow">Reservation</p>
           <h2>Select Tickets</h2>
         </div>
-        <button class="reserve-modal-close" onclick="closeReserveModal()" aria-label="Close">&times;</button>
+        <button class="reserve-modal-close" data-action="closeReserveModal" aria-label="Close">&times;</button>
       </div>
       <div class="reserve-modal-body">
         <div class="reserve-exhibition-info">
-          <h3 id="reserveModalTitle"></h3>
+          <p id="reserveModalTitle" class="reserve-exhibition-name"></p>
           <p id="reserveModalDates" class="reserve-modal-dates"></p>
         </div>
         <div class="reserve-field">
@@ -1473,33 +1473,33 @@
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Adults (18+)</strong><span class="ticket-price-label" id="priceAdults">$15 each</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('adults',-1)" aria-label="Remove one adult ticket">&#8722;</button>
+              <button class="counter-btn" data-action="changeTicket-adults-neg1" aria-label="Remove one adult ticket">&#8722;</button>
               <span class="counter-val" id="ctAdults">0</span>
-              <button class="counter-btn" onclick="changeTicket('adults',1)" aria-label="Add one adult ticket">&#43;</button>
+              <button class="counter-btn" data-action="changeTicket-adults-1" aria-label="Add one adult ticket">&#43;</button>
             </div>
           </div>
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Seniors (65+)</strong><span class="ticket-price-label" id="priceSeniors">$12 each</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('seniors',-1)" aria-label="Remove one senior ticket">&#8722;</button>
+              <button class="counter-btn" data-action="changeTicket-seniors-neg1" aria-label="Remove one senior ticket">&#8722;</button>
               <span class="counter-val" id="ctSeniors">0</span>
-              <button class="counter-btn" onclick="changeTicket('seniors',1)" aria-label="Add one senior ticket">&#43;</button>
+              <button class="counter-btn" data-action="changeTicket-seniors-1" aria-label="Add one senior ticket">&#43;</button>
             </div>
           </div>
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Youth (7&ndash;17) &amp; College Students</strong><span class="ticket-price-label" id="priceStudents">$10 each</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('students',-1)" aria-label="Remove one youth or student ticket">&#8722;</button>
+              <button class="counter-btn" data-action="changeTicket-students-neg1" aria-label="Remove one youth or student ticket">&#8722;</button>
               <span class="counter-val" id="ctStudents">0</span>
-              <button class="counter-btn" onclick="changeTicket('students',1)" aria-label="Add one youth or student ticket">&#43;</button>
+              <button class="counter-btn" data-action="changeTicket-students-1" aria-label="Add one youth or student ticket">&#43;</button>
             </div>
           </div>
           <div class="ticket-counter-row">
             <div class="ticket-counter-info"><strong>Children (under 7)</strong><span class="ticket-price-label">Free</span></div>
             <div class="ticket-counter-ctrl">
-              <button class="counter-btn" onclick="changeTicket('children',-1)" aria-label="Remove one child ticket">&#8722;</button>
+              <button class="counter-btn" data-action="changeTicket-children-neg1" aria-label="Remove one child ticket">&#8722;</button>
               <span class="counter-val" id="ctChildren">0</span>
-              <button class="counter-btn" onclick="changeTicket('children',1)" aria-label="Add one child ticket">&#43;</button>
+              <button class="counter-btn" data-action="changeTicket-children-1" aria-label="Add one child ticket">&#43;</button>
             </div>
           </div>
         </div>
@@ -1508,7 +1508,7 @@
           <span id="reserveTotalDisplay">Free</span>
         </div>
         <p class="reserve-member-note" id="reserveMemberNote"></p>
-        <button class="btn-red reserve-confirm-btn" id="reserveStep1Btn" onclick="proceedFromStep1()">Reserve Free Tickets &rarr;</button>
+        <button class="btn-red reserve-confirm-btn" id="reserveStep1Btn" data-action="proceedFromStep1">Reserve Free Tickets &rarr;</button>
       </div>
     </div>
 
@@ -1519,7 +1519,7 @@
           <p class="reserve-modal-eyebrow">Secure Checkout</p>
           <h2>Purchase Tickets</h2>
         </div>
-        <button class="reserve-modal-close" onclick="closeReserveModal()" aria-label="Close">&times;</button>
+        <button class="reserve-modal-close" data-action="closeReserveModal" aria-label="Close">&times;</button>
       </div>
       <div class="reserve-modal-body">
 
@@ -1536,7 +1536,7 @@
           <p class="reserve-member-note reserve-member-note--demo"><strong>Demo only.</strong> Do not enter real card details.</p>
           <div class="reserve-field">
             <label for="cardNumber">Card Number</label>
-            <input type="text" id="cardNumber" class="reserve-date-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)" />
+            <input type="text" id="cardNumber" class="reserve-date-input" placeholder="1234 5678 9012 3456" maxlength="19" />
           </div>
           <div class="reserve-field">
             <label for="cardName">Name on Card</label>
@@ -1545,7 +1545,7 @@
           <div class="payment-row-two">
             <div class="reserve-field">
               <label for="cardExpiry">Expiry</label>
-              <input type="text" id="cardExpiry" class="reserve-date-input" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)" />
+              <input type="text" id="cardExpiry" class="reserve-date-input" placeholder="MM / YY" maxlength="7" />
             </div>
             <div class="reserve-field">
               <label for="cardCvv">CVV</label>
@@ -1554,10 +1554,10 @@
           </div>
           <p class="reserve-member-note reserve-member-note--demo">Demo only &mdash; use fake numbers (e.g., 4242 4242 4242 4242). Do not enter real payment information.</p>
           <p id="paymentError" class="login-error" style="margin-top:2px;min-height:16px;"></p>
-          <button class="btn-red reserve-confirm-btn" onclick="processPayment()">
+          <button class="btn-red reserve-confirm-btn" data-action="processPayment">
             <span id="payBtnText">Complete Purchase &rarr;</span>
           </button>
-          <button class="reserve-back-btn" onclick="goToStep(1)">&larr; Back to ticket selection</button>
+          <button class="reserve-back-btn" data-action="goToStep-1">&larr; Back to ticket selection</button>
         </div>
       </div>
     </div>
@@ -1570,21 +1570,21 @@
         <p class="confirm-msg" id="confirmMsg"></p>
         <div class="confirm-details" id="confirmDetails"></div>
         <p class="confirm-ref">Booking reference: <strong id="confirmRef"></strong></p>
-        <button class="btn-red reserve-confirm-btn" onclick="closeReserveModal()">Done</button>
-        <button class="reserve-back-btn" onclick="openMyReservations(); closeReserveModal();">View My Reservations &rarr;</button>
+        <button class="btn-red reserve-confirm-btn" data-action="closeReserveModal">Done</button>
+        <button class="reserve-back-btn" data-action="openMyReservations-closeReserveModal">View My Reservations &rarr;</button>
       </div>
     </div>
 
   </div>
 
   <!-- ── My Panels Shared Overlay ────────────────────────── -->
-  <div id="myPanelOverlay" class="exhibit-overlay" onclick="closeMyPanels()"></div>
+  <div id="myPanelOverlay" class="exhibit-overlay" data-action="closeMyPanels"></div>
 
   <!-- ── My Reservations Panel ────────────────────────────── -->
   <aside id="myReservationsPanel" class="my-panel exhibit-panel" role="dialog" aria-modal="true" aria-label="My Reservations">
     <div class="my-panel-header">
       <h2>My Reservations</h2>
-      <button class="exhibit-panel-close" onclick="closeMyPanels()" aria-label="Close">&times;</button>
+      <button class="exhibit-panel-close" data-action="closeMyPanels" aria-label="Close">&times;</button>
     </div>
     <div class="my-panel-content" id="myReservationsContent"></div>
   </aside>
@@ -1593,7 +1593,7 @@
   <aside id="myCollectionPanel" class="my-panel exhibit-panel" role="dialog" aria-modal="true" aria-label="My Collection">
     <div class="my-panel-header">
       <h2>My Collection</h2>
-      <button class="exhibit-panel-close" onclick="closeMyPanels()" aria-label="Close">&times;</button>
+      <button class="exhibit-panel-close" data-action="closeMyPanels" aria-label="Close">&times;</button>
     </div>
     <div class="my-panel-content" id="myCollectionContent"></div>
   </aside>

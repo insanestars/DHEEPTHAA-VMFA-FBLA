@@ -2570,7 +2570,8 @@ footer {
   border-left: 3px solid var(--accent-text);
   margin-bottom: 22px;
 }
-.reserve-exhibition-info h3 {
+.reserve-exhibition-info h3,
+.reserve-exhibition-info .reserve-exhibition-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.0625rem;
   font-weight: 600;
@@ -3593,7 +3594,10 @@ html :focus-visible {
 @media (max-width: 600px) {
   .header-main .theme-switcher, .header-main .theme-drop { position: static; }
   .header-main .a11y-panel { left: 16px; right: 16px; width: auto; }
-  .theme-switcher--floating .a11y-panel { position: fixed; top: 68px; left: 16px; right: 16px; width: auto; }
+  /* login / signup: the host spans the card width and the sheet hangs directly under the button (never over it) */
+  .theme-switcher--floating { left: 16px; justify-content: flex-end; }
+  .theme-switcher--floating .theme-drop { position: static; }
+  .theme-switcher--floating .a11y-panel { position: absolute; top: calc(100% + 8px); left: 0; right: 0; width: auto; }
 }
 
 /* mobile menu item */
@@ -3677,3 +3681,27 @@ html :focus-visible {
 @media (min-width: 1361px) { .header-search input { width: clamp(210px, calc(100vw - 1152px), 250px); } }
 @media (min-width: 1241px) and (max-width: 1360px) { .header-search input { width: 210px; } }
 @media (min-width: 1100px) and (max-width: 1240px) { .header-search input { width: 150px; } }
+
+/* ============================================================
+   Dialogs and panels: all text is at least 13px
+   ============================================================ */
+.exhibit-panel .exhibit-badge,
+.exhibit-panel .exhibit-category,
+.exhibit-panel .exhibit-dates,
+.reserve-modal .reserve-modal-eyebrow,
+.reserve-modal .reserve-modal-dates,
+.reserve-modal .reserve-section-label,
+.reserve-modal .pay-summary-eyebrow,
+.reserve-modal .reserve-confirm-btn,
+.reserve-modal .reserve-back-btn,
+.reserve-modal .confirm-ref,
+.reserve-modal #confirmRef,
+.my-panel .res-date,
+.my-panel .res-tickets,
+.my-panel .res-cost,
+.my-panel .my-coll-artist,
+.my-panel .my-coll-type-tag,
+.my-panel .my-coll-badge,
+.my-panel .my-coll-remove,
+.a11y-fs legend,
+.a11y-switch-state { font-size: 0.8125rem; }

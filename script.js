@@ -3,6 +3,102 @@
  */
 
 // ============================================================
+// Click actions
+// Buttons, links, cards and backdrops name their action with data-action="...";
+// the handlers live here and are attached with addEventListener (no inline onclick).
+// Each handler runs with `this` = the clicked element; returning false cancels the default action.
+// ============================================================
+var ACTIONS = {
+    'showPage-home-nodefault': function (event) { showPage('home'); return false; },
+    'showPage-exhibitions-nodefault': function (event) { showPage('exhibitions'); return false; },
+    'showPage-collection-nodefault': function (event) { showPage('collection'); return false; },
+    'showPage-artists-nodefault': function (event) { showPage('artists'); return false; },
+    'showPage-visit-nodefault': function (event) { showPage('visit'); return false; },
+    'mobileNavSearch': function (event) { mobileNavSearch(); },
+    'showPage-home-closeMobileNav-nodefault': function (event) { showPage('home'); closeMobileNav(); return false; },
+    'showPage-exhibitions-closeMobileNav-nodefault': function (event) { showPage('exhibitions'); closeMobileNav(); return false; },
+    'showPage-collection-closeMobileNav-nodefault': function (event) { showPage('collection'); closeMobileNav(); return false; },
+    'showPage-artists-closeMobileNav-nodefault': function (event) { showPage('artists'); closeMobileNav(); return false; },
+    'showPage-visit-closeMobileNav-nodefault': function (event) { showPage('visit'); closeMobileNav(); return false; },
+    'showPage-visit': function (event) { showPage('visit'); },
+    'showPage-exhibitions': function (event) { showPage('exhibitions'); },
+    'showPageEvents-nodefault': function (event) { showPageEvents(); return false; },
+    'openDetailPanel-this': function (event) { openDetailPanel(this); },
+    'showCollection-american': function (event) { showCollection('american'); },
+    'showCollection-ancient': function (event) { showCollection('ancient'); },
+    'showCollection-european': function (event) { showCollection('european'); },
+    'showCollection-african-american': function (event) { showCollection('african-american'); },
+    'showCollection-modern': function (event) { showCollection('modern'); },
+    'showCollection-faberge': function (event) { showCollection('faberge'); },
+    'showMainTab-exhibitions-this': function (event) { showMainTab('exhibitions', this); },
+    'showMainTab-events-this': function (event) { showMainTab('events', this); },
+    'filterExhibitions-all-this': function (event) { filterExhibitions('all', this); },
+    'filterExhibitions-current-this': function (event) { filterExhibitions('current', this); },
+    'filterExhibitions-upcoming-this': function (event) { filterExhibitions('upcoming', this); },
+    'filterExhibitions-past-this': function (event) { filterExhibitions('past', this); },
+    'setExhibitionView-list-this': function (event) { setExhibitionView('list', this); },
+    'setExhibitionView-calendar-this': function (event) { setExhibitionView('calendar', this); },
+    'shiftCalMonth-neg1': function (event) { shiftCalMonth(-1); },
+    'shiftCalMonth-1': function (event) { shiftCalMonth(1); },
+    'openExhibitDetail-this': function (event) { openExhibitDetail(this); },
+    'showCollection-american-this': function (event) { showCollection('american', this); },
+    'showCollection-ancient-this': function (event) { showCollection('ancient', this); },
+    'showCollection-european-this': function (event) { showCollection('european', this); },
+    'showCollection-african-american-this': function (event) { showCollection('african-american', this); },
+    'showCollection-modern-this': function (event) { showCollection('modern', this); },
+    'showCollection-faberge-this': function (event) { showCollection('faberge', this); },
+    'closeExhibitDetail': function (event) { closeExhibitDetail(); },
+    'closeReserveModal': function (event) { closeReserveModal(); },
+    'changeTicket-adults-neg1': function (event) { changeTicket('adults',-1); },
+    'changeTicket-adults-1': function (event) { changeTicket('adults',1); },
+    'changeTicket-seniors-neg1': function (event) { changeTicket('seniors',-1); },
+    'changeTicket-seniors-1': function (event) { changeTicket('seniors',1); },
+    'changeTicket-students-neg1': function (event) { changeTicket('students',-1); },
+    'changeTicket-students-1': function (event) { changeTicket('students',1); },
+    'changeTicket-children-neg1': function (event) { changeTicket('children',-1); },
+    'changeTicket-children-1': function (event) { changeTicket('children',1); },
+    'proceedFromStep1': function (event) { proceedFromStep1(); },
+    'processPayment': function (event) { processPayment(); },
+    'goToStep-1': function (event) { goToStep(1); },
+    'openMyReservations-closeReserveModal': function (event) { openMyReservations(); closeReserveModal(); },
+    'closeMyPanels': function (event) { closeMyPanels(); },
+    // built by script.js (calendar pills, member links, reservations, saved items)
+    'openReserveModal': function (event) { openReserveModal(); },
+    'openDetailPanel-this': function (event) { openDetailPanel(this); },
+    'jumpCalMonth': function (event) { jumpCalMonth(parseInt(this.getAttribute('data-y'), 10), parseInt(this.getAttribute('data-m'), 10)); },
+    'openMyReservations-nodefault': function (event) { openMyReservations(); return false; },
+    'openMyCollection-nodefault': function (event) { openMyCollection(); return false; },
+    'logout-nodefault': function (event) { logout(); return false; },
+    'openMyReservations-closeMobileNav-nodefault': function (event) { openMyReservations(); closeMobileNav(); return false; },
+    'cancelReservation': function (event) { cancelReservation(parseInt(this.getAttribute('data-id'), 10)); },
+    'openSavedItem-this': function (event) { openSavedItem(this); },
+    'removeFavorite': function (event) { event.stopPropagation(); removeFavorite(this.getAttribute('data-title')); }
+};
+
+function bindActions(root) {
+  var list = [];
+  if (root.nodeType === 1 && root.hasAttribute('data-action')) list.push(root);
+  if (root.querySelectorAll) list = list.concat(Array.prototype.slice.call(root.querySelectorAll('[data-action]')));
+  list.forEach(function (el) {
+    if (el.__vmfaBound) return;
+    var fn = ACTIONS[el.getAttribute('data-action')];
+    if (!fn) return;
+    el.__vmfaBound = true;
+    el.addEventListener('click', function (event) { if (fn.call(el, event) === false) event.preventDefault(); });
+  });
+}
+bindActions(document);
+document.addEventListener('DOMContentLoaded', function () {
+  bindActions(document);
+  var nf = document.getElementById('newsletterForm');
+  if (nf) nf.addEventListener('submit', function (event) { handleNewsletter(event); });
+  var cn = document.getElementById('cardNumber');
+  if (cn) cn.addEventListener('input', function () { formatCardNumber(this); });
+  var ce = document.getElementById('cardExpiry');
+  if (ce) ce.addEventListener('input', function () { formatExpiry(this); });
+});
+
+// ============================================================
 // SPA Page Routing
 // ============================================================
 
@@ -55,9 +151,9 @@ function showCollection(category, tabBtn) {
   if (tabBtn) {
     tabBtn.classList.add('active');
   } else {
-    // find the tab whose onclick contains this category
+    // find the tab that opens this category
     document.querySelectorAll('.col-tab').forEach(function(t) {
-      if (t.getAttribute('onclick') && t.getAttribute('onclick').indexOf("'" + category + "'") !== -1) {
+      if (t.getAttribute('data-action') === 'showCollection-' + category + '-this') {
         t.classList.add('active');
       }
     });
@@ -134,7 +230,7 @@ function openDetailPanel(el) {
   document.getElementById('epImg').src              = el.dataset.img || '';
   document.getElementById('epImg').alt              = '';   // decorative: the title is right beside it
   document.getElementById('epCategory').textContent = el.dataset.category || '';
-  document.getElementById('epTitle').innerHTML      = el.dataset.title || '';
+  document.getElementById('epTitle').innerHTML      = el.dataset.title || 'Details';
   document.getElementById('epDates').textContent    = el.dataset.dates || '';
   document.getElementById('epDesc').textContent     = el.dataset.desc || '';
   document.getElementById('epTicket').textContent   = el.dataset.ticket || '';
@@ -150,7 +246,7 @@ function openDetailPanel(el) {
     if (status === 'past') {
       memberArea.innerHTML = '';
     } else if (window.vmfaUser) {
-      memberArea.innerHTML = '<button class="btn-red panel-reserve-btn" onclick="openReserveModal()">Reserve Tickets →</button>';
+      memberArea.innerHTML = '<button class="btn-red panel-reserve-btn" data-action="openReserveModal">Reserve Tickets →</button>';
     } else {
       memberArea.innerHTML = '<a href="login.html" class="panel-signin-link">✧ Sign in to reserve tickets</a>';
     }
@@ -335,7 +431,7 @@ function renderCalendar() {
   container.innerHTML = visible.map(function(ex) {
     var st = ex.title.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     var sd = ex.desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-    return '<article class="cal-card" onclick="openDetailPanel(this)" style="cursor:pointer;"' +
+    return '<article class="cal-card" data-action="openDetailPanel-this" style="cursor:pointer;"' +
       ' data-img="' + ex.img + '"' +
       ' data-badge="' + ex.badge + '" data-badge-label="' + ex.badgeLabel + '"' +
       ' data-category="' + ex.category + '"' +
@@ -378,7 +474,7 @@ function renderMonthPills() {
   container.innerHTML = months.map(function(p) {
     var active = p.y === calState.year && p.m === calState.month;
     return '<button class="cal-pill' + (active ? ' active' : '') +
-      '" onclick="jumpCalMonth(' + p.y + ',' + p.m + ')">' +
+      '" data-action="jumpCalMonth" data-y="' + p.y + '" data-m="' + p.m + '">' +
       CAL_MONTHS[p.m].substr(0, 3) + ' ’' + String(p.y).slice(2) + '</button>';
   }).join('');
 
@@ -836,20 +932,20 @@ function enableMemberMode() {
       '<div class="util-avatar">' + escHtml(initials) + '</div>' +
       '<span class="util-greeting">Welcome, <strong>' + escHtml(user.name) + '</strong></span>' +
       '<span class="util-divider">&middot;</span>' +
-      '<a href="#" class="util-link" onclick="openMyReservations(); return false;">My Reservations</a>' +
+      '<a href="#" class="util-link" data-action="openMyReservations-nodefault">My Reservations</a>' +
       '<span class="util-divider">&middot;</span>' +
-      '<a href="#" class="util-link" onclick="openMyCollection(); return false;">My Collection</a>' +
+      '<a href="#" class="util-link" data-action="openMyCollection-nodefault">My Collection</a>' +
       '<span class="util-divider">&middot;</span>' +
-      '<a href="#" class="util-link" onclick="logout(); return false;">Sign Out</a>';
+      '<a href="#" class="util-link" data-action="logout-nodefault">Sign Out</a>';
   }
 
   // Mobile nav auth item
   var mobileAuth = document.getElementById('mobileAuthItem');
   if (mobileAuth) {
     mobileAuth.innerHTML =
-      '<a href="#" onclick="openMyReservations(); closeMobileNav(); return false;">My Reservations</a>' +
+      '<a href="#" data-action="openMyReservations-closeMobileNav-nodefault">My Reservations</a>' +
       '&nbsp;&middot;&nbsp;' +
-      '<a href="#" onclick="logout(); return false;">Sign Out</a>';
+      '<a href="#" data-action="logout-nodefault">Sign Out</a>';
   }
 
   // Add heart (favorite) buttons to artwork and artist cards
@@ -1129,7 +1225,7 @@ function openMyReservations() {
           '<p class="res-tickets">' + ticketParts.join(', ') + '</p>' +
           '<p class="res-cost">' + (r.cost > 0 ? 'Total: $' + r.cost + '.00' : 'Free Admission') + '</p>' +
         '</div>' +
-        '<button class="res-cancel-btn" onclick="cancelReservation(' + r.id + ')">Cancel</button>' +
+        '<button class="res-cancel-btn" data-action="cancelReservation" data-id="' + r.id + '">Cancel</button>' +
       '</div>';
     }).join('');
   }
@@ -1239,7 +1335,7 @@ function openMyCollection() {
           ' data-ticket="'      + safeTicket     + '"' +
           ' data-badge="'       + safeBadge      + '"' +
           ' data-badge-label="' + safeBadgeLabel + '"' +
-          ' onclick="openSavedItem(this)">' +
+          ' data-action="openSavedItem-this">' +
           '<div class="my-coll-img" style="background-image:url(\'' + f.img + '\')">' +
             (isExhibition && safeBadge ? '<span class="exhibit-badge ' + safeBadge + ' my-coll-badge">' + safeBadgeLabel + '</span>' : '') +
           '</div>' +
@@ -1248,7 +1344,7 @@ function openMyCollection() {
             '<p class="my-coll-artist">' + escHtml(f.artist) + '</p>' +
             '<p class="my-coll-title">'  + safeTitle + '</p>' +
           '</div>' +
-          '<button class="my-coll-remove" onclick="event.stopPropagation();removeFavorite(\'' + f.title.replace(/'/g,"\\'") + '\')" aria-label="Remove">&#10005;</button>' +
+          '<button class="my-coll-remove" data-action="removeFavorite" data-title="' + escHtml(f.title) + '" aria-label="Remove">&#10005;</button>' +
         '</div>';
       }).join('') + '</div>';
   }
@@ -1317,15 +1413,16 @@ function removeFavorite(title) {
     sync();
   }
 
-  /* ── Keyboard access for clickable cards / tiles (elements that only have an onclick) ── */
+  /* ── Keyboard access for clickable cards / tiles (elements that only have a data-action click handler) ── */
   var NATIVE = 'a[href],button,input,select,textarea,summary,[tabindex],[contenteditable="true"]';
   var BACKDROPS = '.exhibit-overlay,.modal-overlay';
   var HAS_INNER_CONTROLS = '.col-work,.artist-card,.exhibit-row,.cal-card,.my-coll-item';
 
   function enhance(root) {
     var list = [];
-    if (root.nodeType === 1 && root.hasAttribute('onclick')) list.push(root);
-    if (root.querySelectorAll) list = list.concat(Array.prototype.slice.call(root.querySelectorAll('[onclick]')));
+    bindActions(root);                                 // attach the click handler named by data-action
+    if (root.nodeType === 1 && root.hasAttribute('data-action')) list.push(root);
+    if (root.querySelectorAll) list = list.concat(Array.prototype.slice.call(root.querySelectorAll('[data-action]')));
     list.forEach(function (el) {
       if (el.matches(NATIVE) || el.matches(BACKDROPS)) return;
       el.setAttribute('tabindex', '0');

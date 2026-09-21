@@ -233,8 +233,19 @@
     if (e.target.closest && e.target.closest('[data-a11y-open]')) return;   // the mobile-menu item opens the panel itself
     widgets.forEach(function (w) { if (w.isOpen() && !w.host.contains(e.target)) w.close(); });
   });
-  // Tabbing out of an open panel closes it (no focus is stolen)
+  // Tabbing out of an open panel closes it (no focus is stolen).
+  // Pressing the mouse / finger on a non-focusable part of the panel (an option's text) makes the browser move
+  // focus to the nearest focusable ancestor, e.g. <main tabindex="-1"> on the login and signup pages. That is not
+  // the visitor leaving the panel, so focus changes during a press that started inside the panel are ignored.
+  var pressInside = false;
+  document.addEventListener('pointerdown', function (e) {
+    pressInside = widgets.some(function (w) { return w.isOpen() && w.host.contains(e.target); });
+  }, true);
+  ['pointerup', 'pointercancel'].forEach(function (t) {
+    document.addEventListener(t, function () { pressInside = false; }, true);
+  });
   document.addEventListener('focusin', function (e) {
+    if (pressInside) return;
     widgets.forEach(function (w) { if (w.isOpen() && !w.host.contains(e.target)) w.close(); });
   });
 
