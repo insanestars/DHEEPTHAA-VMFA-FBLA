@@ -758,7 +758,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var searchBtn     = document.getElementById('searchBtn');
   var searchClose   = document.getElementById('searchClose');
   var searchOverlay = document.getElementById('searchOverlay');
-  if (searchBtn)   searchBtn.addEventListener('click', toggleSearch);
+  if (searchBtn)   searchBtn.addEventListener('click', function() {
+    var hi = document.getElementById('headerSearchInput');
+    if (hi && hi.value.trim()) headerSearch(); else toggleSearch();
+  });
   if (searchClose) searchClose.addEventListener('click', toggleSearch);
 
   var headerInput = document.getElementById('headerSearchInput');
@@ -1283,7 +1286,8 @@ function removeFavorite(title) {
     var video = document.querySelector('.hero-video-wrap video');
     var btn = document.getElementById('heroVideoToggle');
     if (!video || !btn) return;
-    var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    var userPaused = false;                            // true only when the visitor pressed pause themselves
+    function reduced() { return document.documentElement.getAttribute('data-motion') === 'reduce'; }
 
     function sync() {
       var playing = !video.paused && !video.ended;
@@ -1294,18 +1298,22 @@ function removeFavorite(title) {
     video.addEventListener('play', sync);
     video.addEventListener('pause', sync);
     btn.addEventListener('click', function () {
-      if (video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
-      else video.pause();
+      if (video.paused) { userPaused = false; var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      else { userPaused = true; video.pause(); }
     });
 
-    if (mq && mq.matches) {
+    if (reduced()) {
       video.pause();                                   // reduced motion: start paused (shows the first frame)
     } else {
       var p = video.play();                            // autoplay is started here so it can be skipped for reduced motion
       if (p && p.catch) p.catch(function () {});       // if the browser blocks it, the button just shows "Play"
     }
-    var onChange = function () { if (mq.matches) video.pause(); };
-    if (mq) { if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange); }
+    // the Reduce motion switch (or the device setting) can change at any time:
+    // pause now, or resume if the video was only paused because of motion
+    document.addEventListener('vmfa:motionchange', function () {
+      if (reduced()) { video.pause(); }
+      else if (!userPaused) { var p2 = video.play(); if (p2 && p2.catch) p2.catch(function () {}); }
+    });
     sync();
   }
 
@@ -1388,4 +1396,27 @@ function removeFavorite(title) {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+})();
+
+// ============================================================
+// Search placeholders: full text when there is room, shorter as the box narrows, just "Search" on phones
+// ============================================================
+(function () {
+  'use strict';
+  function initSearchPlaceholders() {
+    var header = document.getElementById('headerSearchInput');
+    var mobile = document.getElementById('mobileNavSearchInput');
+    if (!header && !mobile) return;
+    var fullHeader = header ? header.getAttribute('placeholder') : '';
+    var fullMobile = mobile ? mobile.getAttribute('placeholder') : '';
+    function apply() {
+      var w = window.innerWidth;
+      if (header) header.setAttribute('placeholder', w <= 600 ? 'Search' : (w <= 1060 ? 'Search exhibitions\u2026' : (w <= 1240 ? 'Search VMFA' : fullHeader)));
+      if (mobile) mobile.setAttribute('placeholder', w <= 600 ? 'Search' : fullMobile);
+    }
+    apply();
+    window.addEventListener('resize', apply);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSearchPlaceholders);
+  else initSearchPlaceholders();
 })();
